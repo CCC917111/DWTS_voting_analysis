@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dwts-report-reproduction"
+version = "0.5.1"
+description = "Auditable retrospective reconstruction of DWTS voting systems"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "numpy>=1.26,<3", "pandas>=2.2,<3", "scipy>=1.12,<2",
+  "pymc==5.25.1", "arviz==0.22.0", "h5netcdf>=1.3,<2", "h5py>=3.10,<4",
+  "scikit-learn>=1.5,<2", "matplotlib>=3.8,<4",
+  "statsmodels>=0.14,<0.16", "shap>=0.46,<0.54", "numba>=0.61,<0.68"
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+audit = ["pymupdf>=1.26,<2", "Pillow>=11,<13"]
+
+[project.scripts]
+dwts = "dwts.cli:main"
+dwts-demo = "dwts.demo:main"
+
+[tool.setuptools.packages.find]
+include = ["dwts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = '-m "not official_data and not archive"'
+markers = [
+  "official_data: requires the separately obtained COMAP dataset",
+  "archive: requires the separately obtained v5 evidence archive",
+]
+

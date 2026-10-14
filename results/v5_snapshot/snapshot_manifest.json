@@ -1,0 +1,21 @@
+{
+  "snapshot_date": "2026-10-14",
+  "source_archive": "DWTS_Full_Report_Reproduction_v5.zip",
+  "source_archive_sha256": "5452dc3e638bddccbba11a0e3a2686972eaa8becaaf5d4b83a953c5fe8669988",
+  "source_directory_in_archive": "outputs/v5_final",
+  "branch": "verified_canonical_identity",
+  "full_numerical_replication": false,
+  "new_model_fitting_during_packaging": false,
+  "evaluation": "Pooled out-of-fold metrics; nested season-grouped validation; retrospective latent fan targets",
+  "data_scope": {
+    "seasons": 34,
+    "contestant_seasons": 421,
+    "unique_celebrity_names": 408,
+    "contestant_weeks": 2777,
+    "weeks": 335
+  },
+  "files_sha256": {
+    "numerical_verification.csv": "d970d473f41d3a689e5df02edc69331a781830de845c09998a428f9378a66de1",
+    "rf_metrics.csv": "836b4f252c909f3c1601a7eefc5d47e2415420900909d9e18abd796cf6f7b6ad"
+  }
+}

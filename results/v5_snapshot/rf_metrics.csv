@@ -1,0 +1,7 @@
+task,kind,n,folds,validation,judge_target,fan_scale,r2,rmse,target_sd,f1,auc
+A1_judge,regression,2777,5,Nested_GroupKFold_by_season_retrospective_latent_target,judge_mean,relative,0.434487753899645,1.10057105880428,1.4635146738102294,,
+A2_fan,regression,2777,5,Nested_GroupKFold_by_season_retrospective_latent_target,judge_mean,relative,0.5551990652538898,0.06360389423859138,0.09536760169615358,,
+A3_top_half_judge,classification,2777,5,Nested_GroupKFold_by_season_retrospective_latent_target,judge_mean,relative,,,,0.6841513675533908,0.7722071767095464
+A4_bottom_two_judge,classification,2777,5,Nested_GroupKFold_by_season_retrospective_latent_target,judge_mean,relative,,,,0.48756218905472637,0.7201690214483234
+A3_top_half_fan,classification,2777,5,Nested_GroupKFold_by_season_retrospective_latent_target,judge_mean,relative,,,,0.745945945945946,0.8423247781187553
+A4_bottom_two_fan,classification,2777,5,Nested_GroupKFold_by_season_retrospective_latent_target,judge_mean,relative,,,,0.4430379746835443,0.7050708725003364

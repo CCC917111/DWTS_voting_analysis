@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-14",
+  "python": "3.12.14",
+  "platform": "Linux",
+  "self_contained_tests": {
+    "passed": 132,
+    "deselected": 14,
+    "verified_in_clean_extracted_zip": true
+  },
+  "full_evidence_tests": {
+    "passed": 146,
+    "failed": 0,
+    "skipped": 0
+  },
+  "historical_v5_tests": 134,
+  "new_repository_tests": 12,
+  "wheel_build": true,
+  "installed_wheel_import_and_entry_points": true,
+  "clean_network_dependency_installation_tested": false,
+  "github_hosted_ci_executed": false,
+  "full_34_season_training_repeated": false,
+  "full_report_numerically_reproduced": false,
+  "source_archive_unchanged": true,
+  "source_archive_sha256": "5452dc3e638bddccbba11a0e3a2686972eaa8becaaf5d4b83a953c5fe8669988",
+  "initial_sandbox_issue": "PyTensor cache under read-only home; resolved with documented writable cache directories",
+  "read_only_research_entrypoints": {
+    "prepare": true,
+    "full_report_from_saved_v5": true,
+    "identity_cv_zero_fit_plan": true
+  },
+  "identity_cv_plan": {
+    "model_fits": 0,
+    "inner_trials": 450,
+    "reusable": 90,
+    "requires_refit": 360
+  }
+}
