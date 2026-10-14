@@ -1,0 +1,65 @@
+{
+  "data_kind": "synthetic",
+  "fitted_models": 0,
+  "warning": "Illustration only. These are invented fan shares, not inferred DWTS results.",
+  "contestants": [
+    {
+      "id": "A",
+      "judge_mean": 9.0,
+      "fan_share": 0.1
+    },
+    {
+      "id": "B",
+      "judge_mean": 8.0,
+      "fan_share": 0.11
+    },
+    {
+      "id": "C",
+      "judge_mean": 7.0,
+      "fan_share": 0.12
+    },
+    {
+      "id": "D",
+      "judge_mean": 6.0,
+      "fan_share": 0.67
+    }
+  ],
+  "results": [
+    {
+      "rule": "rank",
+      "mechanism": "none",
+      "judge_weight": 0.5,
+      "eliminated": "A"
+    },
+    {
+      "rule": "rank",
+      "mechanism": "judge_save",
+      "judge_weight": 0.5,
+      "eliminated": "B"
+    },
+    {
+      "rule": "rank",
+      "mechanism": "fan_save",
+      "judge_weight": 0.5,
+      "eliminated": "A"
+    },
+    {
+      "rule": "percentage",
+      "mechanism": "none",
+      "judge_weight": 0.5,
+      "eliminated": "C"
+    },
+    {
+      "rule": "percentage",
+      "mechanism": "judge_save",
+      "judge_weight": 0.5,
+      "eliminated": "C"
+    },
+    {
+      "rule": "percentage",
+      "mechanism": "fan_save",
+      "judge_weight": 0.5,
+      "eliminated": "B"
+    }
+  ]
+}

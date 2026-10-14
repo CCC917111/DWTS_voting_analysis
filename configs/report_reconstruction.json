@@ -1,0 +1,35 @@
+{
+  "seasons": null,
+  "season_workers": 4,
+  "data": {
+    "outcome_policy": "label_first",
+    "include_final_week_eliminations": false
+  },
+  "fit": {
+    "draws": 4000,
+    "tune": 6000,
+    "chains": 4,
+    "cores": 1,
+    "seed": 2627761,
+    "penalty_lambda": 1.0,
+    "likelihood": "report",
+    "withdrawal_policy": "include_scored",
+    "sampler": "fast_mh",
+    "sweeps_per_draw": 20
+  },
+  "simulation_scope": "nonfinal_weeks",
+  "rf_trees": 300,
+  "rf_folds": 5,
+  "history_weight": 0.5,
+  "history_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "rf_inner_folds": 3,
+  "rf_min_samples_leaf": 5,
+  "rf_judge_target": "judge_mean",
+  "rf_fan_scale": "relative"
+}

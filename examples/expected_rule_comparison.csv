@@ -1,0 +1,7 @@
+rule,mechanism,judge_weight,eliminated
+rank,none,0.5,A
+rank,judge_save,0.5,B
+rank,fan_save,0.5,A
+percentage,none,0.5,C
+percentage,judge_save,0.5,C
+percentage,fan_save,0.5,B

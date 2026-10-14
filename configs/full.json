@@ -1,0 +1,9 @@
+{
+  "seasons": null,
+  "fit": {"draws": 2000, "tune": 2000, "chains": 4, "cores": 2, "seed": 2627761, "penalty_lambda": 1.0, "likelihood": "report"},
+  "simulation_scope": "single_elimination",
+  "rf_trees": 300,
+  "rf_folds": 5,
+  "history_weight": 0.5
+}
+

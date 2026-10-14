@@ -1,0 +1,20 @@
+# Generated experiments and externally obtained research evidence
+outputs/
+data/raw/
+references/
+*.nc
+*.zip
+# Python, tooling and credentials
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv*/
+*.egg-info/
+build/
+dist/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
