@@ -4,7 +4,18 @@
 
 本仓库是 Team 2627761 在 2026 MCM Problem C 中开展的 DWTS 研究的软件实现与后续扩展。Yike chen 参与了该团队的原始研究。项目基于公开评分与淘汰记录，推断潜在粉丝支持、比较投票规则，并分析选手及舞伴特征与评分的关联。
 
-[English README](README.md) · [方法](docs/METHODS.md) · [结果](docs/RESULTS.md) · [运行指南](docs/RUNNING.md)
+[English README](README.md) · [项目文档](#项目文档) · [方法](docs/METHODS.md) · [结果](docs/RESULTS.md) · [运行指南](docs/RUNNING.md)
+
+## 项目文档
+
+| 文档 | 内容 |
+|---|---|
+| [方法与假设](docs/METHODS.md) | 数据处理、贝叶斯推断、投票规则及验证方法。 |
+| [实验结果与解释](docs/RESULTS.md) | 已保存的实验结果、数值单位及解释范围。 |
+| [研究运行指南](docs/RUNNING.md) | 安装环境、取得数据、运行演示与完整研究。 |
+| [研究团队与来源](docs/PROVENANCE.md) | 原团队研究、Yike 的参与以及当前代码版本。 |
+
+[完整文档目录](docs/README.md)还包含数据来源和实验配置入口。
 
 ## 研究问题与方法
 

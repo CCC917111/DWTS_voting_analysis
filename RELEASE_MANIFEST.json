@@ -2,7 +2,7 @@
   "package": "DWTS Voting Analysis",
   "version": "0.5.1",
   "release_kind": "source_tree",
-  "repository": "CCC917111/dwts-voting-audit",
+  "repository": "CCC917111/DWTS_voting_analysis",
   "source_local_zip_sha256": "b4821dc869f494c9f6c7d45bc3be2934b394507fed97414a57d2323d5b76c946",
   "files": [
     {
@@ -37,13 +37,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 5461,
-      "sha256": "db1a7a175494330521d85f9895bbd62b92b24de01594fa600a1e212568485747"
+      "bytes": 6112,
+      "sha256": "8a850528fb9f60a7d380958fe8cf8158cf7610544e155a8bafb9fb4c0326d1a2"
     },
     {
       "path": "README.zh-CN.md",
-      "bytes": 3956,
-      "sha256": "73e86c087d47faedf5e07d375d0c455a474c7ab518d2852acb5c1561ef537c9e"
+      "bytes": 4545,
+      "sha256": "a382401a0a1db867d9c047c168f66a24dad0f5bf9a54ecf861cff1a8dbac5499"
     },
     {
       "path": "configs/README.md",
@@ -129,6 +129,11 @@
       "path": "docs/PROVENANCE.md",
       "bytes": 1819,
       "sha256": "88c5cf39425895f0fc9e8ba68ad0910d93ce63842d82bade54bff228ae3f4dfd"
+    },
+    {
+      "path": "docs/README.md",
+      "bytes": 1183,
+      "sha256": "ea516d246d62350cea1a8e5beae326efebd52510940404d86b6e7d1e18296478"
     },
     {
       "path": "docs/RESULTS.md",

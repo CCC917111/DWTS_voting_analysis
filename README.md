@@ -7,9 +7,18 @@ study for the 2026 MCM Problem C. Yike chen participated in the original team
 research. The workflow infers latent fan support, compares voting rules, and
 studies associations between scores, contestant features and partner history.
 
-[中文说明](README.zh-CN.md) · [Methods](docs/METHODS.md) · [Results](docs/RESULTS.md) · [Run guide](docs/RUNNING.md)
+[中文说明](README.zh-CN.md) · [Documentation](#documentation) · [Methods](docs/METHODS.md) · [Results](docs/RESULTS.md) · [Run guide](docs/RUNNING.md)
 
-![Synthetic voting-rule demonstration](docs/assets/demo.svg)
+## Documentation
+
+| Guide | What it covers |
+|---|---|
+| [Methods and assumptions](docs/METHODS.md) | Data processing, Bayesian inference, voting rules and validation. |
+| [Results and interpretation](docs/RESULTS.md) | Recorded experiment results, units and interpretation limits. |
+| [Running the study](docs/RUNNING.md) | Installation, data, the demo and the full research workflow. |
+| [Research team and sources](docs/PROVENANCE.md) | Original team research, Yike's participation and the current code edition. |
+
+The [documentation index](docs/README.md) also links data sources and experiment configurations.
 
 ## Research questions
 
@@ -22,6 +31,8 @@ Numba Metropolis–Hastings engine, explicit rule simulations, nested season-gro
 random forests, OLS and SHAP. Configurations and input hashes record each
 experiment's assumptions. Exact rank-tie handling and canonical partner identities
 address two demonstrated implementation issues.
+
+![Synthetic voting-rule demonstration](docs/assets/demo.svg)
 
 ## Quick start
 
