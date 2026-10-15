@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "interpretation": "Retrospective temporal backtest on previously examined COMAP data, not independent confirmatory or prospective evidence. Development seasons 3-20 select a fixed model; seasons 21-27 evaluate chronological predictions. Seasons 1-2 use a different rule and 28-34 have an unmodeled judge-save mechanism, so neither enters this percentage-only backtest. The categorical forward model is distinct from retrospective soft-constraint fan inference. Weekly scores, active rosters, single-exit schedule and reconstructed post-week event-release times are assumed known at their declared clock.",
+  "configuration": {
+    "schema_version": 1,
+    "development_seasons": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "evaluation_seasons": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "prior_sd_grid": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "temperature_grid": [
+      1.0,
+      3.0,
+      6.0
+    ],
+    "judge_temperature_grid": [
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.5,
+      2.0,
+      3.0,
+      6.0,
+      12.0
+    ],
+    "history_strength_grid": [
+      0.0,
+      1.0,
+      3.0
+    ],
+    "development_particles": 512,
+    "particles": 2048,
+    "particle_checks": [
+      1024,
+      4096
+    ],
+    "seeds": [
+      2627761,
+      2627783,
+      2627819
+    ],
+    "judge_weight": 0.5,
+    "mh_steps": 4,
+    "proposal_scale": 0.35,
+    "ess_fraction": 0.7,
+    "bootstrap_draws": 5000,
+    "bootstrap_seed": 2627857,
+    "calibration_bins": 5,
+    "mc_thresholds": {
+      "mean_absolute_probability_difference": 0.01,
+      "max_absolute_probability_difference": 0.05,
+      "absolute_log_loss_difference": 0.025,
+      "repeat_log_loss_span": 0.05
+    },
+    "outcome_policy": "label_first",
+    "update_scope": "single_ordinary_exit_n_ge_3_no_observed_withdrawal",
+    "evaluation_scope": "single_ordinary_exit_nonfinal_n_ge_3_no_observed_withdrawal"
+  },
+  "integrity": {
+    "raw_data_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+    "config_sha256": "20338c63ce526089207c1f877d26cc315be12be40acda7dc3780ac0076f4fe65",
+    "code_sha256": {
+      "forward_model.py": "264f326cd2d2436ddbeebd45f9040628c30d9bcbdb82a54882f577dd4689d5ff",
+      "forecasting.py": "62b2d6946c0b4f4de25defb764eea5fdcec84f590664c45634ff2c4a5d80dd84",
+      "data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa"
+    }
+  },
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0"
+  },
+  "likelihood": "normalized categorical softmax(-temperature*n*weighted_score_share)",
+  "latent_prior": "independent static season contestant Normal(0, prior_sd)",
+  "inference": "SMC exact likelihood weights; ESS systematic resampling; full-past symmetric RW MH",
+  "clock": "current roster/scores -> probabilities -> release exit/withdrawal -> update; final flag scores only",
+  "assumptions": [
+    "Current weekly roster and judges' scores are available before predicting the exit.",
+    "Retrospective label-first exits and reconstructed withdrawals are assumed released at week end.",
+    "Single ordinary exit with no observed withdrawal and at least three contestants updates inference.",
+    "Final-week metadata never enters inference; it filters reported evaluation only.",
+    "Future contestant identifiers are not preloaded; newly observed entrants get independent priors."
+  ],
+  "primary_metric": "mean categorical log loss over eligible weeks",
+  "brier_definition": "sum over active contestants of (predicted exit probability - one-hot exit)^2",
+  "top1_tie_break": "lexically smallest contestant identifier",
+  "calibration": "5 fixed equal-width top-label confidence bins; descriptive, small sample",
+  "intervals": "paired whole-season percentile bootstrap of fixed predictions; no refit or independent-data uncertainty",
+  "history_baseline": "cumulative past judge-hazard exit probability for actual survivors; same released-event update gate",
+  "past_judge_baseline": "own mean past n*judge_share, current relative score for cold starts; softmax negative temperature times score",
+  "mc_check_seed_offset": 1000003,
+  "not_measured": [
+    "actual audience vote accuracy",
+    "late-era judge-save forecasts",
+    "independent prospective validation"
+  ],
+  "smc_aggregate_diagnostics": {
+    "observed_updates": 324,
+    "minimum_pre_resampling_ess_fraction": 0.5070019657662767,
+    "median_pre_resampling_ess_fraction": 0.5707628254983552,
+    "resampling_fraction": 1.0,
+    "mh_acceptance": 0.495737873057209,
+    "approximation_checks_pass": true
+  },
+  "selected_model": {
+    "prior_sd": 0.5,
+    "temperature": 6.0,
+    "judge_temperature": 12.0,
+    "history_temperature": 6.0,
+    "history_strength": 0.0,
+    "past_judge_temperature": 12.0
+  },
+  "evaluation_population": {
+    "seasons": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "represented_seasons": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      27
+    ],
+    "seasons_without_eligible_weeks": [
+      26
+    ],
+    "weeks": 33,
+    "update_event_assumption": "post-week released ordinary exits and reconstructed withdrawal labels"
+  }
+}

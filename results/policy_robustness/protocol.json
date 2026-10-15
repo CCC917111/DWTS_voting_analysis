@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "seed": 2627761,
+  "draws_per_chain": 512,
+  "scope": "nonfinal_observed_rosters_n_ge_3_excluding_withdrawal_weeks",
+  "counterfactual_exits_per_week": 1,
+  "rules": [
+    "rank",
+    "percentage"
+  ],
+  "judge_weights": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "mechanisms": [
+    "none",
+    "judge_save",
+    "fan_save"
+  ],
+  "interval_probability": 0.95,
+  "reference_policy": "rank:w0.5:none",
+  "metrics": [
+    {
+      "metric": "type_a_exit_rate",
+      "direction": "lower"
+    },
+    {
+      "metric": "type_b_exit_rate",
+      "direction": "lower"
+    },
+    {
+      "metric": "eliminated_judge_rank_percentile",
+      "direction": "higher"
+    },
+    {
+      "metric": "eliminated_fan_rank_percentile",
+      "direction": "higher"
+    },
+    {
+      "metric": "judge_top_half_exit_rate",
+      "direction": "lower"
+    },
+    {
+      "metric": "fan_top_half_exit_rate",
+      "direction": "lower"
+    }
+  ],
+  "pareto_tolerance": 1e-12,
+  "late_seasons": [
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34
+  ],
+  "late_joint_prior_scales": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "sensitivity_sources": [
+    {
+      "label": "late_bottom_two",
+      "source": "outputs/continuation-late-bottom-two",
+      "changed_fit_field": "likelihood",
+      "changed_fit_value": "bottom_two",
+      "seasons": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "label": "season3_penalty_0p1",
+      "source": "outputs/continuation-penalty-0p1",
+      "changed_fit_field": "penalty_lambda",
+      "changed_fit_value": 0.1,
+      "seasons": [
+        3
+      ]
+    },
+    {
+      "label": "season3_penalty_10",
+      "source": "outputs/continuation-penalty-10",
+      "changed_fit_field": "penalty_lambda",
+      "changed_fit_value": 10.0,
+      "seasons": [
+        3
+      ]
+    }
+  ],
+  "scenario_counts": {
+    "baseline_full34": 1,
+    "late7_likelihood_prior": 6,
+    "season3_penalty": 3
+  },
+  "metrics_definition": {
+    "type_a_exit_rate": "Eliminated judge average rank <=2 and latent fan average rank >n/2.",
+    "type_b_exit_rate": "Eliminated judge average rank >n-2 and latent fan average rank <=n/2.",
+    "eliminated_judge_rank_percentile": "(Average descending judge rank -1)/(n-1); 0 best, 1 worst.",
+    "eliminated_fan_rank_percentile": "(Average descending latent-logit fan rank -1)/(n-1); 0 best, 1 worst.",
+    "judge_top_half_exit_rate": "Eliminated average descending judge rank <=n/2, including fractional ties.",
+    "fan_top_half_exit_rate": "Eliminated average descending latent fan rank <=n/2, including fractional ties."
+  },
+  "normative_interpretation": "The six partly related declared preferences are contestable protection/alignment objectives, not a universal definition of fairness. No scalar fairness score is used.",
+  "reference": "Fixed rank:w0.5:none in each same-scenario posterior; every policy including self is retained.",
+  "contrast_intervals": "95% equal-tailed conditional posterior credible intervals for paired policy metric differences within the same posterior only.",
+  "dominance_definition": "Pointwise Pareto dominance of conditional posterior mean endpoints: no loss difference > tolerance and at least one < -tolerance. Robust dominance requires dominance in EVERY enumerated scenario in that cohort.",
+  "posterior_dominance_support": "Separate within-scenario paired-draw probability that all six oriented draw endpoints are weakly improved and at least one strictly improved; extrema across scenarios are descriptive extrema, not scenario probabilities.",
+  "scenario_interpretation": "Finite prespecified sensitivity scenarios have no assigned probability or weight. Full34, late7 and season3 cohorts are never pooled. No draw pairing, interval or improvement probability is formed between independently fitted sources.",
+  "worst_case": "Each endpoint's worst conditional mean across its own finite matched scenario grid; different endpoints can attain extrema in different scenarios.",
+  "joint_prior_transport": "Exact alpha,beta,sigma co-scaling with epsilon unchanged, z->c*z, only on late rank-only seasons for both rank likelihoods; no additional MCMC fitting.",
+  "joint_dependency": "Seeded independent seasonal permutations; all weeks and all policies retain the same draw within each season.",
+  "fan_ordering": "Latent logits define fan ranks and fan tie-break/save order, protecting against numeric softmax underflow; percentage merits use numeric shares.",
+  "limitations": [
+    "Retrospective posterior conditioned on observed eliminations; not held-out predictive accuracy or validated true audience votes.",
+    "One exit per eligible fixed observed roster; no changing survivor roster or whole-season causal counterfactual is simulated.",
+    "Sensitivity covers only the enumerated likelihood, penalty and jointly co-scaled prior family, not all plausible assumptions.",
+    "Original full-chain diagnostics were validated; transformed policy-function effective sample sizes were not recomputed.",
+    "Finite-chain posterior summaries and scenario-conditioned Pareto relations are approximate and can be sensitive near tolerance boundaries.",
+    "A model-conditional posterior dominance probability is not a universal fairness or policy guarantee."
+  ]
+}

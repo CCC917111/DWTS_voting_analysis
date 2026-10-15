@@ -143,6 +143,46 @@ new MCMC fits. Percentage-likelihood seasons are excluded; this does not test
 independent scale changes or every prior family. Output intervals remain
 conditional on each specification and the stored draws.
 
+## Temporal, simulation and policy validation
+
+The [validation results](VALIDATION_RESULTS.md) cover three additional studies.
+Forecasting and synthetic recovery use a separate normalized categorical model;
+they do not require the retrospective posterior chains:
+
+```bash
+python -m dwts.forecasting --config configs/forecast_study.json --out outputs/my-forecast-study
+python -m dwts.recovery_study --config configs/recovery_study.json --out outputs/my-recovery-study
+```
+
+The forecast selects settings on seasons 3–20 before evaluating seasons 21–27.
+It assumes current judges' scores are available, predicts before releasing the
+current exit, and updates from past ordinary single-exit events only. Late-era
+save mechanisms are outside this model. This is a retrospective chronological
+backtest of previously examined data. The simulation study generates its own
+known truth and reports uncertainty across independently generated seasons.
+Inspect each study's approximation checks as well as its accuracy or recovery
+metrics; finite-particle SMC does not inherit MCMC convergence diagnostics.
+
+The multi-objective policy study reuses the diagnosed baseline and three matched
+sensitivity sources generated above:
+
+```bash
+python -m dwts.policy_robustness --source outputs/my-study --config configs/policy_robustness_study.json --out outputs/my-policy-robustness
+```
+
+Its configuration specifies the sensitivity source paths. Generate them using
+the same model code, environment and official inputs. The command validates
+their matched rosters, assumptions and artifact hashes, then reports six
+separate policy objectives, paired contrasts and finite-scenario Pareto
+relations. Raw and per-person records remain local. Public aggregate results
+are explicitly allowlisted by the packaging script.
+
+The validation figures can be regenerated from the public aggregate bundles:
+
+```bash
+python scripts/render_validation_results.py
+```
+
 ## Optional comparison with the original report
 
 The study's current results are evaluated on their declared definitions. Comparing

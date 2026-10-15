@@ -29,6 +29,13 @@ analytic rank-only prior-scale sensitivity. Their protocols and aggregate
 results are linked from [STUDY_RESULTS.md](STUDY_RESULTS.md). These are subsequent
 extensions of the project; they are not presented as competition-time outputs.
 
+Further validation adds a separate normalized categorical forward model,
+chronological elimination backtests, replicated known-truth recovery and
+multi-objective policy robustness. [VALIDATION_RESULTS.md](VALIDATION_RESULTS.md)
+records these experiments and their limitations. They do not establish
+independent prospective validation or transfer the original sampler's
+diagnostics to the new finite-particle inference engine.
+
 Saved results under `results/v5_snapshot/` belong to this software edition. They
 are distinct from the original report's values; [RESULTS.md](RESULTS.md) explains
 the numerical differences and evaluation limits. A successful software run does

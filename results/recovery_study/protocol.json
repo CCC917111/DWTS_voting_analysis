@@ -1,0 +1,88 @@
+{
+  "approximation_check": "first 8 replications per cell independently repeated at 8192 particles; no MCMC Rhat claim",
+  "bootstrap": "5000 season-cluster draws; intervals reflect finite simulation replications, not SMC error",
+  "config": {
+    "approximation_particles": 8192,
+    "approximation_replications": 8,
+    "bootstrap_draws": 5000,
+    "contestants": 8,
+    "drift_slope_sd": 0.7,
+    "ess_fraction": 0.7,
+    "interval_probability": 0.95,
+    "judge_weight": 0.5,
+    "mh_steps": 4,
+    "particles": 4096,
+    "probe_contestant": 0,
+    "probe_week": 0,
+    "proposal_scale": 0.35,
+    "replications_per_rule": 48,
+    "rules": [
+      "rank",
+      "percentage"
+    ],
+    "scenarios": [
+      {
+        "inference_prior_sd": 1.0,
+        "name": "matched",
+        "truth": "static"
+      },
+      {
+        "inference_prior_sd": 0.5,
+        "name": "narrow_prior",
+        "truth": "static"
+      },
+      {
+        "inference_prior_sd": 2.0,
+        "name": "wide_prior",
+        "truth": "static"
+      },
+      {
+        "inference_prior_sd": 1.0,
+        "name": "gradual_drift",
+        "truth": "drift"
+      }
+    ],
+    "schema_version": 1,
+    "seed": 2627761,
+    "temperature": 3.0,
+    "truth_prior_sd": 1.0,
+    "weeks": 6
+  },
+  "config_sha256": "df056ad96a7d2707729cc823313e729f3038a65e52247aff9ad8571c6c0020cd",
+  "coverage": "equal-tailed 95% credible intervals, averaged within season then across seasons",
+  "coverage_probe": "contestant 0 at week 0 fixed before generation; Wilson interval across independent seasons",
+  "denominators": {
+    "contestant_weeks_per_season": 33,
+    "rank_pairs_per_season": 83
+  },
+  "identification": "rank likelihood invariant to positive logit scale; magnitude remains prior-dependent",
+  "independent_generated_seasons": 192,
+  "inference": "SMC with ESS-triggered resampling and invariant full-history random-walk Metropolis moves",
+  "judge_generation": "pregenerated independent score trajectories clipped to [1,10]",
+  "likelihood": "normalized forward categorical exit model; softmax(-temperature*merit)",
+  "limits": [
+    "Simulations validate this new normalized model, not actual unobserved votes or the historical soft-constraint model.",
+    "Matched-case coverage is prior-predictive marginal coverage; it does not imply fixed-parameter or real-data calibration.",
+    "Forty-eight independent coverage probes percell give wide binomial uncertainty.",
+    "Independent particle rerun agreement is an approximation diagnostic, not proof of exact posterior sampling."
+  ],
+  "main_inference_fits": 384,
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0"
+  },
+  "paired_scenarios": "matched/narrow/wide use identical generated seasons; drift is independent",
+  "prior_baseline": "unconditioned prior particles transformed on the same observed rosters; analytic uniform mean for point errors and rank ties",
+  "python": "3.12.14",
+  "rank_concordance": "pairwise correct order; exact ties count 0.5",
+  "schema_version": 1,
+  "scope": "retrospective complete generated season; all observed exits used before recovery",
+  "source_sha256": {
+    "configs/recovery_study.json": "df056ad96a7d2707729cc823313e729f3038a65e52247aff9ad8571c6c0020cd",
+    "dwts/forward_model.py": "264f326cd2d2436ddbeebd45f9040628c30d9bcbdb82a54882f577dd4689d5ff",
+    "dwts/recovery_study.py": "a8f456855a4f8da21daff50d5199bd3d856f6bc8127eee422cc9a8f9fcfcf2a8"
+  },
+  "started_at": "2026-10-15T20:50:38.299470+00:00",
+  "truth": "iid Normal(0,1) initial logits; drift slopes iid Normal(0,0.7)"
+}

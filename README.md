@@ -9,12 +9,13 @@ studies associations between scores, contestant features and partner history.
 
 **Project lead: Yike Chen.** The original study is credited to Team 2627761.
 
-[Documentation](#documentation) · [Methods](docs/METHODS.md) · [Study results](docs/STUDY_RESULTS.md) · [Run guide](docs/RUNNING.md)
+[Documentation](#documentation) · [Methods](docs/METHODS.md) · [Study results](docs/STUDY_RESULTS.md) · [Validation](docs/VALIDATION_RESULTS.md) · [Run guide](docs/RUNNING.md)
 
 ## Documentation
 
 | Guide | What it covers |
 |---|---|
+| [Prediction, recovery and policy validation](docs/VALIDATION_RESULTS.md) | Temporal exit backtesting, known-truth simulation and multi-objective policy robustness. |
 | [Methods and assumptions](docs/METHODS.md) | Data processing, Bayesian inference, voting rules and validation. |
 | [Study results and figures](docs/STUDY_RESULTS.md) | Baselines, feature ablations, posterior policy comparisons and sensitivity. |
 | [Earlier results and report comparisons](docs/RESULTS.md) | Preserved v5 metrics, numerical differences and interpretation limits. |
@@ -89,6 +90,32 @@ outcomes. [Study results](docs/STUDY_RESULTS.md) provide three figures, paired
 comparisons, assumptions and aggregate data. [Earlier results](docs/RESULTS.md)
 preserve the six-task v5 snapshot and original-report comparisons.
 
+## Prediction, recovery and policy validation
+
+Three additional studies test the limits of the inference and policy results:
+
+- **Temporal backtesting:** a separate normalized exit model selects settings on
+  seasons 3–20, then uses current judges' scores to predict each eligible exit
+  in seasons 21–27. The
+  33 eligible weeks represent six seasons; season 26 has no qualifying
+  single-exit weeks. Bayesian log loss is 1.948 versus 2.154 for uniform
+  probabilities and 1.621 for the best point-scoring past-judges baseline.
+  The data support no demonstrated Bayesian advantage over stronger baselines.
+- **Known-truth recovery:** 192 independently generated seasons support 384
+  fits and 64 larger-particle checks. Matched-model intervals cover about 95–96%
+  of generated contestant-week shares, but narrower priors reduce coverage to
+  about 64–67%. Independent coverage probes remain imprecise, and some point
+  rankings are sensitive to finite-particle error.
+- **Multiple policy objectives:** 18 policies are compared on six declared
+  objectives across separate matched cohorts. Seven of 153 policy pairs show
+  baseline mean dominance; none retains dominance throughout either of the
+  declared sensitivity grids. Tradeoffs and assumptions remain visible.
+
+[Validation results and three figures](docs/VALIDATION_RESULTS.md) provide the
+protocols, uncertainty intervals and aggregate data. These historical data were
+previously examined. The chronological replay is a retrospective backtest;
+independent prospective confirmation remains untested.
+
 ## Run an experiment
 
 Read [data sources](data/SOURCES.md), then obtain the official COMAP CSV:
@@ -123,7 +150,7 @@ see the [run guide](docs/RUNNING.md).
 ## Interpretation limits
 
 - Fan shares are latent estimates; true audience vote totals are unavailable.
-- Whole-season inference supports retrospective analysis. Prospective forecast performance has not been evaluated.
+- Whole-season fan inference supports retrospective analysis. A separate model has chronological backtests; independent prospective performance remains unevaluated.
 - SHAP and feature importance describe associations; they do not identify causal partner effects.
 - Rule comparisons retain each week's observed roster. Complete alternative-season trajectories are not simulated.
 - RF/OLS use posterior means. The separate policy study propagates joint posterior draws; its intervals remain conditional on model assumptions.

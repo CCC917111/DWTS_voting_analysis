@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "development_seasons": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+  "evaluation_seasons": [21, 22, 23, 24, 25, 26, 27],
+  "prior_sd_grid": [0.5, 1.0, 2.0],
+  "temperature_grid": [1.0, 3.0, 6.0],
+  "judge_temperature_grid": [0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 6.0, 12.0],
+  "history_strength_grid": [0.0, 1.0, 3.0],
+  "development_particles": 512,
+  "particles": 2048,
+  "particle_checks": [1024, 4096],
+  "seeds": [2627761, 2627783, 2627819],
+  "judge_weight": 0.5,
+  "mh_steps": 4,
+  "proposal_scale": 0.35,
+  "ess_fraction": 0.7,
+  "bootstrap_draws": 5000,
+  "bootstrap_seed": 2627857,
+  "calibration_bins": 5,
+  "mc_thresholds": {
+    "mean_absolute_probability_difference": 0.01,
+    "max_absolute_probability_difference": 0.05,
+    "absolute_log_loss_difference": 0.025,
+    "repeat_log_loss_span": 0.05
+  },
+  "outcome_policy": "label_first",
+  "update_scope": "single_ordinary_exit_n_ge_3_no_observed_withdrawal",
+  "evaluation_scope": "single_ordinary_exit_nonfinal_n_ge_3_no_observed_withdrawal"
+}

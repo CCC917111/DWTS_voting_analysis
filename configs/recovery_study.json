@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "seed": 2627761,
+  "replications_per_rule": 48,
+  "contestants": 8,
+  "weeks": 6,
+  "rules": ["rank", "percentage"],
+  "scenarios": [
+    {"name": "matched", "truth": "static", "inference_prior_sd": 1.0},
+    {"name": "narrow_prior", "truth": "static", "inference_prior_sd": 0.5},
+    {"name": "wide_prior", "truth": "static", "inference_prior_sd": 2.0},
+    {"name": "gradual_drift", "truth": "drift", "inference_prior_sd": 1.0}
+  ],
+  "truth_prior_sd": 1.0,
+  "drift_slope_sd": 0.7,
+  "judge_weight": 0.5,
+  "temperature": 3.0,
+  "particles": 4096,
+  "mh_steps": 4,
+  "proposal_scale": 0.35,
+  "ess_fraction": 0.7,
+  "interval_probability": 0.95,
+  "bootstrap_draws": 5000,
+  "approximation_replications": 8,
+  "approximation_particles": 8192,
+  "probe_contestant": 0,
+  "probe_week": 0
+}
