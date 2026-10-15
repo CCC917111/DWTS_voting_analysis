@@ -20,6 +20,15 @@ PUBLIC_RESULT_FILES = {
     'study_prior_sensitivity': {'policy_summary.csv', 'policy_contrasts.csv',
                                 'prior_scale_sensitivity.csv', 'protocol.json',
                                 'source_integrity.json', 'status.json'},
+    'recovery_study': {'recovery_summary.csv', 'coverage_probe.csv', 'inference_checks.csv',
+                       'approximation_checks.csv', 'protocol.json', 'status.json'},
+    'forecast_study': {'metrics.csv', 'season_metrics.csv', 'paired_differences.csv',
+                       'calibration.csv', 'particle_stability.csv', 'model_selection.csv',
+                       'eligibility_summary.csv', 'protocol.json', 'status.json',
+                       'mc_assessment.json'},
+    'policy_robustness': {'policy_metrics.csv', 'policy_contrasts.csv', 'pareto_stability.csv',
+                          'worst_case_metrics.csv', 'protocol.json', 'source_integrity.json',
+                          'status.json'},
 }
 
 def selected_files(root=ROOT):

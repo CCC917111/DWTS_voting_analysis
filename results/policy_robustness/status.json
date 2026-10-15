@@ -1,0 +1,35 @@
+{
+  "execution_completed": true,
+  "completed_utc": "2026-10-15T20:53:19.933240+00:00",
+  "protocol_sha256": "4166c9441112a6b74b0448028b5c1c4a5db0cdb3ca1e425f6a74957847b846e6",
+  "code_sha256": {
+    "policy_robustness.py": "db6678c47fba59a0c67187ff66d85a4ea40fa5582aff63364b02a800afa4dadb",
+    "uncertainty.py": "5bad64e55378978f988128c3bb14c0b4b8288e48dc7491f444742478851b6891",
+    "prior_sensitivity.py": "c00e35dfaf6ae297cf768640ee78123709d1c0685a5866a09cd10e2a763a5d92",
+    "rules.py": "6971fbb42137db9e1dc8b5f8fd57f5831549ffdaf55a4c0b91b780a0f494d4d7",
+    "analysis.py": "8fac207fe135efd86837c182de0f64253da203589e1a7eb114f9574622c053a7",
+    "data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa",
+    "model.py": "ee7df44d37c15e34e639042a85cdc78b22aa8b7ef17b7f54dd2a4b42b030931c",
+    "fast_mh.py": "23d1c7691423f67bc392aaafa32aca93354df309907e2085cde0ed308314dc2d"
+  },
+  "raw_data_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+  "baseline_seasons": 34,
+  "baseline_weeks": 291,
+  "scenarios": 10,
+  "policy_count": 18,
+  "metric_count": 6,
+  "rank_policy_transport_invariance_checks": 42,
+  "scale_one_exact_invariance_verified": true,
+  "matched_inputs_verified": true,
+  "pre_post_code_protocol_data_source_equality_verified": true,
+  "all_original_source_diagnostics_pass": true,
+  "independent_true_vote_validation": false,
+  "output_sha256": {
+    "policy_metrics.csv": "e68f55026a42eac7d7d6ac32ae5cbf7aa02cca0223361e60b00c173596c50a05",
+    "policy_contrasts.csv": "c7fc5a59d915b6cc1d23996152fffa11e0bd936960dad440a911d1daecaf2bb0",
+    "pareto_stability.csv": "bc2d1e4944ae31e7dd68712a2f49d2dbff382cb242ba2dd4a046b837a7a5cd44",
+    "worst_case_metrics.csv": "10d6a5f56ec40d0538996ae9508fc5dea648b202f195ebe3a78d7d4bcebe0de2",
+    "protocol.json": "91ccf0bb4f13958cad9c3a4c8b087059a6f3c22a28e846735480162ba567de87",
+    "source_integrity.json": "d9e75de9820154a7ee2cdf74992d6cdb8f22dada89ed2f26f3c81746200b6ab1"
+  }
+}

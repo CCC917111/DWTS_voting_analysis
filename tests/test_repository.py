@@ -117,6 +117,13 @@ def test_release_allowlist_excludes_private_and_generated_materials(tmp_path):
              'results/study_uncertainty/season_01/posterior.nc',
              'results/study_prior_sensitivity/prior_scale_sensitivity.csv',
              'results/study_prior_sensitivity/transformed_draws.csv',
+             'results/recovery_study/recovery_summary.csv',
+             'results/recovery_study/private_replicates.csv',
+             'results/forecast_study/metrics.csv',
+             'results/forecast_study/private_predictions.csv',
+             'results/forecast_study/smc_diagnostics.csv',
+             'results/policy_robustness/pareto_stability.csv',
+             'results/policy_robustness/weekly_draws.csv',
              'results/v5_snapshot/unapproved.csv']
     for rel in paths:
         p = tmp_path/rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text('fixture')
@@ -125,4 +132,7 @@ def test_release_allowlist_excludes_private_and_generated_materials(tmp_path):
                    'results/v5_snapshot/rf_metrics.csv','docs/note.md',
                    'results/study_benchmarks/metrics.csv',
                    'results/study_uncertainty/policy_summary.csv',
-                   'results/study_prior_sensitivity/prior_scale_sensitivity.csv'}
+                   'results/study_prior_sensitivity/prior_scale_sensitivity.csv',
+                   'results/recovery_study/recovery_summary.csv',
+                   'results/forecast_study/metrics.csv',
+                   'results/policy_robustness/pareto_stability.csv'}

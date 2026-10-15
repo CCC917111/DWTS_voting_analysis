@@ -1,0 +1,27 @@
+{
+  "interpretation": "Approximation sensitivity check, not proof of posterior convergence or model validity.",
+  "main_particles": 2048,
+  "higher_particles": 4096,
+  "independent_check_seed_offset": 1000003,
+  "repeats": 3,
+  "scope": "eligible evaluation-week categorical probabilities",
+  "thresholds": {
+    "mean_absolute_probability_difference": 0.01,
+    "max_absolute_probability_difference": 0.05,
+    "absolute_log_loss_difference": 0.025,
+    "repeat_log_loss_span": 0.05
+  },
+  "observed": {
+    "mean_absolute_probability_difference": 0.0016399214169839933,
+    "max_absolute_probability_difference": 0.01107570979964062,
+    "absolute_log_loss_difference": 0.003358675847063619,
+    "repeat_log_loss_span": 0.0024208349795178385
+  },
+  "passed": {
+    "mean_absolute_probability_difference": true,
+    "max_absolute_probability_difference": true,
+    "absolute_log_loss_difference": true,
+    "repeat_log_loss_span": true
+  },
+  "all_checks_pass": true
+}

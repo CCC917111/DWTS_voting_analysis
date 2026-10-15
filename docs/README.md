@@ -7,6 +7,7 @@ DWTS study for the 2026 MCM Problem C.
 
 | Document | What it covers |
 |---|---|
+| [Prediction, recovery and policy validation](VALIDATION_RESULTS.md) | Chronological exit forecasts, known-truth recovery and multi-objective robustness. |
 | [Study results and figures](STUDY_RESULTS.md) | Fair model baselines, feature ablations, posterior policy intervals and prior sensitivity. |
 | [Earlier results and report comparisons](RESULTS.md) | Preserved six-task v5 metrics, numerical differences and interpretation limits. |
 | [Methods and assumptions](METHODS.md) | Data processing, latent fan support, rule comparisons, partner identities and validation. |

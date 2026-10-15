@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "seed": 2627761,
+  "draws_per_chain": 512,
+  "scope": "nonfinal_observed_rosters_n_ge_3_excluding_withdrawal_weeks",
+  "counterfactual_exits_per_week": 1,
+  "rules": ["rank", "percentage"],
+  "judge_weights": [0.25, 0.5, 0.75],
+  "mechanisms": ["none", "judge_save", "fan_save"],
+  "interval_probability": 0.95,
+  "reference_policy": "rank:w0.5:none",
+  "metrics": [
+    {"metric": "type_a_exit_rate", "direction": "lower"},
+    {"metric": "type_b_exit_rate", "direction": "lower"},
+    {"metric": "eliminated_judge_rank_percentile", "direction": "higher"},
+    {"metric": "eliminated_fan_rank_percentile", "direction": "higher"},
+    {"metric": "judge_top_half_exit_rate", "direction": "lower"},
+    {"metric": "fan_top_half_exit_rate", "direction": "lower"}
+  ],
+  "pareto_tolerance": 1e-12,
+  "late_seasons": [28, 29, 30, 31, 32, 33, 34],
+  "late_joint_prior_scales": [0.5, 1.0, 2.0],
+  "sensitivity_sources": [
+    {"label": "late_bottom_two", "source": "outputs/continuation-late-bottom-two", "changed_fit_field": "likelihood", "changed_fit_value": "bottom_two", "seasons": [28, 29, 30, 31, 32, 33, 34]},
+    {"label": "season3_penalty_0p1", "source": "outputs/continuation-penalty-0p1", "changed_fit_field": "penalty_lambda", "changed_fit_value": 0.1, "seasons": [3]},
+    {"label": "season3_penalty_10", "source": "outputs/continuation-penalty-10", "changed_fit_field": "penalty_lambda", "changed_fit_value": 10.0, "seasons": [3]}
+  ]
+}

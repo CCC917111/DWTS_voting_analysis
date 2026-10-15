@@ -90,6 +90,69 @@ change. This identity does not hold for percentage-likelihood seasons or
 arbitrary prior changes. Numerical summaries retain the baseline Monte Carlo
 approximation; transformed-function ESS was not recomputed.
 
+## Forward prediction and known-truth validation
+
+`dwts.forward_model` defines a separate generative model for a single ordinary
+exit. It does not reinterpret the retrospective soft penalty as a probability.
+Contestant support logits have independent static Normal priors. In the
+percentage model, merit is the roster size times the weighted judge and fan
+shares, and exit probabilities are `softmax(-temperature * merit)` across the
+current roster. The rank model uses weighted best-oriented average ranks
+divided by `n - 1`. Each likelihood sums to one over possible exits. Temperatures
+have different scales in the two rule families.
+
+Sequential Monte Carlo updates particle weights with the normalized likelihood.
+When effective sample size is small, systematic resampling is followed by
+symmetric Metropolis moves targeting the prior and every previously observed
+exit. Finite particles and moves remain an approximation. Independent repeats,
+larger-particle comparisons and small quadrature oracles assess this
+approximation; the earlier model's MCMC R-hat/ESS gates do not apply to SMC.
+
+`dwts.forecasting` selects settings on seasons 3–20 and evaluates seasons 21–27.
+It predicts using the current roster, current judges' scores and previously
+released observations. Current exit and withdrawal flags become available only
+after prediction. Mixed withdrawal, no-exit and multi-exit events do not update
+the single-exit likelihood. Final-week metadata filters evaluation only; it
+does not alter inference. New entrants receive independent priors when first
+observed. No whole-season inferred fan shares, final placements or result-label
+features enter predictions. Scores are conditional on the observed single-exit
+schedule, rather than forecasts of whether or how many contestants will exit.
+Rank seasons and late seasons with an unmodeled save mechanism are excluded.
+
+All these historical data had previously been examined. The chronological
+replay is a retrospective temporal backtest, not independent confirmation or a
+live prospective study. Models share evaluation weeks. Categorical log loss,
+summed multiclass Brier score, deterministic top-choice accuracy and descriptive
+confidence calibration assess observed exits rather than unavailable true
+audience votes. Paired season bootstraps hold predictions fixed.
+
+`dwts.recovery_study` generates known support logits, independent judge-score
+trajectories and normalized random exits, which determine later rosters. It
+fits complete synthetic seasons before measuring share error, pairwise rank
+concordance and interval coverage. Matched and alternative priors share the
+same generated seasons; a separate drifting-support scenario tests a specific
+misspecification. Seasons are the independent replication unit. Matched-prior
+coverage describes prior-predictive marginal calibration, not uniform coverage
+for every fixed parameter. The fixed first-week contestant probe and its Wilson
+interval avoid treating correlated contestant-weeks as independent trials.
+
+## Multiple policy objectives
+
+`dwts.policy_robustness` extends the fixed-roster posterior policy study with six
+declared objectives: Type A and B exits, eliminated judge and fan rank
+percentiles, and judge and fan top-half exits. Eliminating a weaker-ranked
+contestant raises the rank percentile; top-half exit rates are lower when more
+strongly ranked contestants are protected. These normative directions are
+declared rather than combined into a universal fairness score.
+
+The full baseline, late-season likelihood/prior-scale grid and season-3 penalty
+grid remain separate matched cohorts. Pareto relations compare conditional
+mean endpoints; paired posterior probabilities compare policies within the same
+model. Worst cases and scenario counts describe only the listed specifications.
+No probability distribution over assumptions, cross-model paired interval or
+whole-season counterfactual path is inferred. See
+[validation results](VALIDATION_RESULTS.md) for actual outcomes and protocols.
+
 ## Exact differential reuse
 
 `scripts/run_identity_cv.py` compares target values, design matrices, feature names, settings, environment and archived model/feature code before reusing results. Changed inputs or selected weights force refits. A zero-fit plan is the default; execution is explicit. Tests exercise tiny-value changes, incorrect saved metrics, altered targets and output protection.

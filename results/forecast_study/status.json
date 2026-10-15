@@ -1,0 +1,27 @@
+{
+  "status": "complete",
+  "completed_utc": "2026-10-15T20:54:57.026962+00:00",
+  "integrity": {
+    "raw_data_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+    "config_sha256": "20338c63ce526089207c1f877d26cc315be12be40acda7dc3780ac0076f4fe65",
+    "code_sha256": {
+      "forward_model.py": "264f326cd2d2436ddbeebd45f9040628c30d9bcbdb82a54882f577dd4689d5ff",
+      "forecasting.py": "62b2d6946c0b4f4de25defb764eea5fdcec84f590664c45634ff2c4a5d80dd84",
+      "data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa"
+    }
+  },
+  "artifacts_sha256": {
+    "calibration.csv": "14f7048b57ec75cfcf493910c7907c1089cd5938c197ba962ff682561e6202e0",
+    "eligibility_summary.csv": "464c2aa845256f85f71485c43cdd27be7ee125638c229d592d48ebc95d3db149",
+    "mc_assessment.json": "81c28d9dbef5a7c854a834af4c25cd7e55fc3c6f8a86c12837061d7fbff7aad8",
+    "metrics.csv": "da8ca80f3e76828dbc6e693ce52fd1a36feb38e55e525d5e548aaf41d077a20d",
+    "model_selection.csv": "19b98b4f30a313be490138b7fcff85b80960debb085e9695e6562433e7c629ee",
+    "paired_differences.csv": "1b8f5b660765b75278241f48826d8a6a82e3ab3a322231dc5a7e6e2af8a1cfc3",
+    "particle_stability.csv": "ebc558d73b99e738bb6b29eeb157f81951a5712328e831aabc3ee1f9af3ef74c",
+    "private_predictions.csv": "b413ea2c97e9cfa78e8aac4933cadc186d2dd489efceb69c758ffcc7c6646283",
+    "protocol.json": "96733b7c3ec92ff8a27a91a9c93fd9593943877e0a458a7764920a9c7b3fddb2",
+    "season_metrics.csv": "44cc05a4a5c1f9cefb38eb970527081aaa9768e3ed1768105e5c58c3899fb20c",
+    "selected_model.json": "008dbcd29172fefa926c616f16b11aa71900c666241b7cc86df1cc25206201f3",
+    "smc_diagnostics.csv": "24784fb2be26955ecb8db25c5e3c32d6d18b170cc762f6f4540d37f7b57e8d81"
+  }
+}

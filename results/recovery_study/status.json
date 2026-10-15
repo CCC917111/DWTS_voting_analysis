@@ -1,0 +1,34 @@
+{
+  "approximation_fits": 64,
+  "artifacts_sha256": {
+    "approximation_checks.csv": "d25276841caa3a5c580033b018c87626acc1aea06a5445d8f1238b72f805763f",
+    "coverage_probe.csv": "587e95b7b8bef31394b7e08e9fa2cda222bbd7d2c46aea8448b48b09e7c3443d",
+    "inference_checks.csv": "a0126961812997171024fe7c9c0de190bb2cf1cfa698f2a3e8b7ae4db0efc025",
+    "protocol.json": "613044eb58f56f8b1ea7306ef22faf48eb4e8188c698c33e346542326746fffb",
+    "recovery_summary.csv": "4f6fb7c38ae5ebdfd07e4c3148a98519a6a9f4b6d830f4f5d7d7d41f120fb067"
+  },
+  "config_sha256": "df056ad96a7d2707729cc823313e729f3038a65e52247aff9ad8571c6c0020cd",
+  "finished_at": "2026-10-15T20:53:04.659524+00:00",
+  "independent_generated_seasons": 192,
+  "main_inference_fits": 384,
+  "private_artifacts": [
+    "private_replicates.csv",
+    "private_particle_diagnostics.csv",
+    "private_approximation_replicates.csv"
+  ],
+  "public_artifacts": [
+    "protocol.json",
+    "recovery_summary.csv",
+    "coverage_probe.csv",
+    "inference_checks.csv",
+    "approximation_checks.csv"
+  ],
+  "schema_version": 1,
+  "source_sha256": {
+    "configs/recovery_study.json": "df056ad96a7d2707729cc823313e729f3038a65e52247aff9ad8571c6c0020cd",
+    "dwts/forward_model.py": "264f326cd2d2436ddbeebd45f9040628c30d9bcbdb82a54882f577dd4689d5ff",
+    "dwts/recovery_study.py": "a8f456855a4f8da21daff50d5199bd3d856f6bc8127eee422cc9a8f9fcfcf2a8"
+  },
+  "started_at": "2026-10-15T20:50:38.299470+00:00",
+  "status": "completed"
+}
