@@ -1,6 +1,6 @@
 # What the DWTS experiments show
 
-Project lead: **Yike chen**. This project extends Team 2627761's 2026 MCM DWTS
+Project lead: **Yike Chen**. This project extends Team 2627761's 2026 MCM DWTS
 study; the original research is credited to the full team. These results come
 from the current software edition, prepared with AI-assisted development.
 [Research and software provenance](PROVENANCE.md) distinguishes the two stages.

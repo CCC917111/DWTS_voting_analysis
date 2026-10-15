@@ -6,7 +6,7 @@ Team 2627761 developed the DWTS study for the 2026 MCM Problem C:
 *Modeling Fairness in Competitive Voting Systems: A Bayesian Approach to Infer Fan
 Support and Evaluate Contest Dynamics in DWTS*.
 
-Yike chen participated in the original team research and leads the current DWTS
+Yike Chen participated in the original team research and leads the current DWTS
 Voting Analysis project. The report and its findings are credited to the full
 team. This repository presents the study's current software implementation and
 subsequent extensions.
