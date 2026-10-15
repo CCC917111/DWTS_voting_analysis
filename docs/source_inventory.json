@@ -57,5 +57,13 @@
     "tests/test_scope_candidates.py": "a237ca91121c60f857c9bbaf3bd419477a72c0b61b4f656425c28659744c9306",
     "tests/test_verification.py": "b1d959a289148e24f88ac78526c5bf667fcdaa0d02dfd56f4f96cdd45e96d215"
   },
-  "meaning": "Hashes before repository packaging changes. See CHANGELOG.md for intentional changes."
+  "meaning": "Original SHA-256 records identify baseline scientific modules and tests. Listed presentation-only text changes are reversed before verifying baseline module hashes; analysis additions are recorded separately in the release manifest.",
+  "presentation_only_text_changes": {
+    "dwts/cli.py": [
+      {
+        "baseline_text": "Reconstruct report 2627761 (not original source)",
+        "current_text": "Analyze DWTS fan support and voting rules"
+      }
+    ]
+  }
 }

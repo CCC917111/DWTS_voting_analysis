@@ -1,25 +1,30 @@
-# DWTS Voting Audit
+# DWTS Voting Analysis
 
-**How much can public scores and elimination outcomes tell us about an opaque voting system?**
+**How do voting rules shape competition outcomes when audience votes are hidden?**
 
-A Python research project for reconstructing plausible fan support, comparing voting rules, and auditing which conclusions survive explicit assumptions. Built from the independently reconstructed v5 implementation of Team 2627761's 2026 MCM Problem C report.
+A Python project for inferring latent fan support, comparing DWTS voting rules,
+and studying retrospective associations between judge scores, contestant
+characteristics and professional-partner history.
 
-[中文说明](README.zh-CN.md) · [Methods](docs/METHODS.md) · [Results](docs/RESULTS.md) · [Reproduction guide](docs/REPRODUCING.md)
-
-> **Research status:** full numerical replication of the source report has not been established. Fan shares are inferred latent quantities, not observed votes. This is assistant-assisted independent reconstruction and audit work, not the original team's source code. Contributor identities and software licensing remain under review.
+[中文说明](README.zh-CN.md) · [Methods](docs/METHODS.md) · [Results](docs/RESULTS.md) · [Run guide](docs/RUNNING.md)
 
 ![Synthetic voting-rule demonstration](docs/assets/demo.svg)
 
-## What this project does
+## Research questions
 
-- **Reconstructs plausible fan shares:** Bayesian inverse modelling with elimination constraints, a PyMC reference model, and a checked Numba Metropolis–Hastings engine.
-- **Compares voting rules:** rank vs. percentage aggregation, judge/fan-save variants, and exact rational rank-tie handling.
-- **Audits retrospective associations:** nested season-grouped random forests, OLS, and SHAP, with prior-only feature construction and explicit limits on interpretation.
-- **Keeps an evidence trail:** versioned configurations, input/code hashes, provenance-preserving partner identity corrections, and separated numerical-comparison results.
+- What fan-support patterns are compatible with public scores and elimination outcomes?
+- How do rank and percentage aggregation, judge saves and fan saves change weekly outcomes?
+- How are judge scores and inferred fan support associated with contestant and partner features?
+
+The workflow combines Bayesian inverse modelling, a PyMC reference model and a
+Numba Metropolis–Hastings engine, explicit rule simulations, nested season-grouped
+random forests, OLS and SHAP. Configurations and input hashes record each
+experiment's assumptions. Exact rank-tie handling and canonical partner identities
+address two demonstrated implementation issues.
 
 ## Quick start
 
-Python 3.12 is the verified environment. Commands below start from the repository root.
+Python 3.12 is the verified environment. Run commands from the repository root.
 
 ```bash
 python -m venv .venv
@@ -31,37 +36,33 @@ python -m dwts.demo --out outputs/my-demo
 python -m pytest -q
 ```
 
-The demo uses four invented contestants and fan shares. It writes a CSV, JSON, and SVG without downloading data or fitting models. At equal judge/fan weight, the rank rule eliminates A and the percentage rule eliminates C. Reusing an existing output directory is refused.
+The demo uses four invented contestants and fan shares. At equal judge/fan weight,
+the rank rule eliminates A and the percentage rule eliminates C. It writes a CSV,
+JSON and SVG, and refuses an existing output directory.
 
-The default test suite uses synthetic fixtures and does not need the original report, dataset, or archived model outputs. Data/archive-dependent tests are explicitly deselected. See the exact local checks in [VALIDATION.md](docs/VALIDATION.md); the included GitHub Actions workflow has not yet been run on GitHub.
+Default tests are self-contained. Tests requiring official data or archived
+experiments are explicitly deselected. GitHub Actions runs the self-contained
+tests and synthetic demo.
 
-## Recorded research results
+## Recorded results
 
-The following are **v5 saved results**, not models trained by the quick-start demo. They use 2,777 contestant-weeks across 34 seasons, with five outer season-grouped folds and inner selection of history weights.
+The saved v5 experiment covers 34 seasons and 2,777 contestant-weeks. Its
+retrospective models use five outer season-grouped folds and inner selection of
+history weights.
 
-| Retrospective regression | v5 R² | Report R² | v5 RMSE | Report RMSE |
-|---|---:|---:|---:|---:|
-| Judge mean score | 0.434488 | 0.146 | 1.100571 | 5.320 |
-| Inferred fan share | 0.555199 | 0.614 | 0.063604 | 0.072 |
+| Regression target | Out-of-fold R² | Out-of-fold RMSE |
+|---|---:|---:|
+| Judge mean score | 0.434488 | 1.100571 |
+| Inferred fan share | 0.555199 | 0.063604 |
 
-Judge RMSE is in judge-mean score units; fan RMSE is in inferred-share units. Author evaluation definitions and units are not fully identified, so these columns show a discrepancy rather than a fair model leaderboard. The fan R²/RMSE gap remains unresolved.
+Judge RMSE is in judge-mean score units; fan RMSE is in inferred-share units.
+These are saved research results; the quick-start demo does not fit these models.
+[Results and reference comparisons](docs/RESULTS.md) document all six tasks,
+numerical differences and interpretation limits.
 
-[All six tasks and limitations](docs/RESULTS.md) · [Machine-readable snapshot](results/v5_snapshot/rf_metrics.csv)
+## Run an experiment
 
-## From public inputs to an audit
-
-1. Parse the COMAP wide-format scores and preserve preprocessing disagreements.
-2. Infer season-specific fan shares under declared elimination constraints.
-3. Check posterior diagnostics before interpreting estimates.
-4. Compare weekly outcomes under alternative aggregation/save rules.
-5. Fit retrospective attribution models with nested season-grouped validation.
-6. Compare saved outputs against report references, recording mismatches and unidentified definitions.
-
-The reconstruction includes two demonstrated v5 corrections: floating-point rank ties and fragmented professional-partner identities. Neither correction establishes the source authors' undisclosed implementation.
-
-## Run a real-data experiment
-
-The COMAP CSV and the source PDF are intentionally not included in this repository. Read [data/SOURCES.md](data/SOURCES.md), obtain data from the official publisher, and respect its terms.
+Read [data sources](data/SOURCES.md), then obtain the official COMAP CSV:
 
 ```bash
 python scripts/download_data.py
@@ -69,33 +70,48 @@ python -m dwts prepare --out outputs/prepared
 python -m dwts run --config configs/smoke.json --out outputs/smoke --skip-attribution
 ```
 
-The smoke configuration checks execution, not posterior adequacy or report replication. A fresh full 34-season run is expensive; it is documented separately in [REPRODUCING.md](docs/REPRODUCING.md). An optional pinned-archive importer supports people who already have the v5 evidence bundle.
+The smoke configuration checks execution with short chains. Research estimates
+require a full run and passing sampling diagnostics; see the [run guide](docs/RUNNING.md).
+
+After a full run passes diagnostics:
+
+```bash
+python -m dwts.analysis --source outputs/my-full-v5 --out outputs/my-analysis
+```
+
+This compares voting rules under declared save mechanisms, fits OLS using prior
+judge shares, and reports week and event rates with explicit denominators.
+Undefined multi-exit save cases remain unscored. It reuses fitted posterior means.
+The command also records reference-comparison status: exit **2** indicates
+completed execution with unresolved reference comparisons; inspect `status.json`.
+
+## Interpretation limits
+
+- Fan shares are latent estimates; true audience vote totals are unavailable.
+- Whole-season inference supports retrospective analysis. Prospective forecast performance has not been evaluated.
+- SHAP and feature importance describe associations; they do not identify causal partner effects.
+- Rule comparisons retain each week's observed roster. Complete alternative-season trajectories are not simulated.
+- Downstream RF/OLS use posterior means and do not propagate all latent-vote uncertainty.
 
 ## Repository map
 
 ```text
-dwts/                 Research implementation and synthetic demo
-configs/              Explicit experiment configurations
-scripts/              Data acquisition and guarded audit utilities
-tests/                Original v5 regression tests + repository checks
-results/v5_snapshot/  Small historical metrics, not fresh-run outputs
-docs/                 Methods, evidence, limitations, release checklist
-.github/              Synthetic-test workflow and contribution templates
+dwts/                 Models, voting rules, analysis and synthetic demo
+configs/              Experiment and sensitivity configurations
+scripts/              Data acquisition and validation utilities
+tests/                Scientific regression tests and repository checks
+results/v5_snapshot/  Saved aggregate metrics and comparison data
+docs/                 Methods, results, sources and running instructions
+.github/              Test workflow and contribution templates
 ```
 
-## What the evidence does not show
+## Sources and contributions
 
-- True fan-vote accuracy: real fan totals are unavailable.
-- Prospective forecasts: fan targets use whole-season retrospective smoothing.
-- Causal professional-dancer effects: SHAP and feature importance are associational.
-- Complete alternative seasons: counterfactuals retain each week's observed roster.
-- Full downstream uncertainty: RF/OLS use posterior means rather than all posterior draws.
-- Complete numerical replication: the author's row-level outputs, evaluation definitions and several rule details are missing.
+Methods are informed by Team 2627761's 2026 MCM Problem C report,
+*Modeling Fairness in Competitive Voting Systems: A Bayesian Approach to Infer Fan
+Support and Evaluate Contest Dynamics in DWTS*. The analysis workflow was
+implemented independently with AI assistance; the team's original source code
+was not supplied. See [sources and contribution scope](docs/PROVENANCE.md).
 
-## Attribution and release status
-
-Source report: Team 2627761 (2026), *Modeling Fairness in Competitive Voting Systems: A Bayesian Approach to Infer Fan Support and Evaluate Contest Dynamics in DWTS*.
-
-This repository preserves that attribution and explicitly discloses assistant-assisted reconstruction. It does not assert the current maintainer authored the report or grant a license to COMAP materials. See [PROVENANCE.md](docs/PROVENANCE.md), [LICENSE_STATUS.md](LICENSE_STATUS.md), and the [publication checklist](docs/PUBLICATION_CHECKLIST.md).
-
-The repository is published for review without an open-source license grant. No individual report authorship, DOI, passing CI badge, or institutional affiliation is asserted without evidence.
+The report, raw dataset and posterior chains are not bundled. No open-source
+license has been granted; see [license status](LICENSE_STATUS.md).

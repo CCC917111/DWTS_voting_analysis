@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dwts-report-reproduction"
+name = "dwts-voting-analysis"
 version = "0.5.1"
-description = "Auditable retrospective reconstruction of DWTS voting systems"
+description = "Bayesian fan-support inference and retrospective analysis of DWTS voting rules"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [

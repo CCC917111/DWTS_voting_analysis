@@ -63,7 +63,12 @@ def test_scientific_modules_stay_identical_to_v5():
     count = 0
     for rel, expected in inventory['original_files_sha256'].items():
         if rel.startswith('dwts/') and rel != 'dwts/__init__.py':
-            assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() == expected, rel
+            data = (ROOT/rel).read_bytes()
+            for change in inventory.get('presentation_only_text_changes', {}).get(rel, []):
+                current = change['current_text'].encode()
+                assert data.count(current) == 1, rel
+                data = data.replace(current, change['baseline_text'].encode())
+            assert hashlib.sha256(data).hexdigest() == expected, rel
             count += 1
     assert count >= 15
 

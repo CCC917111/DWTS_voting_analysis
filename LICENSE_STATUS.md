@@ -1,12 +1,11 @@
-# License status: pending owner review
+# License status
 
-This public review repository does not select or grant an open-source license.
-Before making any open-source license grant, confirm the provenance and rights for the reconstruction code,
-identify the authorized copyright holder(s), and select an appropriate license.
-The absence of a license should not be presented as permission for unrestricted use.
+No open-source software license has been granted for this repository. Public
+visibility does not by itself grant unrestricted reuse rights.
 
-The original Team 2627761 report and COMAP problem/data are separate materials.
-A future software license must not imply ownership of, or relicensing rights over,
-those materials. They are not bundled in the repository.
+The Team 2627761 report and COMAP problem/data are separate materials and are not
+bundled here. A software license must not imply ownership of or relicensing rights
+over those materials.
 
-Review the [publication checklist](docs/PUBLICATION_CHECKLIST.md) before publishing a licensed release or promising downstream reuse rights.
+See [provenance](docs/PROVENANCE.md) and [data sources](data/SOURCES.md) for
+attribution and source-material rights.
