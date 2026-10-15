@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "interpretation": "Exploratory extension on previously examined COMAP data, not prospective confirmation. Static and dynamic support share a normalized categorical percentage likelihood, current-score clock, initial prior grid, development candidate budget and bootstrap particle inference. The static comparator has no MH moves: it is not a rerun of the published resample-move forecast study. No historical individual fan-vote truth is observed.",
+  "configuration": {
+    "schema_version": 1,
+    "development_seasons": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "evaluation_seasons": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "prior_sd_grid": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "temperature_grid": [
+      1.0,
+      3.0,
+      6.0
+    ],
+    "dynamic_process_sd": 0.25,
+    "dynamic_drift": 1.0,
+    "baseline_settings": {
+      "judge_temperature": 12.0,
+      "history_temperature": 6.0,
+      "history_strength": 0.0,
+      "past_judge_temperature": 12.0
+    },
+    "development_particles": 512,
+    "particles": 2048,
+    "particle_checks": [
+      1024,
+      4096
+    ],
+    "seeds": [
+      2627761,
+      2627783,
+      2627819
+    ],
+    "judge_weight": 0.5,
+    "ess_fraction": 0.7,
+    "bootstrap_draws": 5000,
+    "bootstrap_seed": 2627857,
+    "calibration_bins": 5,
+    "mc_thresholds": {
+      "mean_absolute_probability_difference": 0.01,
+      "max_absolute_probability_difference": 0.05,
+      "absolute_log_loss_difference": 0.025,
+      "repeat_log_loss_span": 0.05
+    },
+    "synthetic": {
+      "replicates_per_condition": 24,
+      "contestants": 8,
+      "exits": 6,
+      "prior_sd": 1.0,
+      "temperature": 3.0,
+      "process_sd": 0.25,
+      "drift": 1.0,
+      "shock_size": 2.0,
+      "judge_correlations": [
+        0.0,
+        0.6
+      ],
+      "particles": 4096,
+      "higher_particles": 8192,
+      "stability_replicates_per_condition": 3,
+      "seed": 2627901
+    },
+    "outcome_policy": "label_first",
+    "update_scope": "single_ordinary_exit_n_ge_3_no_observed_withdrawal",
+    "evaluation_scope": "single_ordinary_exit_nonfinal_n_ge_3_no_observed_withdrawal"
+  },
+  "integrity": {
+    "raw_data_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+    "config_sha256": "9aa8387359fe735a16c42008746d9c920f704b950f98da771cceee2baa13a292",
+    "code_sha256": {
+      "dynamic_model.py": "b4b5a4206537ecdd9f859ec88383bc8f8746fedf45336de210d18943808de1f3",
+      "dynamic_study.py": "d03163d307f4c047b0d70dea8072c9bfa639138415a056a4ea4ff3cb611e23cb",
+      "forward_model.py": "264f326cd2d2436ddbeebd45f9040628c30d9bcbdb82a54882f577dd4689d5ff",
+      "forecasting.py": "62b2d6946c0b4f4de25defb764eea5fdcec84f590664c45634ff2c4a5d80dd84",
+      "data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa"
+    }
+  },
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0"
+  },
+  "clock": "current roster/scores -> transition -> normalized probabilities -> release exits/withdrawals -> weight update",
+  "transition": "z_t=z_previous+drift*(n_t*judge_share_t-n_previous*judge_share_previous)+Normal(0,process_sd*sqrt(elapsed_weeks))",
+  "first_appearance": "independent Normal prior only; no first-week transition noise, no future roster preallocation",
+  "transition_on_skipped_events": "current scores advance state even when current released outcome is not modeled",
+  "inference": "bootstrap particle filter, likelihood importance weights, ESS systematic resampling; no MH or extra jitter",
+  "static_comparator": "zero-noise zero-drift bootstrap filter; no MH; finite approximation differs from published resample-move study",
+  "selection": "same prior SD x likelihood temperature grid, candidate count and seed ensemble for both models; minimum development mean log loss of ensemble probabilities, input-order ties",
+  "dynamic_transition_selection": "process noise and score drift fixed in configuration before fitting, not optimized on development or evaluation",
+  "baseline_source": "development-selected settings from results/forecast_study/protocol.json at repository revision 21e6cb8",
+  "primary_metric": "paired difference of eligible-week categorical log loss; lower is better",
+  "intervals": "whole-season percentile bootstrap of fixed predictions; six evaluation clusters, no fitting or MC uncertainty",
+  "calibration": "fixed equal-width top-label confidence bins; descriptive",
+  "limitations": [
+    "Previously examined historical data: no independent confirmation.",
+    "The selected dynamic transition is one prespecified alternative, not a comprehensive dynamic-model search.",
+    "Filtering states can have ancestral degeneracy; process noise is not a general rejuvenation correction.",
+    "Identical first-week Normal scales do not force later prior predictive variances to match.",
+    "Historical labels assume current-score availability and post-week outcome release, not externally timestamped events.",
+    "No true fan votes, judge-save model, full-season causal intervention or academic priority established."
+  ],
+  "inspiration": {
+    "url": "https://github.com/aidanhaya/DWTS-Fan-Vote-Estimator/blob/24942a3a77847009bce1502b4b3652da09f800e1/dynamic_model.py",
+    "role": "dynamic-support/score-change idea; independently implemented normalized likelihood and bootstrap filter, no copied code"
+  },
+  "selected_models": {
+    "static_bootstrap": {
+      "prior_sd": 0.5,
+      "temperature": 6.0,
+      "process_sd": 0.0,
+      "drift": 0.0
+    },
+    "dynamic_bootstrap": {
+      "prior_sd": 2.0,
+      "temperature": 6.0,
+      "process_sd": 0.25,
+      "drift": 1.0
+    }
+  },
+  "evaluation_population": {
+    "weeks": 33,
+    "represented_seasons": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      27
+    ],
+    "seasons_without_eligible_weeks": [
+      26
+    ]
+  },
+  "filter_diagnostics": {
+    "dynamic_bootstrap": {
+      "minimum_ess_fraction": 0.396335209901724,
+      "median_ess_fraction": 0.5760241590437962,
+      "resampling_fraction": 1.0,
+      "minimum_initial_ancestor_fraction": 0.0703125
+    },
+    "static_bootstrap": {
+      "minimum_ess_fraction": 0.4578700706468676,
+      "median_ess_fraction": 0.5737364879529656,
+      "resampling_fraction": 0.9907407407407407,
+      "minimum_initial_ancestor_fraction": 0.113525390625
+    }
+  },
+  "synthetic": {
+    "independent_seasons": 144,
+    "filtering_intervals": "95% model-conditional weighted empirical intervals after each released exit; no smoothing; coverage and other summaries weight each week equally",
+    "uncertainty": "paired simulated-season percentile bootstrap of fixed particle estimates; no MC correction",
+    "score_correlation": "persistent judge aptitude correlated with initial support at stated level; conditional-score stress test",
+    "static_truth": "independent Normal initial support, no changes",
+    "drift_truth": "same Normal initial support, declared score-change drift and Gaussian process noise",
+    "shock_truth": "static initial support with a randomly selected active contestant receiving a positive shock at week 3",
+    "stability_scope": "first fixed replicates in every condition, independently seeded higher-particle reruns",
+    "not_measured": "historical fan-vote accuracy; uniform fixed-parameter coverage; accuracy of retrospective soft-constraint model"
+  },
+  "runtime_seconds": 66.20632716700129
+}

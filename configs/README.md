@@ -1,6 +1,9 @@
 # Experiment configurations
 
 - `study.json`: main full-study configuration, with all 34 seasons, four chains per season, full nested RF validation and verified partner identities.
+- `identification_study.json`: additional deterministic no-save percentage constraints, coordinate bounds and joint counterfactual unique-exit support; not posterior credible intervals.
+- `dynamic_study.json`: equally budgeted static/dynamic bootstrap filters with one normalized likelihood, development-only model selection, chronological evaluation and shared synthetic truth.
+- `prospective_protocol.json`: inactive local-draft configuration for separately predicting and releasing outcomes; it does not activate an independently timestamped future study.
 - `forecast_study.json`: development-only model selection followed by seasons 21–27 temporal backtesting under a separate normalized categorical exit model; includes probability baselines and finite-particle checks.
 - `recovery_study.json`: replicated known-truth seasons for the normalized model, with matched/alternative priors, support drift, recovery/coverage endpoints and larger-particle checks.
 - `policy_robustness_study.json`: six declared policy objectives and Pareto tradeoffs across separate matched likelihood, joint-prior-scale and penalty scenarios.

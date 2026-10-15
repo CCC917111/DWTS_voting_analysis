@@ -23,3 +23,4 @@ jobs:
       - run: python -m pip install --no-deps -e '.[test,audit]'
       - run: python -m pytest -q
       - run: python -m dwts.demo --out outputs/ci-demo
+      - run: python -m dwts prospective demo --state outputs/ci-prospective-demo

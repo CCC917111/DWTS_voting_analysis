@@ -2,6 +2,10 @@
 outputs/
 data/raw/
 references/
+# Private prospective snapshots, even if a state directory is outside outputs/
+private_state.json
+.writer.lock
+.snapshot-*
 *.nc
 *.zip
 # Python, tooling and credentials

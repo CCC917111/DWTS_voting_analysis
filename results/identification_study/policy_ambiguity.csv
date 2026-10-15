@@ -1,0 +1,4 @@
+counterfactual_judge_weight,weeks,ambiguous_weeks,ambiguous_fraction,singleton_weeks,no_certified_candidate_weeks,observed_exit_attainable_weeks,changed_exit_attainable_weeks,all_active_attainable_weeks,mean_attainable_exits,median_attainable_exits,borderline_candidate_count
+0.25,164,155,0.9451219512195121,9,0,164,155,59,6.5,6.0,0
+0.5,164,0,0.0,164,0,164,0,0,1.0,1.0,0
+0.75,164,87,0.5304878048780488,77,0,164,87,3,2.176829268292683,2.0,0

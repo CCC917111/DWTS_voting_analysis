@@ -1,0 +1,41 @@
+{
+  "thresholds": {
+    "mean_absolute_probability_difference": 0.01,
+    "max_absolute_probability_difference": 0.05,
+    "absolute_log_loss_difference": 0.025,
+    "repeat_log_loss_span": 0.05
+  },
+  "models": {
+    "static_bootstrap": {
+      "observed": {
+        "mean_absolute_probability_difference": 0.002226841371410312,
+        "max_absolute_probability_difference": 0.024938775815682157,
+        "absolute_log_loss_difference": 0.0010619393076567452,
+        "repeat_log_loss_span": 0.005377442141355049
+      },
+      "passed": {
+        "mean_absolute_probability_difference": true,
+        "max_absolute_probability_difference": true,
+        "absolute_log_loss_difference": true,
+        "repeat_log_loss_span": true
+      },
+      "all_checks_pass": true
+    },
+    "dynamic_bootstrap": {
+      "observed": {
+        "mean_absolute_probability_difference": 0.0028928992698173464,
+        "max_absolute_probability_difference": 0.04486534739764156,
+        "absolute_log_loss_difference": 0.0029391796560687133,
+        "repeat_log_loss_span": 0.0041774455773921915
+      },
+      "passed": {
+        "mean_absolute_probability_difference": true,
+        "max_absolute_probability_difference": true,
+        "absolute_log_loss_difference": true,
+        "repeat_log_loss_span": true
+      },
+      "all_checks_pass": true
+    }
+  },
+  "interpretation": "Independent-seed/persistent-particle sensitivity, not proof of convergence, latent accuracy or model validity."
+}

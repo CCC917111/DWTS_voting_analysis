@@ -1,0 +1,84 @@
+{
+  "assumption": "Additional deterministic percentage rule; lowest combined merit exits, with no save",
+  "config": {
+    "candidate_seasons": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "counterfactual_judge_weights": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "exclude_withdrawal_weeks": true,
+    "feasibility_tolerance": 1e-08,
+    "include_final_week_eliminations": false,
+    "judge_weight": 0.5,
+    "minimum_active": 3,
+    "ordinary_exit_count": 1,
+    "outcome_policy": "label_first",
+    "schema_version": 1,
+    "strict_margin_tolerance": 1e-08
+  },
+  "config_sha256": "c5979c9a9b8d6c376760e5979e1de832ab34cdff97a43012c98352ca8129475b",
+  "domain": "closed simplex p>=0, sum(p)=1; observed exit weakly below each survivor",
+  "filter_order": [
+    "final_week",
+    "n_active_below_minimum",
+    "withdrawal_week",
+    "ordinary_exit_count_not_one"
+  ],
+  "interpretation": "Finite-sample, assumption-conditional feasible-set descriptions; no posterior or true-vote calibration claim",
+  "judge_normalization": "weekly mean available judge scores divided by their sum across active contestants",
+  "merit": "judge_weight * normalized_judge_score + (1-judge_weight) * fan_share",
+  "not": [
+    "bounds implied by either probabilistic model",
+    "posterior credible intervals",
+    "actual vote recovery",
+    "policy probabilities",
+    "historical rule verification",
+    "rank/save/multi-exit/final analysis"
+  ],
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0"
+  },
+  "policy_support": "For each candidate separately, maximize one common strict merit/share margin on a single joint share vector",
+  "python": "3.12.14",
+  "regime_limit": "Seasons3\u201327 are a declared percentage-rule study scope; the problem statement describes the return to ranks as uncertain and assumes season28, rather than establishing the exact historical transition",
+  "rosters": "Observed weekly rosters fixed; no later-roster or entire-season counterfactual simulation",
+  "schema_version": 1,
+  "source_sha256": {
+    "config": "c5979c9a9b8d6c376760e5979e1de832ab34cdff97a43012c98352ca8129475b",
+    "data": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+    "dwts/data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa",
+    "dwts/identification.py": "97883d924f19d9dbfca303d958f0a5f03c083503bae653234f6a35d7bd92ff95"
+  },
+  "started_at": "2026-10-15T21:50:10.754152+00:00",
+  "strict_region": "A positive common margin certifies that closed bounds are infima/suprema over positive shares and a unique observed exit",
+  "ties": "Coordinate bounds use the closed weak-inequality relaxation; no boundary tie-break convention is imposed"
+}

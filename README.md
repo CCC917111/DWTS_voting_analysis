@@ -15,12 +15,16 @@ studies associations between scores, contestant features and partner history.
 
 | Guide | What it covers |
 |---|---|
+| [What the outcomes identify](docs/identification.md) | Feasible fan-share ranges and counterfactual exit ambiguity under an additional deterministic rule. |
+| [Static and dynamic support](docs/dynamic-comparison.md) | A controlled comparison with a common normalized exit likelihood and strong baselines. |
+| [Preparing prospective predictions](docs/prospective.md) | Persistent local prediction/release workflow, commitments and activation limits. |
 | [Prediction, recovery and policy validation](docs/VALIDATION_RESULTS.md) | Temporal exit backtesting, known-truth simulation and multi-objective policy robustness. |
 | [Methods and assumptions](docs/METHODS.md) | Data processing, Bayesian inference, voting rules and validation. |
 | [Study results and figures](docs/STUDY_RESULTS.md) | Baselines, feature ablations, posterior policy comparisons and sensitivity. |
 | [Earlier results and report comparisons](docs/RESULTS.md) | Preserved v5 metrics, numerical differences and interpretation limits. |
 | [Running the study](docs/RUNNING.md) | Installation, data, the demo and the full research workflow. |
 | [Research team and sources](docs/PROVENANCE.md) | Original team research, project leadership and the current code edition. |
+| [Method background and related work](docs/RELATED_WORK.md) | Established methods, related DWTS software and the scope of the contribution. |
 
 The [documentation index](docs/README.md) also links data sources and experiment configurations.
 
@@ -115,6 +119,38 @@ Three additional studies test the limits of the inference and policy results:
 protocols, uncertainty intervals and aggregate data. These historical data were
 previously examined. The chronological replay is a retrospective backtest;
 independent prospective confirmation remains untested.
+
+## What can elimination outcomes identify?
+
+An additional deterministic percentage-rule study measures what the observed
+constraints permit, without imposing a prior over fan shares. In 164 selected
+single-exit weeks, the median feasible interval spans **99.63 percentage points
+for survivors** and **13.60 for eliminated contestants**. These are coordinate
+bounds under declared extra assumptions, rather than posterior intervals or
+measured true votes.
+
+The same joint constraints often permit several counterfactual exits. Changing
+the judge weight from 50% to 25% leaves multiple attainable exits in 155 of 164
+weeks; changing it to 75% does so in 87 weeks. These are ambiguity counts, not
+probabilities of changing the result. Both studies retain the observed roster
+and exclude saves, finals, withdrawals and multiple exits.
+
+![Feasible share widths and counterfactual exit ambiguity](docs/assets/identification.svg)
+
+[Identification methods and results](docs/identification.md) explain the
+assumptions, constructive checks and aggregate tables. A separate
+[static/dynamic comparison](docs/dynamic-comparison.md) tests how latent-state
+dynamics affect forecasts. The [local prospective workflow](docs/prospective.md)
+separates prediction from outcome release and preserves state across processes;
+it is preparation for future evidence, not completed independent validation.
+
+The controlled comparison uses three development repeats per candidate for both
+models. On the same 33 historical weeks, static bootstrap log loss is 1.951 and
+dynamic bootstrap log loss is 1.960, versus 1.621 for past judges. The paired
+dynamic-minus-static difference is 0.0096 (six-season interval
+−0.0101 to 0.0255). This tested dynamic specification does not demonstrate an
+improvement. Both latent comparators use bootstrap filters without MH; the
+earlier resample–move result remains a separate experiment.
 
 ## Run an experiment
 

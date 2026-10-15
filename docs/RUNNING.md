@@ -183,6 +183,43 @@ The validation figures can be regenerated from the public aggregate bundles:
 python scripts/render_validation_results.py
 ```
 
+## Identification and support dynamics
+
+The identification study needs the separately obtained official CSV, but no
+posterior chains. The controlled support comparison uses the same input and
+also generates its own synthetic seasons:
+
+```bash
+python -m dwts identify --config configs/identification_study.json --out outputs/my-identification
+python -m dwts compare-support --config configs/dynamic_study.json --out outputs/my-dynamic-study
+```
+
+The equivalent module entry points are `python -m dwts.identification` and
+`python -m dwts.dynamic_study`. Read the [identification guide](identification.md)
+and [support comparison](dynamic-comparison.md) before interpreting results.
+Identification bounds depend on an additional deterministic rule; the dynamic
+comparison is exploratory on previously examined data. Keep individual rows,
+witnesses, predictions and simulation records under the ignored `outputs/`
+directory. Only the named aggregate tables are permitted in the source package.
+
+## Local prospective workflow
+
+```bash
+python -m dwts prospective demo --state outputs/my-prospective-demo
+```
+
+This uses invented contestants and exercises persistent state, prediction
+commitments and separate outcome releases. It does not submit an external
+timestamp or generate a forecast about a future real event. The inactive
+configuration and [prospective guide](prospective.md) explain which official
+rule evidence and independent receipt verification are still required.
+
+The figures use the public aggregate bundles only:
+
+```bash
+python scripts/render_extension_results.py
+```
+
 ## Optional comparison with the original report
 
 The study's current results are evaluated on their declared definitions. Comparing

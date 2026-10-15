@@ -1,0 +1,16 @@
+category,reason,count
+population,candidate_seasons,25
+population,candidate_weeks,248
+population,candidate_contestant_weeks,1997
+population,eligible_seasons,24
+population,eligible_weeks,164
+population,eligible_contestant_weeks,1343
+population,preparation_audit_rows_full_input,18
+overlapping_exclusion,final_week,25
+overlapping_exclusion,n_active_below_minimum,1
+overlapping_exclusion,withdrawal_week,7
+overlapping_exclusion,ordinary_exit_count_not_one,79
+exclusive_exclusion_in_filter_order,final_week,25
+exclusive_exclusion_in_filter_order,n_active_below_minimum,0
+exclusive_exclusion_in_filter_order,withdrawal_week,7
+exclusive_exclusion_in_filter_order,ordinary_exit_count_not_one,52
