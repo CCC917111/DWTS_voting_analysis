@@ -6,9 +6,10 @@ Team 2627761 developed the DWTS study for the 2026 MCM Problem C:
 *Modeling Fairness in Competitive Voting Systems: A Bayesian Approach to Infer Fan
 Support and Evaluate Contest Dynamics in DWTS*.
 
-Yike chen participated in the original team research. The report and its findings
-are credited to the full team. This repository presents the study's current
-software implementation and subsequent extensions.
+Yike chen participated in the original team research and leads the current DWTS
+Voting Analysis project. The report and its findings are credited to the full
+team. This repository presents the study's current software implementation and
+subsequent extensions.
 
 ## Current software edition
 
@@ -21,6 +22,12 @@ later additions are recorded separately.
 This edition includes Bayesian inference, voting-rule analysis, retrospective
 models, exact rank-tie handling, partner-identity normalization, diagnostic
 checks, tests and a synthetic demonstration.
+
+The extended studies add equally constrained simple baselines, feature ablations,
+paired season-bootstrap comparisons, joint posterior policy uncertainty and an
+analytic rank-only prior-scale sensitivity. Their protocols and aggregate
+results are linked from [STUDY_RESULTS.md](STUDY_RESULTS.md). These are subsequent
+extensions of the project; they are not presented as competition-time outputs.
 
 Saved results under `results/v5_snapshot/` belong to this software edition. They
 are distinct from the original report's values; [RESULTS.md](RESULTS.md) explains

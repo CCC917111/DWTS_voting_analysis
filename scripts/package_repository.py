@@ -11,6 +11,16 @@ TOP_FILES = {'README.md', 'README.zh-CN.md', 'LICENSE_STATUS.md', 'CONTRIBUTING.
              'pyproject.toml', 'requirements-v4-verified.txt', '.gitignore'}
 EXCLUDED_PARTS = {'__pycache__', '.pytest_cache', '.git', '.venv', 'build', 'dist'}
 ALLOWED_SUFFIXES = {'.py', '.md', '.toml', '.txt', '.json', '.csv', '.svg', '.yml', '.yaml'}
+PUBLIC_RESULT_FILES = {
+    'v5_snapshot': {'rf_metrics.csv', 'numerical_verification.csv', 'snapshot_manifest.json'},
+    'study_benchmarks': {'metrics.csv', 'fold_metrics.csv', 'paired_differences.csv',
+                         'weight_selection.csv', 'folds.csv', 'protocol.json', 'status.json'},
+    'study_uncertainty': {'policy_summary.csv', 'policy_contrasts.csv', 'sensitivity_summary.csv',
+                          'protocol.json', 'source_integrity.json', 'status.json'},
+    'study_prior_sensitivity': {'policy_summary.csv', 'policy_contrasts.csv',
+                                'prior_scale_sensitivity.csv', 'protocol.json',
+                                'source_integrity.json', 'status.json'},
+}
 
 def selected_files(root=ROOT):
     for p in sorted(Path(root).rglob('*')):
@@ -22,8 +32,10 @@ def selected_files(root=ROOT):
         if rel.as_posix() in TOP_FILES or rel.as_posix() == 'data/SOURCES.md':
             yield p
         elif rel.parts[0] in DIRECTORIES and p.suffix in ALLOWED_SUFFIXES:
-            if rel.parts[0] == 'results' and rel.parts[:2] != ('results', 'v5_snapshot'):
-                continue
+            if rel.parts[0] == 'results':
+                if (len(rel.parts) != 3 or
+                        rel.name not in PUBLIC_RESULT_FILES.get(rel.parts[1], set())):
+                    continue
             yield p
 
 def package(out, root=ROOT):

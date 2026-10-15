@@ -16,6 +16,7 @@ import pandas as pd
 
 from .data import data_summary, prepare
 from .model import FitConfig, fit_season
+from .checkpoints import CHECKPOINT_NAME, SCHEMA_VERSION, load_checkpoint, seal_checkpoint
 
 
 def dump_json(path, obj):
@@ -23,7 +24,10 @@ def dump_json(path, obj):
         if isinstance(x, np.generic):
             return x.item()
         raise TypeError(type(x).__name__)
-    Path(path).write_text(json.dumps(obj, indent=2, default=convert), encoding="utf-8")
+    path = Path(path)
+    temporary = path.with_name(f".{path.name}.tmp")
+    temporary.write_text(json.dumps(obj, indent=2, default=convert), encoding="utf-8")
+    temporary.replace(path)
 
 
 def _fit_job(frame, cfg, outdir):
@@ -54,9 +58,25 @@ def code_digest():
     return h.hexdigest()
 
 
+def environment_identity():
+    """Numerical and serialization dependencies must remain fixed when resuming."""
+    packages = ["numpy", "pandas", "scipy", "pymc", "pytensor", "arviz", "xarray",
+                "h5netcdf", "h5py", "scikit-learn", "shap", "statsmodels", "numba", "matplotlib"]
+    return {"python": platform.python_version(), "python_implementation": platform.python_implementation(),
+            "packages": {name: importlib.metadata.version(name) for name in packages}}
+
+
+def _checkpointed_fit_job(frame, cfg, outdir):
+    # Seal in the worker: a parent interrupted before record() can reuse the fit.
+    _fit_job(frame, cfg, outdir)
+    return seal_checkpoint(outdir, frame, asdict(cfg))
+
+
 def run(args):
     config = json.loads(Path(args.config).read_text())
     compare_reference = bool(getattr(args, "compare_reference", False))
+    skip_attribution = bool(getattr(args, "skip_attribution", False))
+    run_options = {"compare_reference": compare_reference, "skip_attribution": skip_attribution}
     allowed = {"fit", "seasons", "simulation_scope", "rf_trees", "rf_folds", "history_weight", "data", "season_workers", "history_grid", "rf_inner_folds", "rf_min_samples_leaf", "rf_judge_target", "rf_fan_scale", "partner_identity_mode"}
     if set(config) - allowed:
         raise ValueError(f"Unknown config keys: {set(config) - allowed}")
@@ -67,45 +87,74 @@ def run(args):
     out = Path(args.out)
     if out.exists() and any(out.iterdir()) and not args.resume:
         raise ValueError("Output directory is not empty; choose a new --out to preserve prior runs")
-    out.mkdir(parents=True, exist_ok=True)
     panel, audit = prepare(args.data, **config.get("data", {}))
     seasons = args.seasons or config.get("seasons") or sorted(panel.season.unique())
-    if not seasons or set(seasons) - set(panel.season.unique()):
-        raise ValueError("Requested seasons unavailable")
+    if (not seasons or any(isinstance(s, bool) or not isinstance(s, (int, np.integer)) for s in seasons)
+            or len(set(seasons)) != len(seasons) or set(seasons) - set(panel.season.unique())):
+        raise ValueError("Requested seasons must be unique available integers")
+    seasons = sorted(map(int, seasons))
     selected = panel[panel.season.isin(seasons)].copy()
-    run_config = {**config, "fit": asdict(cfg), "seasons": list(map(int, seasons))}
+    run_config = {**config, "fit": asdict(cfg), "seasons": seasons}
     input_hash = hashlib.sha256(Path(args.data).read_bytes()).hexdigest()
     source_hash = code_digest()
+    environment = environment_identity()
+    workers = int(config.get("season_workers", 1))
+    if workers < 1 or (workers > 1 and cfg.cores > 1):
+        raise ValueError("Use positive season_workers and cores=1 when parallelizing seasons")
+    results, statuses, pending = [], [], []
+    old_manifest = None
     if args.resume:
-        old_manifest = json.loads((out / "manifest.json").read_text())
-        old_config = json.loads((out / "run_config.json").read_text())
-        if (old_config != run_config or old_manifest["input_sha256"] != input_hash
-                or old_manifest.get("code_sha256") != source_hash
-                or bool(old_manifest.get("reference_comparison_requested", False)) != compare_reference):
-            raise ValueError("Resume refused: config, input data, code, or reference-comparison mode changed; use a new output directory")
+        try:
+            old_manifest = json.loads((out / "manifest.json").read_text())
+            old_config = json.loads((out / "run_config.json").read_text())
+            if not isinstance(old_manifest, dict) or not isinstance(old_config, dict):
+                raise ValueError("run manifest and configuration must be JSON objects")
+            if old_manifest.get("resume_schema_version") != SCHEMA_VERSION:
+                raise ValueError("legacy or unsupported run without verified checkpoints; use a new output directory")
+            if (old_config != run_config or old_manifest.get("input_sha256") != input_hash
+                    or old_manifest.get("code_sha256") != source_hash
+                    or old_manifest.get("run_options") != run_options):
+                raise ValueError("config, input data, code, or execution options changed; use a new output directory")
+            if any(old_manifest.get(key) != value for key, value in environment.items()):
+                raise ValueError("Python or package versions changed; restore the recorded environment or use a new output directory")
+            # Validate every cached season before writing any top-level outputs.
+            for season, frame in selected.groupby("season"):
+                dest = out / f"season_{season:02d}"
+                if (dest / CHECKPOINT_NAME).exists():
+                    result, status = load_checkpoint(dest, frame, asdict(cfg))
+                    results.append(result)
+                    statuses.append(status)
+                elif (dest / "fit_status.json").exists():
+                    raise ValueError(f"season {season} has an unsealed checkpoint; use a new output directory")
+                else:
+                    pending.append((season, frame, dest))
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            raise ValueError(f"Resume refused: {error}") from error
+    else:
+        pending = [(season, frame, out / f"season_{season:02d}")
+                   for season, frame in selected.groupby("season")]
+    out.mkdir(parents=True, exist_ok=True)
     dump_json(out / "data_summary_all_seasons.json", data_summary(panel))
     audit.to_csv(out / "preprocessing_audit.csv", index=False)
     panel.to_csv(out / "panel_all_seasons.csv", index=False)
     dump_json(out / "run_config.json", run_config)
-    manifest = {"started_utc": datetime.now(timezone.utc).isoformat(), "python": platform.python_version(),
-                "input_sha256": input_hash, "code_sha256": source_hash,
-                "study": {"team": "2627761", "problem": "2026 MCM Problem C", "topic": "DWTS voting systems"},
-                "reference_comparison_requested": compare_reference, "status": "running",
-                "packages": {p: importlib.metadata.version(p) for p in
-                             ["numpy", "pandas", "scipy", "pymc", "pytensor", "arviz", "scikit-learn", "shap", "statsmodels", "numba"]}}
+    if old_manifest is None:
+        manifest = {"started_utc": datetime.now(timezone.utc).isoformat(), **environment,
+                    "input_sha256": input_hash, "code_sha256": source_hash,
+                    "study": {"team": "2627761", "problem": "2026 MCM Problem C", "topic": "DWTS voting systems"},
+                    "reference_comparison_requested": compare_reference,
+                    "run_options": run_options, "resume_schema_version": SCHEMA_VERSION}
+    else:
+        manifest = dict(old_manifest)
+        manifest.pop("completed_utc", None)
+        manifest.pop("all_sampling_diagnostics_pass", None)
+        manifest.pop("attribution_ran", None)
+        manifest.update(resumed_utc=datetime.now(timezone.utc).isoformat(),
+                        resume_count=manifest.get("resume_count", 0) + 1)
+    manifest["status"] = "running"
     dump_json(out / "manifest.json", manifest)
-    results, statuses = [], []
-    pending = []
-    for season, g in selected.groupby("season"):
-        dest = out / f"season_{season:02d}"
-        if args.resume and (dest / "fit_status.json").exists():
-            results.append(pd.read_csv(dest / "votes.csv"))
-            statuses.append(json.loads((dest / "fit_status.json").read_text()))
-        else:
-            pending.append((season, g, dest))
-    workers = int(config.get("season_workers", 1))
-    if workers < 1 or (workers > 1 and cfg.cores > 1):
-        raise ValueError("Use positive season_workers and cores=1 when parallelizing seasons")
+    statuses.sort(key=lambda status: status["season"])
+    dump_json(out / "sampling_status.json", statuses)
     def record(result, status):
         results.append(result)
         statuses.append(status)
@@ -115,15 +164,18 @@ def run(args):
     if workers == 1:
         for season, g, dest in pending:
             print(f"Fitting season {season}: {len(g)} contestant-weeks", flush=True)
-            record(*_fit_job(g, cfg, dest))
+            record(*_checkpointed_fit_job(g, cfg, dest))
     else:
         with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("spawn")) as pool:
-            jobs = {pool.submit(_fit_job, g, cfg, dest): season for season, g, dest in pending}
+            jobs = {pool.submit(_checkpointed_fit_job, g, cfg, dest): season for season, g, dest in pending}
             for future in as_completed(jobs):
                 record(*future.result())
     votes = pd.concat(results, ignore_index=True).sort_values(["season", "week", "contestant_id"]).reset_index(drop=True)
     votes.to_csv(out / "votes.csv", index=False)
-    analyze(votes, out, config, cfg.seed, args.skip_attribution)
+    # Always rebuild the complete list, including when no new fits were needed.
+    statuses.sort(key=lambda status: status["season"])
+    dump_json(out / "sampling_status.json", statuses)
+    analyze(votes, out, config, cfg.seed, skip_attribution)
     from .plots import make_study_figures
     make_study_figures(out, statuses)
     if compare_reference:
@@ -131,7 +183,7 @@ def run(args):
         write_comparison(votes, out, statuses)
     manifest.update(status="completed", completed_utc=datetime.now(timezone.utc).isoformat(),
                     all_sampling_diagnostics_pass=all(s["sampling_diagnostics_pass"] for s in statuses),
-                    attribution_ran=not args.skip_attribution and len(seasons) >= 2)
+                    attribution_ran=not skip_attribution and len(seasons) >= 2)
     dump_json(out / "manifest.json", manifest)
     print(f"Completed: {out}. Check sampling_status.json before interpreting estimates.", flush=True)
 
@@ -183,7 +235,7 @@ def main():
     p.add_argument("--out", default="outputs/smoke")
     p.add_argument("--seasons", type=int, nargs="+")
     p.add_argument("--skip-attribution", action="store_true")
-    p.add_argument("--resume", action="store_true", help="Reuse completed seasons only if code, input and config match")
+    p.add_argument("--resume", action="store_true", help="Reuse verified checkpoints only when code, input, config, options and environment match")
     p.add_argument("--compare-reference", action="store_true", help="Also export comparisons with the original report's values")
     p = sub.add_parser("verify", help="Recompute analyses from saved votes; exit 2 if report numbers do not match")
     p.add_argument("--source", default="outputs/report_final")

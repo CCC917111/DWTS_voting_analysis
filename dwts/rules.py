@@ -24,6 +24,41 @@ def merit(judges, votes, rule="rank", judge_weight=0.5):
     raise ValueError(f"Unknown rule: {rule}")
 
 
+def weighted_rank_key(judge_ranks, fan_ranks, judge_weight=0.5):
+    """Return exact higher-is-better ordering keys from average ranks.
+
+    Inputs contain ordinary ranks (1 is best), including half-integer ties,
+    with contestants on the last axis. They may broadcast, for example a
+    judge-rank vector against a matrix of posterior fan-rank draws. A finite
+    float weight is interpreted by its shortest decimal representation;
+    explicit ``Fraction`` weights retain their exact value. The returned key
+    omits the common positive denominator and does not change numerical merits
+    or likelihood penalties.
+
+    Ordinary decimal-grid weights use vectorized int64 arithmetic. Very large
+    denominators fall back to Python integers rather than overflowing or
+    merging nearby, distinct weights.
+    """
+    weight = (judge_weight if isinstance(judge_weight, Fraction)
+              else Fraction(str(float(judge_weight))))
+    if not 0 <= weight <= 1:
+        raise ValueError("Judge weight must be between zero and one")
+    judge, fan = np.broadcast_arrays(np.asarray(judge_ranks, dtype=float),
+                                    np.asarray(fan_ranks, dtype=float))
+    if judge.ndim < 1 or not judge.size or judge.shape[-1] < 2:
+        raise ValueError("Need ranks for at least two contestants")
+    for values in (judge, fan):
+        if (not np.isfinite(values).all() or (values < 1).any() or
+                (values > judge.shape[-1]).any() or (2 * values != np.floor(2 * values)).any()):
+            raise ValueError("Expected finite average ranks on the last axis")
+    twice_judge, twice_fan = (2 * judge).astype(np.int64), (2 * fan).astype(np.int64)
+    numerator, denominator = weight.numerator, weight.denominator
+    largest_rank = max(int(twice_judge.max()), int(twice_fan.max()))
+    if denominator * largest_rank > np.iinfo(np.int64).max:
+        twice_judge, twice_fan = twice_judge.astype(object), twice_fan.astype(object)
+    return -(numerator * twice_judge + (denominator - numerator) * twice_fan)
+
+
 def order_worst(judges, votes, ids, rule="rank", judge_weight=0.5):
     """Ties: fewer fan votes loses, then lower judge score, then lexical ID.
 
@@ -36,14 +71,7 @@ def order_worst(judges, votes, ids, rule="rank", judge_weight=0.5):
     """
     m = merit(judges, votes, rule, judge_weight)  # Preserve common validation.
     if rule == "rank":
-        weight = (judge_weight if isinstance(judge_weight, Fraction)
-                  else Fraction(str(float(judge_weight))))
-        numerator, denominator = weight.numerator, weight.denominator
-        twice_judge = [int(value) for value in 2 * ranks(judges)]
-        twice_fan = [int(value) for value in 2 * ranks(votes)]
-        # Python integers avoid overflow even for unusually precise weights.
-        m = np.asarray([-(numerator * j + (denominator - numerator) * f)
-                        for j, f in zip(twice_judge, twice_fan)], dtype=object)
+        m = weighted_rank_key(ranks(judges), ranks(votes), judge_weight)
     return np.lexsort((np.asarray(ids, str), np.asarray(judges), np.asarray(votes), m))
 
 

@@ -45,6 +45,51 @@ Controversial-week fractions, events per week and events per contestant row have
 separate denominators. Both influence-gap aggregation orders are retained, with
 sample populations and assumptions recorded in each output directory.
 
+## Extended benchmark and uncertainty studies
+
+`dwts.benchmarks` evaluates simple share baselines and RF feature ablations on the
+same five outer season folds. Both RF and history baselines are compared before
+and after dividing predictions by their weekly sum. This uses the complete
+observed roster and predicted values, without consulting validation targets.
+Raw and normalized RF pipelines select their history weights independently in
+the inner folds. Both predict the same posterior mean fan share;
+`rf_fan_scale="relative"` changes historical features, not the target. The
+normalization hypothesis was motivated by examination of this dataset, so this
+is exploratory internal validation. A paired bootstrap resamples whole seasons
+from fixed out-of-fold predictions, without refitting or propagating latent-vote
+uncertainty.
+
+`dwts.uncertainty` propagates stored joint seasonal posterior draws through
+18 policies: two rule families, three judge weights and three save mechanisms.
+The scope retains nonfinal observed rosters with at least three contestants and
+excludes withdrawal weeks. Every policy removes one contestant per week,
+including observed no-exit or multi-exit weeks. Controversy means eliminating a
+judge-top-two/fan-bottom-half contestant (Type A) or a judge-bottom-two/fan-top-half
+contestant (Type B). Its denominator is the number of eligible weeks. Policies
+are paired within the same draw, weeks retain their joint seasonal draw, and
+independently fitted seasons use independent seeded draw permutations.
+
+Fan ranks and fan save/tie-break order use latent logits, preserving genuine
+ordering even when numeric softmax underflows. Percentage aggregate merits use
+numeric shares. Credible intervals are conditional on the fitted model and
+observed elimination labels; they do not establish true-vote accuracy or a
+universal policy ranking. Matched alternative likelihood/penalty fits retain
+identical observed rosters. Their means and separate credible intervals describe
+sensitivity; they have no naturally paired cross-model posterior difference.
+See [the extended results](STUDY_RESULTS.md) for the fixed protocols and outputs.
+
+`dwts.prior_sensitivity` tests a specific joint prior-scale family on seasons
+1–2 and 28–34. Scaling alpha, beta and sigma by a positive constant c sends the
+latent logits to c times their baseline values and leaves every rank-likelihood
+term unchanged. The prior-density change cancels the transformation Jacobian,
+so this is an exact posterior pushforward for priors with alpha SD 2c, beta SD c
+and sigma Half-Cauchy scale c, while epsilon remains standard Normal. The study
+uses c in {0.5, 1, 2}. It requires no new MCMC and preserves rank-policy outcomes
+draw by draw, but percentage-policy outcomes may change as share magnitudes
+change. This identity does not hold for percentage-likelihood seasons or
+arbitrary prior changes. Numerical summaries retain the baseline Monte Carlo
+approximation; transformed-function ESS was not recomputed.
+
 ## Exact differential reuse
 
 `scripts/run_identity_cv.py` compares target values, design matrices, feature names, settings, environment and archived model/feature code before reusing results. Changed inputs or selected weights force refits. A zero-fit plan is the default; execution is explicit. Tests exercise tiny-value changes, incorrect saved metrics, altered targets and output protection.

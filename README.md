@@ -7,16 +7,19 @@ study for the 2026 MCM Problem C. Yike chen participated in the original team
 research. The workflow infers latent fan support, compares voting rules, and
 studies associations between scores, contestant features and partner history.
 
-[中文说明](README.zh-CN.md) · [Documentation](#documentation) · [Methods](docs/METHODS.md) · [Results](docs/RESULTS.md) · [Run guide](docs/RUNNING.md)
+**Project lead: Yike chen.** The original study is credited to Team 2627761.
+
+[中文说明](README.zh-CN.md) · [Documentation](#documentation) · [Methods](docs/METHODS.md) · [Study results](docs/STUDY_RESULTS.md) · [Run guide](docs/RUNNING.md)
 
 ## Documentation
 
 | Guide | What it covers |
 |---|---|
 | [Methods and assumptions](docs/METHODS.md) | Data processing, Bayesian inference, voting rules and validation. |
-| [Results and interpretation](docs/RESULTS.md) | Recorded experiment results, units and interpretation limits. |
+| [Study results and figures](docs/STUDY_RESULTS.md) | Baselines, feature ablations, posterior policy comparisons and sensitivity. |
+| [Earlier results and report comparisons](docs/RESULTS.md) | Preserved v5 metrics, numerical differences and interpretation limits. |
 | [Running the study](docs/RUNNING.md) | Installation, data, the demo and the full research workflow. |
-| [Research team and sources](docs/PROVENANCE.md) | Original team research, Yike's participation and the current code edition. |
+| [Research team and sources](docs/PROVENANCE.md) | Original team research, project leadership and the current code edition. |
 
 The [documentation index](docs/README.md) also links data sources and experiment configurations.
 
@@ -56,21 +59,35 @@ Default tests are self-contained. Tests requiring official data or archived
 experiments are explicitly deselected. GitHub Actions runs the self-contained
 tests and synthetic demo.
 
-## Recorded results
+## Research findings
 
-The current implementation's saved v5 experiment covers 34 seasons and 2,777 contestant-weeks. Its
-retrospective models use five outer season-grouped folds and inner selection of
-history weights.
+The extended study covers 34 seasons and 2,777 contestant-weeks. Fourteen
+fan-share models share five outer season folds; RF history weights are selected
+in three inner season folds. Every model predicts the same inferred fan-share
+target. Weekly normalization constrains predicted shares to sum to one.
 
-| Regression target | Out-of-fold R² | Out-of-fold RMSE |
+| Fan-share model | Out-of-fold R² | Out-of-fold RMSE |
 |---|---:|---:|
-| Judge mean score | 0.434488 | 1.100571 |
-| Inferred fan share | 0.555199 | 0.063604 |
+| Unconstrained tuned RF | 0.555265 | 0.063599 |
+| Weekly-normalized tuned RF | 0.723234 | 0.050172 |
+| Weekly-normalized own-history mean | 0.757838 | 0.046930 |
 
-Judge RMSE is in judge-mean score units; fan RMSE is in inferred-share units.
-These are saved research results; the quick-start demo does not fit these models.
-[Results](docs/RESULTS.md) document all six tasks and interpretation limits.
-The current software results and the original report's values are labeled separately.
+The simple normalized history baseline has the best point score among the
+declared models. Both RF pipelines select history weight zero in every outer
+fold, so these results do not establish an incremental cross-season partner
+effect. This is exploratory internal validation of whole-season latent targets;
+the normalization hypothesis arose from this dataset. It does not measure future
+true-vote prediction. RMSE is in share units.
+
+![Fan-share baselines and feature ablations](docs/assets/study-benchmarks.svg)
+
+The policy study propagates 2,048 joint posterior draws through 18 policies on
+291 eligible weekly rosters. Judge saves do not universally reduce the declared
+controversial-week fraction. A separate nine-season analytic prior-scale study
+shows invariant rank-policy results but sensitivity in percentage-policy
+outcomes. [Study results](docs/STUDY_RESULTS.md) provide three figures, paired
+comparisons, assumptions and aggregate data. [Earlier results](docs/RESULTS.md)
+preserve the six-task v5 snapshot and original-report comparisons.
 
 ## Run an experiment
 
@@ -109,7 +126,7 @@ see the [run guide](docs/RUNNING.md).
 - Whole-season inference supports retrospective analysis. Prospective forecast performance has not been evaluated.
 - SHAP and feature importance describe associations; they do not identify causal partner effects.
 - Rule comparisons retain each week's observed roster. Complete alternative-season trajectories are not simulated.
-- Downstream RF/OLS use posterior means and do not propagate all latent-vote uncertainty.
+- RF/OLS use posterior means. The separate policy study propagates joint posterior draws; its intervals remain conditional on model assumptions.
 
 ## Repository map
 
@@ -118,7 +135,7 @@ dwts/                 Models, voting rules, analysis and synthetic demo
 configs/              Experiment and sensitivity configurations
 scripts/              Data acquisition and validation utilities
 tests/                Scientific regression tests and repository checks
-results/v5_snapshot/  Saved aggregate metrics and comparison data
+results/              Aggregate benchmarks, policy studies and preserved v5 metrics
 docs/                 Methods, results, sources and running instructions
 .github/              Test workflow and contribution templates
 ```

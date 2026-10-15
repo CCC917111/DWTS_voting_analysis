@@ -1,8 +1,13 @@
 # Results and interpretation
 
-These are saved aggregate results from the current software implementation (v5),
-distinct from the original team report. The quick-start demo does not fit these
-research models. Team and software-edition details are in [PROVENANCE.md](PROVENANCE.md).
+For the new baseline/ablation, posterior-policy and prior-sensitivity studies,
+start with [the extended study results](STUDY_RESULTS.md).
+
+This page preserves the earlier v5 aggregate snapshot and its numerical
+comparison with the original team report. It is a separate experiment from the
+extended study; its fitted source and metrics remain unchanged. The quick-start
+demo does not fit these research models. Team and software-edition details are
+in [PROVENANCE.md](PROVENANCE.md).
 
 ## Six retrospective tasks
 

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "seed": 2627761,
+  "draws_per_chain": 512,
+  "scope": "nonfinal_observed_rosters_n_ge_3_excluding_withdrawal_weeks",
+  "counterfactual_exits_per_week": 1,
+  "seasons": [1, 2, 28, 29, 30, 31, 32, 33, 34],
+  "joint_prior_scales": [0.5, 1.0, 2.0],
+  "rules": ["rank", "percentage"],
+  "judge_weights": [0.25, 0.5, 0.75],
+  "mechanisms": ["none", "judge_save", "fan_save"],
+  "interval_probability": 0.95
+}

@@ -108,9 +108,21 @@ def test_release_allowlist_excludes_private_and_generated_materials(tmp_path):
     from scripts.package_repository import selected_files
     paths = ['README.md','data/SOURCES.md','data/raw/data.csv','references/report.pdf',
              'outputs/model.csv','.env','dwts/demo.py','dwts/__pycache__/demo.pyc',
-             'results/v5_snapshot/rf_metrics.csv','results/private.csv','docs/note.md']
+             'results/v5_snapshot/rf_metrics.csv','results/private.csv','docs/note.md',
+             'results/study_benchmarks/metrics.csv',
+             'results/study_benchmarks/oof_predictions.csv',
+             'results/study_benchmarks/inner_trials.csv',
+             'results/study_uncertainty/policy_summary.csv',
+             'results/study_uncertainty/posterior.csv',
+             'results/study_uncertainty/season_01/posterior.nc',
+             'results/study_prior_sensitivity/prior_scale_sensitivity.csv',
+             'results/study_prior_sensitivity/transformed_draws.csv',
+             'results/v5_snapshot/unapproved.csv']
     for rel in paths:
         p = tmp_path/rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text('fixture')
     got = {p.relative_to(tmp_path).as_posix() for p in selected_files(tmp_path)}
     assert got == {'README.md','data/SOURCES.md','dwts/demo.py',
-                   'results/v5_snapshot/rf_metrics.csv','docs/note.md'}
+                   'results/v5_snapshot/rf_metrics.csv','docs/note.md',
+                   'results/study_benchmarks/metrics.csv',
+                   'results/study_uncertainty/policy_summary.csv',
+                   'results/study_prior_sensitivity/prior_scale_sensitivity.csv'}

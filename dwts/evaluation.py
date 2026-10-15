@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import kendalltau, spearmanr, rankdata
 
-from .rules import controversy, eliminate, merit, violation
+from .rules import controversy, eliminate, merit, violation, weighted_rank_key
 
 
 def safe_corr(x, y, kind="spearman"):
@@ -129,11 +129,15 @@ def posterior_eliminations(frame, samples, cfg, rank_scores=None):
         ps = samples[:, g.index.to_numpy()]
         order_scores = ps if rank_scores is None else rank_scores[:, g.index.to_numpy()]
         if g.rule.iloc[0] == "rank":
-            m = -(cfg.judge_weight * rankdata(-j, method="average") +
-                  (1 - cfg.judge_weight) * rankdata(-order_scores, axis=1, method="average"))
+            judge_ranks = rankdata(-j, method="average")
+            fan_ranks = rankdata(-order_scores, axis=1, method="average")
+            m = -(cfg.judge_weight * judge_ranks + (1 - cfg.judge_weight) * fan_ranks)
+            ordering_key = weighted_rank_key(judge_ranks, fan_ranks, cfg.judge_weight)
         else:
             m = cfg.judge_weight * j / j.sum() + (1 - cfg.judge_weight) * ps
-        order = np.lexsort((np.broadcast_to(ids, ps.shape), np.broadcast_to(j, ps.shape), order_scores, m), axis=1)
+            ordering_key = m
+        order = np.lexsort((np.broadcast_to(np.asarray(ids, str), ps.shape), np.broadcast_to(j, ps.shape),
+                           order_scores, ordering_key), axis=1)
         selected = order[:, :len(actual)]
         predicted = np.zeros(ps.shape, dtype=bool)
         np.put_along_axis(predicted, selected, True, axis=1)

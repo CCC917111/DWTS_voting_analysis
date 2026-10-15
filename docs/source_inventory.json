@@ -61,13 +61,23 @@
   "modified_files": {
     "dwts/cli.py": {
       "baseline_sha256": "a9c0795721af968239314069d0625d384f355dd21ab3558c0d40482f3e29d720",
-      "current_sha256": "eabb6d316863c629a5924b4c79ce8f4ae248b8bc26056fef2610f1c975ecf03d",
-      "reason": "Make the study workflow independent of optional original-report comparisons and record study metadata. Inference and model settings are unchanged."
+      "current_sha256": "612c98f5faf77c0e437794d00e546bfe162f6af5fa97b452ad918728b1c6aa27",
+      "reason": "Keep study outputs independent of optional original-report comparisons. Seal and validate season checkpoints, require matching runtime/options, and rebuild complete diagnostics on resume; inference settings are unchanged."
     },
     "dwts/plots.py": {
       "baseline_sha256": "bc0540dce177b55fcb50eb3d4602b5c281cf53cbeeed97c6fa604e51237881cd",
       "current_sha256": "602d4d1e97005864590aa17bfd78942861372440dff8aec8911226b6cc818939",
       "reason": "Use study-oriented figure names and retain the historical plotting entry point as a compatibility wrapper. Plot data and calculations are unchanged."
+    },
+    "dwts/rules.py": {
+      "baseline_sha256": "7840542d71167b58311df9a11a5a7e701cd4f2cdaee0d9d37d1834e1a35803b9",
+      "current_sha256": "6971fbb42137db9e1dc8b5f8fd57f5831549ffdaf55a4c0b91b780a0f494d4d7",
+      "reason": "Share exact rational weighted-rank ordering with posterior diagnostics, including nondefault weights, without floating-point tie errors."
+    },
+    "dwts/evaluation.py": {
+      "baseline_sha256": "289f6520430c3c54616f9279f961ee7227657b914b0daad906d7c226e71dccf5",
+      "current_sha256": "d9fda28b17919e4481d526811b4919e616d91d03246ed4ee43ef75d8b22246ef",
+      "reason": "Use the shared exact weighted-rank key for posterior exit diagnostics. The default 0.5 results were verified unchanged across all 34 saved seasons."
     }
   }
 }
