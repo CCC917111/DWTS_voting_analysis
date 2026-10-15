@@ -7,7 +7,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 DIRECTORIES = {'dwts', 'configs', 'scripts', 'tests', 'docs', 'examples', '.github', 'results'}
-TOP_FILES = {'README.md', 'README.zh-CN.md', 'LICENSE_STATUS.md', 'CONTRIBUTING.md',
+TOP_FILES = {'README.md', 'LICENSE_STATUS.md', 'CONTRIBUTING.md',
              'pyproject.toml', 'requirements-v4-verified.txt', '.gitignore'}
 EXCLUDED_PARTS = {'__pycache__', '.pytest_cache', '.git', '.venv', 'build', 'dist'}
 ALLOWED_SUFFIXES = {'.py', '.md', '.toml', '.txt', '.json', '.csv', '.svg', '.yml', '.yaml'}

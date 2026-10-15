@@ -3,13 +3,13 @@
 **How do voting rules shape competition outcomes when audience votes are hidden?**
 
 The software implementation and subsequent extensions of Team 2627761's DWTS
-study for the 2026 MCM Problem C. Yike chen participated in the original team
+study for the 2026 MCM Problem C. Yike Chen participated in the original team
 research. The workflow infers latent fan support, compares voting rules, and
 studies associations between scores, contestant features and partner history.
 
-**Project lead: Yike chen.** The original study is credited to Team 2627761.
+**Project lead: Yike Chen.** The original study is credited to Team 2627761.
 
-[中文说明](README.zh-CN.md) · [Documentation](#documentation) · [Methods](docs/METHODS.md) · [Study results](docs/STUDY_RESULTS.md) · [Run guide](docs/RUNNING.md)
+[Documentation](#documentation) · [Methods](docs/METHODS.md) · [Study results](docs/STUDY_RESULTS.md) · [Run guide](docs/RUNNING.md)
 
 ## Documentation
 
@@ -144,7 +144,7 @@ docs/                 Methods, results, sources and running instructions
 
 Original study: Team 2627761 (2026), *Modeling Fairness in Competitive Voting
 Systems: A Bayesian Approach to Infer Fan Support and Evaluate Contest Dynamics
-in DWTS*. Yike chen was a member of the original research team; the study is
+in DWTS*. Yike Chen was a member of the original research team; the study is
 credited to the full team. [Software provenance](docs/PROVENANCE.md) distinguishes
 the current code edition and later extensions from the competition-time work.
 
