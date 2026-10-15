@@ -167,7 +167,7 @@ def analyze(votes, out, config, seed=2627761, skip_attribution=False):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Reconstruct report 2627761 (not original source)")
+    parser = argparse.ArgumentParser(description="Analyze DWTS fan support and voting rules")
     sub = parser.add_subparsers(dest="command", required=True)
     p = sub.add_parser("prepare", help="Inspect all official data without MCMC")
     p.add_argument("--data", default="data/raw/2026_MCM_Problem_C_Data.csv")

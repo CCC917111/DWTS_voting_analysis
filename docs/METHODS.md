@@ -1,12 +1,12 @@
 # Methods and declared assumptions
 
-This describes the reconstructed implementation, not recovered author code. The original report's claims remain attributed to Team 2627761.
+This describes the analysis implemented in this repository. Method sources and contribution scope are recorded in [PROVENANCE.md](PROVENANCE.md).
 
 ## Data and preprocessing
 
 `dwts/data.py` converts the COMAP wide-format score table into contestant-season-week rows. It distinguishes missing future weeks, all-zero post-exit weeks, explicit elimination labels and withdrawals. Score means include available judges; weekly standardization uses population SD. Returning celebrities retain separate season identifiers.
 
-The v5 reconstruction configuration uses explicit elimination labels first, omits final-week elimination constraints, and retains scored competitors in mixed withdrawal/exit weeks without treating a withdrawal itself as a voting exit. Alternative configurations are sensitivity analyses, not recovered author definitions. The audited baseline has 421 contestant-season entries, 408 names and 2,777 active contestant-weeks across 34 seasons.
+The full v5 configuration uses explicit elimination labels first, omits final-week elimination constraints, and retains scored competitors in mixed withdrawal/exit weeks without treating a withdrawal itself as a voting exit. Alternative configurations are sensitivity analyses. The baseline has 421 contestant-season entries, 408 names and 2,777 active contestant-weeks across 34 seasons.
 
 ## Latent fan support
 
@@ -37,6 +37,13 @@ Random forests use age, one-hot industry and lagged partner-quality features. Th
 Training histories exclude held-out seasons. Earlier weeks within a held-out season are allowed for sequential features. However, the fan-share targets were inferred with whole-season information; lagged features and grouped splits do not turn this retrospective analysis into prospective forecasting.
 
 OLS and RF retain their documented target/feature conventions. SHAP magnitudes quantify model dependence on features, not direction or causal influence. At selected history weight zero, a partner feature contains the current couple's past performance and does not identify a professional dancer's standalone causal effect. Downstream models use posterior means and do not fully propagate latent-vote uncertainty.
+
+The `dwts.analysis` entry point fits OLS using the current pair's prior-week judge
+shares, with explicit first-week and placement-unit alternatives. It compares late
+seasons using judge save and leaves undefined multi-exit save cases unscored.
+Controversial-week fractions, events per week and events per contestant row have
+separate denominators. Both influence-gap aggregation orders are retained, with
+sample populations and assumptions recorded in each output directory.
 
 ## Exact differential reuse
 

@@ -1,6 +1,6 @@
-# Reproduction guide
+# Running experiments
 
-Run checkout scripts from the repository root. Use new output directories for experiments. No command below publishes code or contacts another person.
+Run commands from the repository root and use a new output directory for each experiment.
 
 ## 1. Environment
 
@@ -24,8 +24,6 @@ export NUMBA_CACHE_DIR=/tmp/dwts-cache/numba
 export PYTENSOR_FLAGS=base_compiledir=/tmp/dwts-cache/pytensor
 ```
 
-The initial local test attempt exposed this sandbox cache limitation; moving caches to a writable temporary directory resolved it. No statistical code was changed for that fix.
-
 ## 2. Self-contained demo and tests
 
 ```bash
@@ -48,7 +46,7 @@ python -m dwts run --config configs/smoke.json --out outputs/smoke --skip-attrib
 
 `prepare` does not fit models. It currently uses the parser's legacy defaults; full v5 experiment semantics are selected through the run configuration. The smoke run fits seasons 1, 3 and 28 with small chains; it may fail diagnostic gates and is not research evidence. Check each sampling status, not just process exit status. Avoid reusing a prior `prepare` output directory because that legacy command can replace its own output files.
 
-## 4. Fresh full v5-style reconstruction
+## 4. Full analysis across 34 seasons
 
 ```bash
 python -m dwts run --config configs/report_reconstruction_v5.json --out outputs/my-full-v5
@@ -63,6 +61,26 @@ python -m dwts verify --source outputs/my-full-v5 --config configs/report_verifi
 ```
 
 For `verify`, exit code 2 means report numbers were not all verified; it is an expected scientific discrepancy status, not a program crash. Do not suppress that status and call it a pass.
+
+### Analyze fitted results
+
+After all 34 seasons pass sampling diagnostics:
+
+```bash
+python -m dwts.analysis --source outputs/my-full-v5 --out outputs/my-analysis
+```
+
+The input CSV checksum, source configuration, frozen vote normalization and sampling
+diagnostics are checked before analysis. The command fits the report's prior-share
+OLS formula, compares Table 5 using its stated mechanisms, and exports both
+influence-gap aggregation orders plus separate week/event controversy rates.
+Undefined multi-exit save cases are unscored with explicit supported denominators.
+
+`chapter_scopes.json` records populations and assumptions. `status.json` records
+execution status; exit **2** means execution completed with unresolved reference
+comparisons. The entry point reuses frozen posterior means and does not
+refit the Bayesian model or RF. An optional `--report-pdf references/2627761.pdf`
+checks the local source PDF checksum without copying it into results.
 
 ## 5. Optional historical v5 evidence
 
@@ -93,4 +111,4 @@ Adding `--execute` refits changed designs and reuses only strictly verified unch
 python -m pip wheel . --no-deps --no-build-isolation -w dist
 ```
 
-The wheel contains the `dwts` implementation and demo. Repository audit scripts, configurations and snapshots are used from the checkout, not treated as installed package data. See [VALIDATION.md](VALIDATION.md) for the exact checks performed on this package. Keep evidence imports and experiment outputs out of commits.
+The wheel contains the `dwts` implementation and demo. Repository audit scripts, configurations and snapshots are used from the checkout, not treated as installed package data. Keep evidence imports and experiment outputs out of commits.

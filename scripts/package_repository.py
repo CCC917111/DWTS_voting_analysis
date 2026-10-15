@@ -1,4 +1,4 @@
-"""Build a review ZIP from an explicit allowlist, excluding all research inputs."""
+"""Build a source ZIP from an explicit allowlist, excluding private research inputs."""
 import argparse
 import hashlib
 import json
@@ -8,7 +8,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 DIRECTORIES = {'dwts', 'configs', 'scripts', 'tests', 'docs', 'examples', '.github', 'results'}
 TOP_FILES = {'README.md', 'README.zh-CN.md', 'LICENSE_STATUS.md', 'CONTRIBUTING.md',
-             'CHANGELOG.md', 'pyproject.toml', 'requirements-v4-verified.txt', '.gitignore'}
+             'pyproject.toml', 'requirements-v4-verified.txt', '.gitignore'}
 EXCLUDED_PARTS = {'__pycache__', '.pytest_cache', '.git', '.venv', 'build', 'dist'}
 ALLOWED_SUFFIXES = {'.py', '.md', '.toml', '.txt', '.json', '.csv', '.svg', '.yml', '.yaml'}
 
@@ -38,14 +38,14 @@ def package(out, root=ROOT):
             raise ValueError(f'Unexpected large repository file: {p.relative_to(root)}')
         records.append({'path': p.relative_to(root).as_posix(), 'bytes': len(data),
                         'sha256': hashlib.sha256(data).hexdigest()})
-    manifest = {'package': 'DWTS Voting Audit', 'version': '0.5.1',
+    manifest = {'package': 'DWTS Voting Analysis', 'version': '0.5.1',
                 'full_numerical_replication': False, 'remote_publication_performed': False,
                 'files': records}
     out.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(out, 'x', zipfile.ZIP_DEFLATED) as z:
         for p in files:
-            z.write(p, 'dwts-voting-audit/'+p.relative_to(root).as_posix())
-        z.writestr('dwts-voting-audit/RELEASE_MANIFEST.json', json.dumps(manifest, indent=2)+'\n')
+            z.write(p, 'dwts-voting-analysis/'+p.relative_to(root).as_posix())
+        z.writestr('dwts-voting-analysis/RELEASE_MANIFEST.json', json.dumps(manifest, indent=2)+'\n')
     print(json.dumps({'files': len(files)+1, 'bytes': out.stat().st_size,
                       'sha256': hashlib.sha256(out.read_bytes()).hexdigest()}, indent=2))
 

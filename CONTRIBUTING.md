@@ -14,7 +14,7 @@ For changes:
 3. Preserve original strings and provenance when normalizing data.
 4. Never choose a change because it happens to approach a printed report number.
 5. Run `python -m pytest -q`; list any additional data/archive checks separately.
-6. Record changed outputs, assumptions and relevant limits in the changelog.
+6. Describe changed outputs, assumptions and relevant limits in the relevant documentation or pull request.
 
 Tests with exact-reuse guards intentionally reject even tiny changes. Do not loosen
 those checks to make old experiments appear reusable. Create a new run directory instead.
