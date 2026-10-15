@@ -22,7 +22,7 @@ def make_plots(votes, balance, grid, outdir):
     balance.set_index("rule")[["fan_spearman", "judge_spearman"]].plot.bar(ax=ax, color=["#cd7955", "#366e83"])
     ax.set(ylabel="Mean within-week Spearman correlation", xlabel="", ylim=(-1, 1))
     ax.tick_params(axis="x", rotation=0)
-    ax.set_title("Reconstructed votes: rule alignment (provisional)")
+    ax.set_title("Inferred fan support: rule alignment")
     fig.savefig(out / "influence_balance.png", dpi=160)
     plt.close(fig)
     if not grid.empty:
@@ -36,13 +36,13 @@ def make_plots(votes, balance, grid, outdir):
         plt.close(fig)
 
 
-def make_report_figures(outdir, statuses):
-    """Plot computed report components, never the PDF's curves as our results."""
+def make_study_figures(outdir, statuses):
+    """Plot fitted estimates and diagnostics from the current study run."""
     out = Path(outdir)
     figs = out / 'figures'
     figs.mkdir(exist_ok=True)
     valid = all(s['sampling_diagnostics_pass'] for s in statuses)
-    qualifier = 'reconstruction' if valid else 'provisional reconstruction'
+    qualifier = 'posterior estimates' if valid else 'provisional estimates'
     v = pd.read_csv(out/'votes.csv')
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.7), constrained_layout=True)
     axes[0].scatter(v.fan_mean, v.fan_upper-v.fan_lower, c=v.n_active,
@@ -71,7 +71,7 @@ def make_report_figures(outdir, statuses):
         axes[row,2].scatter(paired['rank'],paired.percentage,s=10,alpha=.45,color='#366e83')
         axes[row,2].plot([-1,1],[-1,1],ls='--',c='#888888')
         axes[row,2].set(xlabel='Rank correlation',ylabel='Percentage correlation',xlim=(-1,1),ylim=(-1,1))
-    fig.suptitle(f'Figure 4 analysis: rule alignment — {qualifier}')
+    fig.suptitle(f'Rule alignment — {qualifier}')
     fig.savefig(figs/'rule_correlation_comparison.png',dpi=160); plt.close(fig)
 
     if (out/'ols_coefficients.csv').exists():
@@ -85,7 +85,7 @@ def make_report_figures(outdir, statuses):
             ax.set_yticks(y,g.feature.str.replace('industry_','',regex=False))
             ax.axvline(0,c='#999999',lw=1)
             ax.set(title=target,xlabel='Standardized coefficient, 95% CI')
-        fig.suptitle(f'Figure 5 analysis: OLS determinants — {qualifier}')
+        fig.suptitle(f'OLS associations — {qualifier}')
         fig.savefig(figs/'ols_coefficients.png',dpi=160);plt.close(fig)
     if (out/'feature_importance.csv').exists():
         imp = pd.read_csv(out/'feature_importance.csv')
@@ -111,4 +111,9 @@ def make_report_figures(outdir, statuses):
     axes[1].set(xlabel='Season',ylabel='Minimum effective sample size',yscale='log');axes[1].legend()
     fig.suptitle('Sampling diagnostics — all seasons retained')
     fig.savefig(figs/'sampling_diagnostics.png',dpi=160);plt.close(fig)
+
+
+def make_report_figures(outdir, statuses):
+    """Compatibility entry point for historical saved-output verification."""
+    return make_study_figures(outdir, statuses)
 

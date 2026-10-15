@@ -57,13 +57,17 @@
     "tests/test_scope_candidates.py": "a237ca91121c60f857c9bbaf3bd419477a72c0b61b4f656425c28659744c9306",
     "tests/test_verification.py": "b1d959a289148e24f88ac78526c5bf667fcdaa0d02dfd56f4f96cdd45e96d215"
   },
-  "meaning": "Original SHA-256 records identify baseline scientific modules and tests. Listed presentation-only text changes are reversed before verifying baseline module hashes; analysis additions are recorded separately in the release manifest.",
-  "presentation_only_text_changes": {
-    "dwts/cli.py": [
-      {
-        "baseline_text": "Reconstruct report 2627761 (not original source)",
-        "current_text": "Analyze DWTS fan support and voting rules"
-      }
-    ]
+  "meaning": "Original SHA-256 records identify the preserved v5 baseline. Intentional later source changes retain their baseline hash, current hash and reason in modified_files. Other baseline modules and original tests remain byte-identical; later additions are recorded in the release manifest.",
+  "modified_files": {
+    "dwts/cli.py": {
+      "baseline_sha256": "a9c0795721af968239314069d0625d384f355dd21ab3558c0d40482f3e29d720",
+      "current_sha256": "eabb6d316863c629a5924b4c79ce8f4ae248b8bc26056fef2610f1c975ecf03d",
+      "reason": "Make the study workflow independent of optional original-report comparisons and record study metadata. Inference and model settings are unchanged."
+    },
+    "dwts/plots.py": {
+      "baseline_sha256": "bc0540dce177b55fcb50eb3d4602b5c281cf53cbeeed97c6fa604e51237881cd",
+      "current_sha256": "602d4d1e97005864590aa17bfd78942861372440dff8aec8911226b6cc818939",
+      "reason": "Use study-oriented figure names and retain the historical plotting entry point as a compatibility wrapper. Plot data and calculations are unchanged."
+    }
   }
 }

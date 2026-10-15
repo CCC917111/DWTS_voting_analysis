@@ -1,19 +1,27 @@
-# Running experiments
+# Running the study
 
-Run commands from the repository root and use a new output directory for each experiment.
+Use the repository root and a new output directory for every experiment.
 
-## 1. Environment
+## Environment and demonstration
 
-The recorded environment is Python 3.12.14 on Linux. `requirements-v4-verified.txt` pins direct relevant packages; it is not a complete transitive lockfile. Other versions/architectures may produce different numeric results and are not certified for bitwise reuse. A C++ compiler can be required by PyTensor.
+Python 3.12.14 on Linux is the recorded environment. The requirements file pins
+relevant direct dependencies; it is not a complete transitive lockfile. A C++
+compiler may be needed by PyTensor.
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-v4-verified.txt
 python -m pip install --no-deps -e ".[test,audit]"
+python -m dwts.demo --out outputs/my-demo
+python -m pytest -q
 ```
 
-If your home/cache directory is read-only, set writable cache locations before importing the libraries (Linux/macOS):
+The demonstration is synthetic. Default tests are self-contained; cases requiring
+official data or historical experiment files are explicitly deselected.
+
+For cloud environments with read-only home/cache directories, set writable caches
+before importing the scientific libraries:
 
 ```bash
 mkdir -p /tmp/dwts-cache
@@ -24,91 +32,85 @@ export NUMBA_CACHE_DIR=/tmp/dwts-cache/numba
 export PYTENSOR_FLAGS=base_compiledir=/tmp/dwts-cache/pytensor
 ```
 
-## 2. Self-contained demo and tests
+## Data and execution check
 
-```bash
-python -m dwts.demo --out outputs/my-demo
-python -m pytest -q
-```
-
-The demo is synthetic. Default tests deselect `official_data` and `archive` cases. Original v5 test files remain byte-identical; marks are applied by exact test name in `tests/conftest.py`.
-
-## 3. Official data and smoke execution
-
-Read [SOURCES.md](../data/SOURCES.md) before obtaining data. The downloader verifies the pinned SHA-256 and refuses an existing file.
+Read [data sources](../data/SOURCES.md), then obtain the official dataset. The
+downloader checks its SHA-256 and refuses to overwrite an existing file.
 
 ```bash
 python scripts/download_data.py
 python -m dwts prepare --out outputs/prepared
 python -m pytest -q -m "not archive"
-python -m dwts run --config configs/smoke.json --out outputs/smoke --skip-attribution
+python -m dwts run --config configs/smoke.json --out outputs/my-smoke --skip-attribution
 ```
 
-`prepare` does not fit models. It currently uses the parser's legacy defaults; full v5 experiment semantics are selected through the run configuration. The smoke run fits seasons 1, 3 and 28 with small chains; it may fail diagnostic gates and is not research evidence. Check each sampling status, not just process exit status. Avoid reusing a prior `prepare` output directory because that legacy command can replace its own output files.
+`prepare` inspects data without model fitting. The short smoke run fits seasons
+1, 3 and 28 with deliberately small chains and may fail sampling diagnostics.
+Completion confirms execution; research interpretation also requires diagnostic
+adequacy. The full experiment's preprocessing settings come from its configuration.
 
-## 4. Full analysis across 34 seasons
+## Full research workflow
 
 ```bash
-python -m dwts run --config configs/report_reconstruction_v5.json --out outputs/my-full-v5
+python -m dwts run --config configs/study.json --out outputs/my-study
 ```
 
-This performs all 34 season fits plus downstream analyses. It can be computationally expensive; the package does not promise a runtime. The configuration uses four season workers, four chains and a full nested RF analysis. Reduce concurrency only deliberately, retain the changed configuration and do not claim bitwise historical equivalence without checking it.
+This fits 34 seasons and runs voting-rule simulations, OLS, nested season-grouped
+random forests and SHAP. It records input/code hashes and the actual configuration.
+Four season workers and four chains per season can be expensive; reduce concurrency
+only deliberately and preserve the changed configuration.
 
-Inspect `manifest.json`, `sampling_status.json`, `run_config.json`, `votes.csv`, `rf_metrics.csv`, and the generated comparison files. Full execution and diagnostic success are distinct from matching the report. To rerun downstream analysis with the explicit numerical gate:
+The default run produces fitted estimates, scientific tables and figures.
+`manifest.json` records execution completion separately from
+`all_sampling_diagnostics_pass`. Inspect `sampling_status.json` and each season's
+unrounded R-hat/ESS values before interpreting the estimates. Resume accepts only
+identical code, input data, configuration and reference-comparison mode.
+
+## Analyze fitted estimates
+
+After the fitted seasons pass sampling diagnostics:
 
 ```bash
-python -m dwts verify --source outputs/my-full-v5 --config configs/report_verification_v5.json --out outputs/my-verification
+python -m dwts.analysis --source outputs/my-study --out outputs/my-analysis
 ```
 
-For `verify`, exit code 2 means report numbers were not all verified; it is an expected scientific discrepancy status, not a program crash. Do not suppress that status and call it a pass.
+The command validates the official CSV, declared fitted-season set, preprocessing,
+normalized posterior means and sampling diagnostics. It exports rule comparisons,
+EDA, OLS with prior-week judge shares, correlation and influence summaries, and
+separate controversy-week and controversy-event rates. Saved RF metrics are
+validated and copied when available; the command does not refit the Bayesian model
+or RF.
 
-### Analyze fitted results
+Undefined multi-exit save cases are unscored, with supported denominators retained.
+A single fitted season can be analyzed, but the OLS component is marked unavailable
+because its season-cluster inference requires at least two seasons. Successful default analysis
+returns exit **0**; `status.json` records execution and component availability.
 
-After all 34 seasons pass sampling diagnostics:
+## Optional comparison with the original report
+
+The study's current results are evaluated on their declared definitions. Comparing
+numbers with the original team report is a separate, optional operation:
 
 ```bash
-python -m dwts.analysis --source outputs/my-full-v5 --out outputs/my-analysis
+python -m dwts.analysis --source outputs/my-study --out outputs/my-reference-check --compare-reference
 ```
 
-The input CSV checksum, source configuration, frozen vote normalization and sampling
-diagnostics are checked before analysis. The command fits the report's prior-share
-OLS formula, compares Table 5 using its stated mechanisms, and exports both
-influence-gap aggregation orders plus separate week/event controversy rates.
-Undefined multi-exit save cases are unscored with explicit supported denominators.
+Reference outputs are written under `reference_comparison/`. Unresolved numerical
+comparisons return exit **2**, while the completed analysis and its scientific
+results remain recorded. A local `--report-pdf references/2627761.pdf` may be used
+with this option to verify the PDF checksum; it is never copied into outputs.
+The original report is not needed for the default workflow.
 
-`chapter_scopes.json` records populations and assumptions. `status.json` records
-execution status; exit **2** means execution completed with unresolved reference
-comparisons. The entry point reuses frozen posterior means and does not
-refit the Bayesian model or RF. An optional `--report-pdf references/2627761.pdf`
-checks the local source PDF checksum without copying it into results.
+A full model run can also export its legacy comparison table by adding
+`--compare-reference` to `dwts run`. The historical `dwts verify` command retains
+its original numerical-gate semantics for saved experiments.
 
-## 5. Optional historical v5 evidence
-
-If you already have the authorized `DWTS_Full_Report_Reproduction_v5.zip`, the importer can restore data/results in a clean checkout. It accepts only the pinned archive hash, refuses overwrites, and does not copy the report PDF or raw posterior chains and never replaces the checkout implementation. Historical code snapshots inside `outputs/` are retained because exact-reuse checks require them.
-
-```bash
-python scripts/import_v5_evidence.py /path/to/DWTS_Full_Report_Reproduction_v5.zip
-python -m pytest -q -m ""
-python scripts/audit_metric_identifiability.py --out outputs/my-metric-audit
-python -m dwts.full_report --source outputs/v5_final --out outputs/my-full-report
-```
-
-Use this route instead of downloading the CSV first; the importer refuses an existing data file as well as existing evidence targets. It imports about 162 MB of historical results, all ignored by Git. It does not retrieve or grant access to the archive. Public users without that archive can run the synthetic tests and a new official-data experiment, but cannot rerun the historical-evidence tests as written.
-
-### Exact differential CV
-
-After importing the archive, a zero-fit plan is available:
-
-```bash
-python scripts/run_identity_cv.py --canonical-votes outputs/v5_partner_identity/verified_canonical_identity/votes_canonical_primary.csv --out outputs/my-identity-plan
-```
-
-Adding `--execute` refits changed designs and reuses only strictly verified unchanged results. The archived Python/package versions and feature/model code must match. No report metric participates in selecting the history weight. This command is an advanced historical audit; do not use it as the first installation check.
-
-## 6. Package verification and hygiene
+## Package and material handling
 
 ```bash
 python -m pip wheel . --no-deps --no-build-isolation -w dist
 ```
 
-The wheel contains the `dwts` implementation and demo. Repository audit scripts, configurations and snapshots are used from the checkout, not treated as installed package data. Keep evidence imports and experiment outputs out of commits.
+The wheel contains the implementation and demo. Configurations and repository
+scripts are used from the checkout. Original reports, raw data, fitted models,
+posterior chains and experiment output directories stay outside source releases.

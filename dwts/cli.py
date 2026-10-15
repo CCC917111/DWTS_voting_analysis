@@ -56,6 +56,7 @@ def code_digest():
 
 def run(args):
     config = json.loads(Path(args.config).read_text())
+    compare_reference = bool(getattr(args, "compare_reference", False))
     allowed = {"fit", "seasons", "simulation_scope", "rf_trees", "rf_folds", "history_weight", "data", "season_workers", "history_grid", "rf_inner_folds", "rf_min_samples_leaf", "rf_judge_target", "rf_fan_scale", "partner_identity_mode"}
     if set(config) - allowed:
         raise ValueError(f"Unknown config keys: {set(config) - allowed}")
@@ -78,15 +79,18 @@ def run(args):
     if args.resume:
         old_manifest = json.loads((out / "manifest.json").read_text())
         old_config = json.loads((out / "run_config.json").read_text())
-        if old_config != run_config or old_manifest["input_sha256"] != input_hash or old_manifest.get("code_sha256") != source_hash:
-            raise ValueError("Resume refused: config, input data, or code changed; use a new output directory")
+        if (old_config != run_config or old_manifest["input_sha256"] != input_hash
+                or old_manifest.get("code_sha256") != source_hash
+                or bool(old_manifest.get("reference_comparison_requested", False)) != compare_reference):
+            raise ValueError("Resume refused: config, input data, code, or reference-comparison mode changed; use a new output directory")
     dump_json(out / "data_summary_all_seasons.json", data_summary(panel))
     audit.to_csv(out / "preprocessing_audit.csv", index=False)
     panel.to_csv(out / "panel_all_seasons.csv", index=False)
     dump_json(out / "run_config.json", run_config)
     manifest = {"started_utc": datetime.now(timezone.utc).isoformat(), "python": platform.python_version(),
                 "input_sha256": input_hash, "code_sha256": source_hash,
-                "source_report": "2627761.pdf", "status": "running",
+                "study": {"team": "2627761", "problem": "2026 MCM Problem C", "topic": "DWTS voting systems"},
+                "reference_comparison_requested": compare_reference, "status": "running",
                 "packages": {p: importlib.metadata.version(p) for p in
                              ["numpy", "pandas", "scipy", "pymc", "pytensor", "arviz", "scikit-learn", "shap", "statsmodels", "numba"]}}
     dump_json(out / "manifest.json", manifest)
@@ -120,10 +124,11 @@ def run(args):
     votes = pd.concat(results, ignore_index=True).sort_values(["season", "week", "contestant_id"]).reset_index(drop=True)
     votes.to_csv(out / "votes.csv", index=False)
     analyze(votes, out, config, cfg.seed, args.skip_attribution)
-    from .reconcile import write_comparison
-    write_comparison(votes, out, statuses)
-    from .plots import make_report_figures
-    make_report_figures(out, statuses)
+    from .plots import make_study_figures
+    make_study_figures(out, statuses)
+    if compare_reference:
+        from .reconcile import write_comparison
+        write_comparison(votes, out, statuses)
     manifest.update(status="completed", completed_utc=datetime.now(timezone.utc).isoformat(),
                     all_sampling_diagnostics_pass=all(s["sampling_diagnostics_pass"] for s in statuses),
                     attribution_ran=not args.skip_attribution and len(seasons) >= 2)
@@ -179,6 +184,7 @@ def main():
     p.add_argument("--seasons", type=int, nargs="+")
     p.add_argument("--skip-attribution", action="store_true")
     p.add_argument("--resume", action="store_true", help="Reuse completed seasons only if code, input and config match")
+    p.add_argument("--compare-reference", action="store_true", help="Also export comparisons with the original report's values")
     p = sub.add_parser("verify", help="Recompute analyses from saved votes; exit 2 if report numbers do not match")
     p.add_argument("--source", default="outputs/report_final")
     p.add_argument("--config", default="configs/report_verification.json")
