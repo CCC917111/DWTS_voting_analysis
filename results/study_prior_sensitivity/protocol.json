@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "seed": 2627761,
+  "draws_per_chain": 512,
+  "scope": "nonfinal_observed_rosters_n_ge_3_excluding_withdrawal_weeks",
+  "counterfactual_exits_per_week": 1,
+  "seasons": [
+    1,
+    2,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34
+  ],
+  "joint_prior_scales": [
+    0.5,
+    1.0,
+    2.0
+  ],
+  "rules": [
+    "rank",
+    "percentage"
+  ],
+  "judge_weights": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "mechanisms": [
+    "none",
+    "judge_save",
+    "fan_save"
+  ],
+  "interval_probability": 0.95,
+  "method": "analytic_posterior_transport_of_joint_prior_scales",
+  "new_posterior_fits": 0,
+  "changed_priors_by_scale": {
+    "0.5": {
+      "alpha_normal_sd": 1.0,
+      "beta_normal_sd": 0.5,
+      "sigma_half_cauchy_scale": 0.5,
+      "epsilon_normal_sd": 1.0
+    },
+    "1.0": {
+      "alpha_normal_sd": 2.0,
+      "beta_normal_sd": 1.0,
+      "sigma_half_cauchy_scale": 1.0,
+      "epsilon_normal_sd": 1.0
+    },
+    "2.0": {
+      "alpha_normal_sd": 4.0,
+      "beta_normal_sd": 2.0,
+      "sigma_half_cauchy_scale": 2.0,
+      "epsilon_normal_sd": 1.0
+    }
+  },
+  "unchanged_assumptions": [
+    "Observed scores and elimination labels",
+    "Penalty lambda and judge weight",
+    "Rank likelihood and withdrawal policy",
+    "Independent season fits",
+    "Standard Normal epsilon prior"
+  ],
+  "proof": {
+    "map": "T_c(alpha,beta,sigma,epsilon)=(c*alpha,c*beta,c*sigma,epsilon); z_c=c*z",
+    "rank_likelihood": "L(T_c(theta))=L(theta) for every rank-only fitted week",
+    "jacobian_sigma": "abs(det(DT_c))=c**(n_contestants+2)",
+    "jacobian_log_sigma": "abs(det(DT_c))=c**(n_contestants+1)",
+    "prior_density": "pi_c(T_c(theta))*abs(det(DT_c))=pi_1(theta)",
+    "posterior": "p_c = pushforward(T_c, p_1); normalizing constants are equal"
+  },
+  "posterior_joint_draws": {
+    "0.5": 2048,
+    "1.0": 2048,
+    "2.0": 2048
+  },
+  "intervals": "Equal-tailed 95% model-conditional posterior credible intervals; Monte Carlo approximations from baseline chains.",
+  "seasonal_combination": "Independent seeded seasonal permutations; whole-season joint draws and paired policies preserved.",
+  "fan_ordering": "Latent logits define fan ranks and fan tie-break/save order for both policy families.",
+  "percentage_merit": "Numeric softmax(c*z) shares; original stored numeric shares retained exactly at c=1.",
+  "rank_policy_check": "All retained joint-draw rank-policy counts equal c=1 exactly for every scale and season.",
+  "limitations": [
+    "Transport is restricted to selected rank-likelihood seasons 1,2,28..34; not percentage-likelihood seasons 3..27.",
+    "Only the specified joint Normal/Normal/Half-Cauchy scale family is covered; this is not sensitivity to all prior choices.",
+    "This is exact analytic posterior transport, not new MCMC fitting; numerical summaries retain finite-chain approximation error.",
+    "Original baseline diagnostics were validated; diagnostics and effective sample sizes of transformed fan shares and policy functions were not recomputed.",
+    "Credible intervals are conditional on each prior specification; no cross-prior difference probability or interval is claimed.",
+    "Observed elimination labels informed the posterior; no independent true-vote or held-out forecast validation is established.",
+    "One-exit policies act on fixed observed nonfinal rosters with at least three contestants; all withdrawal weeks are excluded.",
+    "No whole-season counterfactual trajectories or causal policy effects are identified."
+  ]
+}

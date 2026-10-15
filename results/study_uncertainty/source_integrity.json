@@ -1,0 +1,1193 @@
+{
+  "baseline": {
+    "source_directory_name": "continuation-full-v5",
+    "run_config": {
+      "seasons": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "season_workers": 4,
+      "data": {
+        "outcome_policy": "label_first",
+        "include_final_week_eliminations": false
+      },
+      "fit": {
+        "draws": 4000,
+        "tune": 6000,
+        "chains": 4,
+        "cores": 1,
+        "seed": 2627761,
+        "penalty_lambda": 1.0,
+        "judge_weight": 0.5,
+        "likelihood": "report",
+        "alpha_step": 0.15,
+        "beta_step": 0.08,
+        "sigma_step": 0.08,
+        "epsilon_step": 0.3,
+        "parameterization": "noncentered",
+        "adapt_proposals": true,
+        "sampler": "fast_mh",
+        "sweeps_per_draw": 20,
+        "withdrawal_policy": "include_scored"
+      },
+      "simulation_scope": "nonfinal_weeks",
+      "rf_trees": 300,
+      "rf_folds": 5,
+      "history_weight": 0.5,
+      "history_grid": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "rf_inner_folds": 3,
+      "rf_min_samples_leaf": 5,
+      "rf_judge_target": "judge_mean",
+      "rf_fan_scale": "relative",
+      "partner_identity_mode": "verified_canonical_identity"
+    },
+    "manifest": {
+      "started_utc": "2026-10-14T19:40:40.373436+00:00",
+      "python": "3.12.14",
+      "input_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+      "code_sha256": "0f9b239ecedcb3b7be212e86505705279a705ae0d8482e357148f6bc9c1668f8",
+      "source_report": "2627761.pdf",
+      "status": "completed",
+      "packages": {
+        "numpy": "2.3.5",
+        "pandas": "2.2.3",
+        "scipy": "1.17.0",
+        "pymc": "5.25.1",
+        "pytensor": "2.31.7",
+        "arviz": "0.22.0",
+        "scikit-learn": "1.8.0",
+        "shap": "0.53.0",
+        "statsmodels": "0.15.0",
+        "numba": "0.67.0"
+      },
+      "completed_utc": "2026-10-14T19:52:45.338989+00:00",
+      "all_sampling_diagnostics_pass": true,
+      "attribution_ran": true
+    },
+    "run_files_sha256": {
+      "manifest.json": "82d4955969d9f49599fdc5a7102ff331f3c33f1cd79a93f5018b6f3cdc04ce0e",
+      "run_config.json": "ff2c9737e6731372400e7eee1472e1a50d1eaeb61baa4759bb59a012ef75240e",
+      "sampling_status.json": "e8a053c0aca0af96376bb8124641d7756abd7524fd9acd4bbc3921368d824549",
+      "votes.csv": "43c72fdf6284d34b836788a8e83ed95b2c44c56eab890dece68f95245159b902"
+    },
+    "seasons": [
+      {
+        "season": 1,
+        "hashes": {
+          "fit_status.json": "0d7aef6e817eb5992fc34654280a834877797324dd569c26486ce346af20e6a9",
+          "diagnostics.csv": "6b7af9d894f72ec47d474916532608ba00e65be5a2378a2a93edefdeed1d4121",
+          "votes.csv": "e64ab5a0cbcf8db4264f05d6ac661326292beed03edde7821bc9dc7a3336e041",
+          "posterior.nc": "b9de37614b9a266bea83971d8bd97b264c81577df6112d3ad1a5adfec5e1699d"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "90572dbc5c135070e10f2c2c94603513af66ceee7b6c7e077e5c6ae28e8afb2f",
+        "permutation_sha256": "f48b6759387260633ecc2e768b16ed98af788c74aa768c9a655a6a85bd85a5fc",
+        "diagnostics": {
+          "max_rhat": 1.0009186547547115,
+          "min_ess_bulk": 7072.091694087232,
+          "min_ess_tail": 9017.27349236105
+        }
+      },
+      {
+        "season": 2,
+        "hashes": {
+          "fit_status.json": "2c63a6bdd9c19cab470174346228a4723f8763ee52560a86d7afe994d5b2fa12",
+          "diagnostics.csv": "7d537194644d3c796a6a1b48c5d4d3bd5e878bca682e80408fe1a1a5c8ce639b",
+          "votes.csv": "201b7f1dcaa9972838f38b93d9c97e85ce27eeb4f7d814a712e513b453ee9e1c",
+          "posterior.nc": "8457c5df7a7ad0f4e8bed1246c71bab5604e0b3d649934683677a62d8ee800c2"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "cc6b9c8bc2a9d65143611314d6086646917b31931a88287e5c5d276890855e4c",
+        "permutation_sha256": "ee2a96654d9500d8ef1954a36d2f3ccd28ab6c780afda3aa78ec080f7cafba35",
+        "diagnostics": {
+          "max_rhat": 1.000825567041478,
+          "min_ess_bulk": 3497.0528439945183,
+          "min_ess_tail": 6053.541460902317
+        }
+      },
+      {
+        "season": 3,
+        "hashes": {
+          "fit_status.json": "68f362f5018e84ccf19789d376f432eee00959ee0c9812924e9fa3f29d6f9fe6",
+          "diagnostics.csv": "507a7e3226d1db8f6923cce4c7373d7144cb77ee9cfe33f997e59815e68bf4ec",
+          "votes.csv": "cb0e06b0b810b8189fedaab7758d120f89d4a0bd96842fac56e6f2d0b9d2bcc5",
+          "posterior.nc": "1d86149ac9da1c1f5bfb24642e2d369cb161ac532800e71afdd32ea1ac1280f8"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "f5d1bdedd163cf9fe42bbbd4c1b6b34d08a6b7a88b4d4929f20a82168cedc980",
+        "permutation_sha256": "e8ed60257dbe92270b7e821a5bf6e7d4d4f866f3581911ca4b51bcb81fbc21f1",
+        "diagnostics": {
+          "max_rhat": 1.0006748550724751,
+          "min_ess_bulk": 6305.457921374018,
+          "min_ess_tail": 12596.803653164725
+        }
+      },
+      {
+        "season": 4,
+        "hashes": {
+          "fit_status.json": "8f974ba98179bcb766cdce1cb2708e0b1befb51e25b1e2fd07b574904c0d2c56",
+          "diagnostics.csv": "16b9eb042237d1f4fb06a2e5b916eb0be39d59e0227461b42794424454b8126c",
+          "votes.csv": "7e47b4f63ec698337cfee5cea78c197bf47794822eb225f6a6729a8af158d368",
+          "posterior.nc": "5f7ed80cc24352055e0812e77a56bc8be097b7658432f4df0018baa63fee1356"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "df2692c99b9b408b451f41a3462ea97f456f126bc79aca14aff7539ae27888b6",
+        "permutation_sha256": "7f38cc56722672f6fcd73ba8551bc0b841bc80455f6bcada0b42702ef4f557f2",
+        "diagnostics": {
+          "max_rhat": 1.0009752125297713,
+          "min_ess_bulk": 8756.554049274671,
+          "min_ess_tail": 13225.314275337241
+        }
+      },
+      {
+        "season": 5,
+        "hashes": {
+          "fit_status.json": "fb75cb451497986481a0b289066a09b1cd12b21e770fc81ed7af273596e2833f",
+          "diagnostics.csv": "6ee91a5f948f4d0a6e4f5cf1b9466228ac3ec3de7ed4ef99a30176564b9a848a",
+          "votes.csv": "fbec7bc12463d9a0cf4ef2989597ac81bbcbae502696f8003721534de305df76",
+          "posterior.nc": "677fb1e13da4988dc03682020d459f7d149cf72b5ccf6ca88d1bac2fcbf6e08f"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "20f63697ed981679cde91ef15253c7cdcda88d6a64ec67d83e574a182a4b430a",
+        "permutation_sha256": "fe4f45146ea79d16f21e44b29cde59676ef569196b2b1bd99e3268ec1e49b2b8",
+        "diagnostics": {
+          "max_rhat": 1.0003538617512049,
+          "min_ess_bulk": 7733.328620510368,
+          "min_ess_tail": 13049.456573254782
+        }
+      },
+      {
+        "season": 6,
+        "hashes": {
+          "fit_status.json": "bd6a509faed453481e2db5f9be284231343aa1a4a124fd3a6427fc2ff3fa7726",
+          "diagnostics.csv": "a69850d3dd72f24b1f5a2f033d5a076be09b9e91b12362ba91088fa001f0a1f4",
+          "votes.csv": "bc25cdc00e267872453400bbe60d45f73b605a1a89481a865f2ac3ef0440ce3e",
+          "posterior.nc": "05da4b9d5e845f84ba6493457b27053785cf2c153420f6e7e6e0b09631723670"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "bc346afa14cc609892d785b5bbf5f5c48af604a73619ebd3407e413b20f74899",
+        "permutation_sha256": "787b312456016f3f4fb0294db4a55ba153a3691860f4d23d89a8b9d00d5ccafe",
+        "diagnostics": {
+          "max_rhat": 1.0005094479628442,
+          "min_ess_bulk": 7418.062876821341,
+          "min_ess_tail": 13099.86727375635
+        }
+      },
+      {
+        "season": 7,
+        "hashes": {
+          "fit_status.json": "b885327d5dca94c67a052a13df601bd6792bd7d8564cd4314dfb4b17dd4c9e74",
+          "diagnostics.csv": "d7bd559bbed42aa560a6ce6c3efa2e005714d57971ba1b2cf4c3888c19a6e4b2",
+          "votes.csv": "8389b1f04dcb582f4904ffcf2d43a93b54e2bc39c763b11f93cac19628a3d0bf",
+          "posterior.nc": "665778517fa31c9831502af291e6a2c02406fe6c3fbdc9c8e2135217df9561b1"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "7071822523829f6033291e25a2bdf0b1b6037bb713b6cb32d8ed4244accd0f99",
+        "permutation_sha256": "6a040908d198c2bb720f54d9c09721ea289c4bfd3270d4f8c290834682d502eb",
+        "diagnostics": {
+          "max_rhat": 1.000531720268406,
+          "min_ess_bulk": 8688.901005384745,
+          "min_ess_tail": 13024.368168254425
+        }
+      },
+      {
+        "season": 8,
+        "hashes": {
+          "fit_status.json": "a605a654b1f0a590cdbe64eb135cb41da4921c4693006e7d53226ab5ac46f000",
+          "diagnostics.csv": "872a33631738a113b65b39fda7635c7b4ab36cfd4ee05e27f9c88867184321e5",
+          "votes.csv": "984a07dc17e99127298255efbd6056b21ea414a10c600d0e07a154a6c276d921",
+          "posterior.nc": "0f9ebb5e5f5c8c1ff594b5a09654ef2c41a5fd45e335c6451bb6f42b5017ada0"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "140ec444cccf3c8efe48d91ff0a69ab91519dda32510ff1482b765c3b106e1d3",
+        "permutation_sha256": "191d5dcb6952167b55d66ce13686d1c53a236d4b9950982b3822a80f53701f32",
+        "diagnostics": {
+          "max_rhat": 1.0004493027514771,
+          "min_ess_bulk": 6847.354446143731,
+          "min_ess_tail": 12371.49873457903
+        }
+      },
+      {
+        "season": 9,
+        "hashes": {
+          "fit_status.json": "17f7d4290b9797e31a3ed2a8dc0265e9b94f02620cf88cb033618c286bbf42b5",
+          "diagnostics.csv": "cf7905af1e5e001e99cb5b02203b8fc844134863e5d3f6be277a65f70ec8cbe4",
+          "votes.csv": "37c14a02d6a7be0e653f2232f7026d913045980e5270109e334f7b0ba39ba0f3",
+          "posterior.nc": "165daffc4665a2f110bab661a0d81b043ccbcdcadc973b2f78fb1540cb79787a"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "8b459682e0c2affbe74fc7c0424c1fdbb6d80381e951ff12d8c7de3c136071aa",
+        "permutation_sha256": "5973fce9008e666a9f895250e3b6e5e689b188600ed6e7532d532d4d5f99937f",
+        "diagnostics": {
+          "max_rhat": 1.000948443498801,
+          "min_ess_bulk": 6937.627510860786,
+          "min_ess_tail": 11705.219956825322
+        }
+      },
+      {
+        "season": 10,
+        "hashes": {
+          "fit_status.json": "1ec759a9d8fc8fcc031158f15b86778033a188ef670b34f693e294434f671582",
+          "diagnostics.csv": "5f6aa3d38b8b76c02c6e8dea9f32093026c731ed475400ef8718b721d1da4efc",
+          "votes.csv": "c35c3a0be131c16f83346e3908db388d749645830c38ee748fd05e7049c8574b",
+          "posterior.nc": "00b22a0cb400412e08e7f9c062d7939c22833d51ccb74c19c713900a452d8ff0"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "6068830e6ffa1db5a9a276e0496c8155122358b84308e52144dcb1718664b88a",
+        "permutation_sha256": "e6321b973803873dcbf30a1596506b04cf55d58d567609c93d916164047219a6",
+        "diagnostics": {
+          "max_rhat": 1.0008497832613965,
+          "min_ess_bulk": 9480.784506037236,
+          "min_ess_tail": 13098.526611786681
+        }
+      },
+      {
+        "season": 11,
+        "hashes": {
+          "fit_status.json": "077ae1eb2217e9b823175458b81554cf6c23f47b79e84d6da70d62d2bf9dcf0d",
+          "diagnostics.csv": "642fdb93681ffb91a562b9aab3752d302a6039be43192f70ffb3d7a561cbabc9",
+          "votes.csv": "ddb3f640b1157803fcb465366fafe3d5553e25c7c0b6b02215154ad54c4a2185",
+          "posterior.nc": "59b2927e5801f66071f989bb1cd8520832dd93ecee5c5ef6a06b6c6cd52f4483"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "5cfc8783bceb442d3b9f87e7fcdc77a503e5db5a89766b9372f2a06ec34c3494",
+        "permutation_sha256": "17148959ce2a0395b8056c6264c81e7416175e48be44052ceb44cad905152cdc",
+        "diagnostics": {
+          "max_rhat": 1.0005621072415785,
+          "min_ess_bulk": 5903.099603599777,
+          "min_ess_tail": 11966.496920708529
+        }
+      },
+      {
+        "season": 12,
+        "hashes": {
+          "fit_status.json": "1b3ce3b9f41d6d90860d2a149709a56d67c0d4b3b908243df9c049ee3f004ad2",
+          "diagnostics.csv": "1719831b932b5d3d98f6d955d58c60289010577eb528f3ef26601c1e32179dfe",
+          "votes.csv": "a198e2d226e12e24c79e5cff50e569d38747ae0b35f78962a01ca15c1319cff8",
+          "posterior.nc": "24f5596159fa324c2dd7b4091e6366ee30cbf8877209ec8dbacb25f182d718e7"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "77d596f61c0557e15dde0262660811ffcff309572cea599a260b7e7d00dbb702",
+        "permutation_sha256": "19b8b763db8f4ed5e71a736bf61a06febc38995e59dd4c385e5c750abcdce58a",
+        "diagnostics": {
+          "max_rhat": 1.0006676599597184,
+          "min_ess_bulk": 8271.703456498008,
+          "min_ess_tail": 13011.578195010334
+        }
+      },
+      {
+        "season": 13,
+        "hashes": {
+          "fit_status.json": "fd5e4a6dbeb0b01736370b0225404a0ee2bcf705349faf141e5f2706ba4ef1d8",
+          "diagnostics.csv": "f187556547ef67808a23091dedc9e5aa4aae7f3300b8c3fc96fe8a8cfd576f65",
+          "votes.csv": "293b8213cfaaf2399c5138faa6597fc52daf2ab194cf68b4a9e39de0b3ca3f4d",
+          "posterior.nc": "29fb1f6870f9c15e2a830d7543302e52410df1a5d96eae996320e5bf9ad239be"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "009f1c55296010ab56a25881b8fe8c4c14b976d8d9b8c50b876af39833ed377e",
+        "permutation_sha256": "6b8ba917469eecc59fc50a8b81c459af3655558f6a4dc3a7a629e2b0b51c16d1",
+        "diagnostics": {
+          "max_rhat": 1.0007388619751083,
+          "min_ess_bulk": 8169.2570490130365,
+          "min_ess_tail": 12867.065898260456
+        }
+      },
+      {
+        "season": 14,
+        "hashes": {
+          "fit_status.json": "60630b0465fa2aba6a2642372035752b067d0ed23fd1bf248bbe086928d3f124",
+          "diagnostics.csv": "7d1332f96bee4ea14b53fae44f6938f2aadb97b83f936644726e59016c905085",
+          "votes.csv": "7dc9fd68aa44fa065525a0bc0e3a8da4a9dc5d06d38d138dc12d42f31d0ca8bd",
+          "posterior.nc": "ce22df52756653597a3e3ffe72802ae1156ef6251718c1140409b0cac295e8ea"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "936aabb6565b4d49fe1cf7118e8c4f19cea7caadd9fec349d2d83efdba8f4ee5",
+        "permutation_sha256": "ae7397db1717b1863788f6d710d0e2cf49c21cc3c88a87b9a205a0dc6aa0cc73",
+        "diagnostics": {
+          "max_rhat": 1.0005350866249194,
+          "min_ess_bulk": 7475.4246769872525,
+          "min_ess_tail": 9743.130451244413
+        }
+      },
+      {
+        "season": 15,
+        "hashes": {
+          "fit_status.json": "0cebd913e2159f74a1d6c2b1be56efd733bd18a85502cdaa59fa3426b2a47be5",
+          "diagnostics.csv": "85bfd1ff4e58484343c290c2e2bbe84784a9a12e02837fe1946939fc7aa79bc5",
+          "votes.csv": "b70e2e752973b7400d125d70e32f23d11fe613446423cf79b4a3da77059da0a9",
+          "posterior.nc": "0f14a2508f64ac75697ff4dd703b2b4f2732db598fd87e7e98863227d00bad8f"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "66dfc74ed339edbb2875f1dd6844b80c1a3337465344376e43edc820d15baf2a",
+        "permutation_sha256": "d7b4e8985e69b25e31c386bf12d0d685da94102229e0c43a46afe31ae392b6a6",
+        "diagnostics": {
+          "max_rhat": 1.0012055765836294,
+          "min_ess_bulk": 7141.337943950087,
+          "min_ess_tail": 10063.396071269612
+        }
+      },
+      {
+        "season": 16,
+        "hashes": {
+          "fit_status.json": "00c388024c9e37bd78e961c46568fcff5597c2329cdd0ea3673a8ef928a423bb",
+          "diagnostics.csv": "615d3dce56544c42e852d606278b3b34c324d8af9b51d5eb991f72e93dfddff3",
+          "votes.csv": "d69b717b3151e5fc9f5f54f49e49079a393d7b1adbe9dab3ac7d67b0dd57cf39",
+          "posterior.nc": "3f32b915939189195311c8a1084f5e46da4b2c743daaa173436602318986b853"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "ed594a1c6bbf7be4c0827df66e384678ce51aa921ea7c4a02cdbf791fe65c2a8",
+        "permutation_sha256": "b69f42deaafcbb6f6e63943c2a5b6f04a07748d33bb889cc6df7fb3faa5c5258",
+        "diagnostics": {
+          "max_rhat": 1.0005702864095336,
+          "min_ess_bulk": 12589.907796464337,
+          "min_ess_tail": 12525.125604467044
+        }
+      },
+      {
+        "season": 17,
+        "hashes": {
+          "fit_status.json": "d2cc452d785c1f4b493e347b1c4f3ef348324f135df05a4529219b840f7104e0",
+          "diagnostics.csv": "ba99e68ed39e4a943a2184bd8de29eba2fd2cec3e0236375cc4443c4b3bd4860",
+          "votes.csv": "d811d30084c29a8e2e08ea4af639cf8f5dd212ec288c54ba61ed6ac67a47322b",
+          "posterior.nc": "75f55315742259351de1025672e078d824bca222cd34b57a4e2cd987273473d4"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "8c0aba3b0eb9ab65407970a645490cffa056a89e5d7906f19229dba3a0d35361",
+        "permutation_sha256": "8508d5c7b3cfee2154855f70c24c6888387db474d1aa2d88b779d578e9e9ba7a",
+        "diagnostics": {
+          "max_rhat": 1.0006342304241318,
+          "min_ess_bulk": 6237.560874289807,
+          "min_ess_tail": 11221.183001247786
+        }
+      },
+      {
+        "season": 18,
+        "hashes": {
+          "fit_status.json": "e8e31c463a4ed8a31b07d728ddd260d0859e8b04f2de6098849a005a2b00c8c7",
+          "diagnostics.csv": "4453722ab1d1627f22e97ee7abc2a12844166dea4f8258355655c138b7e9c712",
+          "votes.csv": "f203253d479615a72be5f18c80dbc605a6a4490754c77215cff2bf5d50fd8cc7",
+          "posterior.nc": "138e1097737364ba8bcf77211fda2ceb52d566496ddc7d2db60934729b875b3f"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "f11f2fbb026031b2bce11cb000df9164ce5f901343b769075961a5b4ab861933",
+        "permutation_sha256": "70ebd47d92b1f07fde3258d2461228a143f86f2006b9ee38a90d80b975f4cd91",
+        "diagnostics": {
+          "max_rhat": 1.0003489324125805,
+          "min_ess_bulk": 9879.950084216178,
+          "min_ess_tail": 13329.804746666901
+        }
+      },
+      {
+        "season": 19,
+        "hashes": {
+          "fit_status.json": "d2165dd46490b7e4f450d7302987f6bf1b369788a76ade27ad22211a266d03ff",
+          "diagnostics.csv": "1db0f218c31dc59b459f446f2b18e6d2e0029978fc3e21aeebc44dffa5635575",
+          "votes.csv": "9a8e5e3479d677f7f73f5fbf85bd5f2680ab6fd7cdb04785556296a2fd008e3c",
+          "posterior.nc": "c9736ca5e041462744d5028dbcc7ea40257a6c31f6d6a688ddb2cbcd9bbc0def"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "65a34bd3fa6aab56959ead2686888b987b877c842eaed040db71cebe45756be1",
+        "permutation_sha256": "3e1879b970f3e03b3d890f3a0ff3c67faa59866e37a70a4f74b92aebda9d73e9",
+        "diagnostics": {
+          "max_rhat": 1.0005664289876919,
+          "min_ess_bulk": 8865.629666618046,
+          "min_ess_tail": 13590.856597182863
+        }
+      },
+      {
+        "season": 20,
+        "hashes": {
+          "fit_status.json": "503f70e480f99e04514e4bbdf4fdeb7076d2da4c2f03d1101e4108462c65a026",
+          "diagnostics.csv": "d930ad92c0fb66a67f00580bf1506649e66363e345b00f5ef01c40fd55bda86d",
+          "votes.csv": "43ea2f8d045b58cf7a6cedfec79c34ce81a2bd33a5a667b2f4a37413dc755021",
+          "posterior.nc": "0d00294acf6e71bac1bbcd3a1321fab9ce99dc13d6d917ec6da27f60df7daf27"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "2af7a9906a2b9eb7158c167bc24e3464956853507b6fa2ff133075eef0350c5f",
+        "permutation_sha256": "c6481bbf32647e366ed5997e0fb45fe3a4b3b0babe0cc734210562536ce031cc",
+        "diagnostics": {
+          "max_rhat": 1.0004850439677637,
+          "min_ess_bulk": 6161.427326753408,
+          "min_ess_tail": 9354.614180302182
+        }
+      },
+      {
+        "season": 21,
+        "hashes": {
+          "fit_status.json": "f597371e40e7309434b65787f6e79d75731038e610ee4470176bf4e4a8cde7d6",
+          "diagnostics.csv": "63bc1ce70fc83ef64aca20bf5da703049955d48bcb3f103e6a5e001b52d614d7",
+          "votes.csv": "f4eb16c6e9ae3d1280e04ab747ade32e8a4b341756530ae4977089675e5f2744",
+          "posterior.nc": "e189951d8a5e0162a4a457ec1378a78bd5fe54ee1774abf8e726e1cee7e2d22e"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "50c7d6b03a8eb1c5a5b210b8ee0ce99a0e5da092fd8da7e0d112ed3816e174f2",
+        "permutation_sha256": "56d4d6f7efa7bb8a788ce757ba106729f0e20fa26b18c5ba9fe70a30e13ddcac",
+        "diagnostics": {
+          "max_rhat": 1.000498925046613,
+          "min_ess_bulk": 9550.383808907278,
+          "min_ess_tail": 13820.847517981707
+        }
+      },
+      {
+        "season": 22,
+        "hashes": {
+          "fit_status.json": "04f9d68fd090a2d746ab49fcda89ceb935bbb35f3043b1b7d4b37a77d5f17ae3",
+          "diagnostics.csv": "49a451ea99481c4349c5eace071b6999df3e5f780d312f332cee4c2eb7305153",
+          "votes.csv": "9a00685dfe3fad6a44f5e32d4560b5aeb06b8fe0facef8cae617bf9680d14119",
+          "posterior.nc": "809fbeeba014dd8d4f99cfac526a96b779f1e0c74262961f84ecf5b1438f0519"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "4c68e782bbaebd65da1e57a8c86505499166590e6a40e5e4338f34d280dee0d5",
+        "permutation_sha256": "f327d04213eba4d1e2e2419cc6e835463eab2fd5ae1afd314c544f6070b4e0ef",
+        "diagnostics": {
+          "max_rhat": 1.0005835902874023,
+          "min_ess_bulk": 7717.159802478398,
+          "min_ess_tail": 10789.613828475107
+        }
+      },
+      {
+        "season": 23,
+        "hashes": {
+          "fit_status.json": "38f34b585492e2b79cfe038bde529f36941033ce50dd3fd0383afc1307d7f41e",
+          "diagnostics.csv": "470be13606b8dd8680f14ef6bc408fe8034c5f96b52eecc1cc41ab3f95e91393",
+          "votes.csv": "fc37c7b8503851da08e7afbb10fd7bcd2e32258e43c060f91df53d122fe1077e",
+          "posterior.nc": "ad92dba3ac238322ecc1b1cd54a584c73878229fe6ad8b7724999396a7c0c217"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "b9fffe54840e1456a9654173c0daaaf8548c2eab9de66d6b3bc605d5c756059e",
+        "permutation_sha256": "212f6d210f787757cb26e7f4a3e25d6df5399523ee50b16ec4361881878bdc95",
+        "diagnostics": {
+          "max_rhat": 1.0006654023059023,
+          "min_ess_bulk": 8024.580658813385,
+          "min_ess_tail": 12365.405454503738
+        }
+      },
+      {
+        "season": 24,
+        "hashes": {
+          "fit_status.json": "84d4ec1cea9edb3cbc7fafc9eb2571135cc3ebb6c1781d3a688266db6d363e97",
+          "diagnostics.csv": "e01b7260385d5e70cfad001e2244ef80ff66a9993726f2d0041a42ba89c12fe4",
+          "votes.csv": "02ca6878112178a90e6d652e1eeca62c03ed0d8721b60aaca41041da359f68e1",
+          "posterior.nc": "269fad868714e8d1dc7ee74e7f2df34f6a21a3d452a3cc81c1d50bf6b33433e6"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "e1b0737be475ea969f767e067ce6429cf8082b84aaa3143e7504154a82a7f6b9",
+        "permutation_sha256": "c62e2d7348f6cddb27e35d2a4c0a03dbfd887c18d878d9b6ec05a64053d143ba",
+        "diagnostics": {
+          "max_rhat": 1.0007901851629313,
+          "min_ess_bulk": 5864.537213552605,
+          "min_ess_tail": 9902.052297250759
+        }
+      },
+      {
+        "season": 25,
+        "hashes": {
+          "fit_status.json": "0e1beca3cb7277338cc5e6b081208d0f1497db25b233287256716c92e1f1c448",
+          "diagnostics.csv": "6bbbc1401ad38cd7d7c879b08c3dc8b7d7c9c686c989bffd7229748676b8c976",
+          "votes.csv": "10ee9688309abc73db82eda7daef8004b996ae6d03bee58e54d1aff73dc8191b",
+          "posterior.nc": "f8704ea2763ec8358e2487e5bcf86def254b6ffcc2393eaeb61f45281997633c"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "7af5ffb6ff135bb9585dacf23c4a93e8f6a5b1f54b8ed4983a1f5fbcfb1117d8",
+        "permutation_sha256": "8a7498125be8007cca355522ae9b9b054be005bf9e1f7420ec47221e397dab88",
+        "diagnostics": {
+          "max_rhat": 1.0003461385026877,
+          "min_ess_bulk": 7981.132465875442,
+          "min_ess_tail": 13154.82058155912
+        }
+      },
+      {
+        "season": 26,
+        "hashes": {
+          "fit_status.json": "fed1406b1fcc6de332e8d3287ed0799aef313bee582a571314fbffd3cf885062",
+          "diagnostics.csv": "804d0835a5380da6d66401cb78cca658308e8436d9cad3f6f37cb3564eef0a2c",
+          "votes.csv": "89cb05b84cde1f58f3c4d81cbcff421e35a9f222d4485d24ef0ece0db91074f8",
+          "posterior.nc": "baa183d07096fface9f1a704a8a0506b8928060ff418feee8f015a87869d88b1"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "217e7b13e69fad1c126267d5108ec7c9697c3bdd7d08ed509850929c0ce3cc54",
+        "permutation_sha256": "b6a7f4898ae4c9b842d5d5c2bfa55bc02ed237d5a003600481b8dae44dc2499e",
+        "diagnostics": {
+          "max_rhat": 1.0005412948259655,
+          "min_ess_bulk": 9911.81688922376,
+          "min_ess_tail": 13944.28964244535
+        }
+      },
+      {
+        "season": 27,
+        "hashes": {
+          "fit_status.json": "b57d9b06e7ee6bcd7f56011425b177b19f297e739f1611782ad624c29ad2d8f5",
+          "diagnostics.csv": "d5294a05c8a3a8721a55cf31416633725393b815b67dc17d3885b07320e66b86",
+          "votes.csv": "75db00487ff0ca012fee7f0c20888a7a03db7f3a1d31ff81f806f4a0525df14c",
+          "posterior.nc": "b2bd733714435afc9e6d8dad90929d9c66e20118f592c94824c3608b90f9baa8"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "949b792d3cb3a77cd49653014cb18508806cf13f93604cbf538a5810ce19a32a",
+        "permutation_sha256": "8431883fc35e84bd49380fc9d075d83ecd76e2775c861a2fa8265a78f04ec111",
+        "diagnostics": {
+          "max_rhat": 1.0007159009082638,
+          "min_ess_bulk": 5300.538442527284,
+          "min_ess_tail": 10735.717809152315
+        }
+      },
+      {
+        "season": 28,
+        "hashes": {
+          "fit_status.json": "2c2b93533fd7491c957f703e8934a9ba4fec9befb820af9c0002f3d4b641b8b0",
+          "diagnostics.csv": "b2fe2e2fbda693c25a67a92a70856a520709823d01b6d7503ded8391eaeb0acc",
+          "votes.csv": "ea845061fee157a493bc34042d5b0c58a83163db9c35085f99c915de4d778675",
+          "posterior.nc": "feeb547dad3ce297ad72eb6ebb6e83e225d82f153644ca8993f525f874d35b81"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "236e4c71160cb4f76b1c7869bf1c1aadbe4970b973129a8dc47e6bca47daa91d",
+        "permutation_sha256": "5dab478a845e53cd44e60934194bdf6df4391f9f4f0ad085e4dbac043400af23",
+        "diagnostics": {
+          "max_rhat": 1.0039899626490398,
+          "min_ess_bulk": 870.5375493263042,
+          "min_ess_tail": 1696.7049177595022
+        }
+      },
+      {
+        "season": 29,
+        "hashes": {
+          "fit_status.json": "0b6f4de12c5bf2630152d5fd0f25b3ac37d2df7afcf7d0d39c880bf306348c8e",
+          "diagnostics.csv": "040147213477488929ede1b93e747cc33909d93a462c38dadc0e8bb6a9800bf7",
+          "votes.csv": "0f8f3f3767f6402656a5586090ef55b900ccb60accca1500a90c349a30f351d6",
+          "posterior.nc": "9eefb3b019c7279bc8e0107650972b9244f211939a3ba9e6264b8dca73afab1e"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "ed48bd472630542dcdcb2862cb26878c1117f2734f475298c9509c55148a4d4c",
+        "permutation_sha256": "9588d6df0b1094232fd0f3e8e78117a4a93e1b24d0aa5de38cfc5ce4c3eb71bf",
+        "diagnostics": {
+          "max_rhat": 1.0017740467331193,
+          "min_ess_bulk": 1561.117246795436,
+          "min_ess_tail": 3078.4377459233174
+        }
+      },
+      {
+        "season": 30,
+        "hashes": {
+          "fit_status.json": "177195a0a9d6fdd9a1ab76aa93ce7f6e3313358c8b4c839b3496c965776310d0",
+          "diagnostics.csv": "82d43a865780451604d44308f0d6342eae81421c801de9e36460e4b26d58925b",
+          "votes.csv": "e5d91bd873bb28dd719a76fe19710e558c7f41fdedf4f8a03842f16f5ea323a7",
+          "posterior.nc": "173fcecd56b89942af092a968349d37c1de8984d547af41912039b37589542a5"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "96250722e308f16d2433e172c307bce7658e522bd68ed391158f62d9ed6f158b",
+        "permutation_sha256": "0f187a3067db10fd5a4b338162860021f62b63afef12076acc6de22f8e0cd4ba",
+        "diagnostics": {
+          "max_rhat": 1.001804877713478,
+          "min_ess_bulk": 1119.2038196875685,
+          "min_ess_tail": 1744.2675850724759
+        }
+      },
+      {
+        "season": 31,
+        "hashes": {
+          "fit_status.json": "dfe72e21e66cf6674d94be8fc4929a77a6c2f486ca65ed21d1a8e06dc152316e",
+          "diagnostics.csv": "efab96c69721b7412c1d1395e035ad8f90d1815d56edd73ea98d5f26db2ad8e2",
+          "votes.csv": "dc647f1b43c8904a2ab8ced0122af1683aec442d4579b95c2dddcf4bb503af5c",
+          "posterior.nc": "4289417009f0841d83466a8180086b61bc1f868065894683f419bf72f5f583eb"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "1a264934ed82806fe87554833aee8a480799143f284524741ab121638aab2ae7",
+        "permutation_sha256": "6e1142f71d7a074131494b0cc5fd1dd96225b68e5ae05ee546a2c6526d465c55",
+        "diagnostics": {
+          "max_rhat": 1.0011361646255053,
+          "min_ess_bulk": 1997.6958613322993,
+          "min_ess_tail": 2614.4279210709587
+        }
+      },
+      {
+        "season": 32,
+        "hashes": {
+          "fit_status.json": "f9d39cbafdee3fc74d833530a0da95bdf08a5720e2899ec62253ec709ceeb800",
+          "diagnostics.csv": "da634d9a31365f034c727ec3981283c662d6e1eca4cba1eb3a6ac64103b40b0e",
+          "votes.csv": "62b2f0a8ea72ece55cae261bb94b5a6018e296044b3e0806c8b83514f3fa1a7c",
+          "posterior.nc": "b77a37ab4e4bd4b5013bf06bd143f8364bdbd0aadb917320bc875e001464944e"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "b16e0f1d3c646417a0e883e73d3c8d3dbe619ab18df10659f30a4efc586faa9b",
+        "permutation_sha256": "c0565d5751ecfa7d2385c02d524d34f60cbff03563d5afb03ce18f0e8b5fede1",
+        "diagnostics": {
+          "max_rhat": 1.0052857997165434,
+          "min_ess_bulk": 672.0221141176083,
+          "min_ess_tail": 1404.7870144055676
+        }
+      },
+      {
+        "season": 33,
+        "hashes": {
+          "fit_status.json": "209c974b7b4fc32e8d04f245de00ab5c233148e47917f7f8e5f384e705d6fff4",
+          "diagnostics.csv": "f9df2dbcd4e6ea6e45466d92298965f277d76e55c4790f4e3666e0ad0d610784",
+          "votes.csv": "d0cf31b09e7181b3083b97494241e40bf7de907e8efb64327b866d9148a8b337",
+          "posterior.nc": "e61174b5355960652526c2b8e5479b86083741de3d86d86fea6401b31745daf5"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "acc89beee84445d1c3eef8c7e96efc808aacefebf1ff2004aa782ee827f8f98e",
+        "permutation_sha256": "f61d30090c73df7966315e21c14dc2fab0f200301610d7bb81448c830451e892",
+        "diagnostics": {
+          "max_rhat": 1.002412431288905,
+          "min_ess_bulk": 1173.5107359590638,
+          "min_ess_tail": 4332.657688412953
+        }
+      },
+      {
+        "season": 34,
+        "hashes": {
+          "fit_status.json": "d26964c55171d2105211716a6aa50b0a837eeba72ec21ae5e5480a05a6bc8521",
+          "diagnostics.csv": "2b2e0cae07360daba74c1a08d98ac25636c96293e2312ce830520cd305ff6a68",
+          "votes.csv": "9922d278a366cf216637b2b749a96b939a5b0119b0805e56777c6c016878d358",
+          "posterior.nc": "f778c83673d80d507cd50a8d52e230aa53102df99b69ae22455e9b262a2758d6"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "4bb3fbec3aa55418c1b611e2ac3cd9e6788d30197198d008362120185606a73d",
+        "permutation_sha256": "1750dab6d4da337b7c618fac28d642c05b29a633ba3c33a0297f1be7859b07b8",
+        "diagnostics": {
+          "max_rhat": 1.0019738987455726,
+          "min_ess_bulk": 764.6446778984263,
+          "min_ess_tail": 2088.865540288224
+        }
+      }
+    ],
+    "declared_sensitivity": null
+  },
+  "late_bottom_two_likelihood": {
+    "source_directory_name": "continuation-late-bottom-two",
+    "run_config": {
+      "seasons": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "season_workers": 4,
+      "data": {
+        "outcome_policy": "label_first",
+        "include_final_week_eliminations": false
+      },
+      "fit": {
+        "draws": 4000,
+        "tune": 6000,
+        "chains": 4,
+        "cores": 1,
+        "seed": 2627761,
+        "penalty_lambda": 1.0,
+        "judge_weight": 0.5,
+        "likelihood": "bottom_two",
+        "alpha_step": 0.15,
+        "beta_step": 0.08,
+        "sigma_step": 0.08,
+        "epsilon_step": 0.3,
+        "parameterization": "noncentered",
+        "adapt_proposals": true,
+        "sampler": "fast_mh",
+        "sweeps_per_draw": 20,
+        "withdrawal_policy": "include_scored"
+      },
+      "simulation_scope": "nonfinal_weeks",
+      "rf_trees": 300,
+      "rf_folds": 5,
+      "history_weight": 0.5,
+      "history_grid": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "rf_inner_folds": 3,
+      "rf_min_samples_leaf": 5,
+      "rf_judge_target": "judge_mean",
+      "rf_fan_scale": "relative",
+      "partner_identity_mode": "verified_canonical_identity"
+    },
+    "manifest": {
+      "started_utc": "2026-10-14T20:21:42.012871+00:00",
+      "python": "3.12.14",
+      "input_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+      "code_sha256": "0f9b239ecedcb3b7be212e86505705279a705ae0d8482e357148f6bc9c1668f8",
+      "source_report": "2627761.pdf",
+      "status": "completed",
+      "packages": {
+        "numpy": "2.3.5",
+        "pandas": "2.2.3",
+        "scipy": "1.17.0",
+        "pymc": "5.25.1",
+        "pytensor": "2.31.7",
+        "arviz": "0.22.0",
+        "scikit-learn": "1.8.0",
+        "shap": "0.53.0",
+        "statsmodels": "0.15.0",
+        "numba": "0.67.0"
+      },
+      "completed_utc": "2026-10-14T20:23:34.917542+00:00",
+      "all_sampling_diagnostics_pass": true,
+      "attribution_ran": false
+    },
+    "run_files_sha256": {
+      "manifest.json": "c2f61dc95ca1f90740f6651592341df7182702b34c5624be467c4a52be22d92e",
+      "run_config.json": "2030614c5cf71476a37bcbd86375194d3a320fc43c3dd56d23124b4bad566521",
+      "sampling_status.json": "93df97065cc53cb4dc6ff9c7b2c85c2fb922667f79e38f77d082126056809e2a",
+      "votes.csv": "e8145e68b79bd27e04f916375e3683ba18fe0527d0269b660c391dcbbf549d5e"
+    },
+    "seasons": [
+      {
+        "season": 28,
+        "hashes": {
+          "fit_status.json": "32da6101da0cb4a6d094b441d15a656cac369269dd23c4fb02571488b08db028",
+          "diagnostics.csv": "beb9b16b13ce5f86aee9c67f6e0df0bb36c12b492fdad783ccb746ed64d599f6",
+          "votes.csv": "e16b2ecf3d19be2393f10094d2e3f65e0e57e73d0fc70e0561bffd1508630572",
+          "posterior.nc": "c2fffe9144bbba9deaa9a494a95d2bc76f8cff2aa6f0815a7fc1ffd7b693e7ca"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "236e4c71160cb4f76b1c7869bf1c1aadbe4970b973129a8dc47e6bca47daa91d",
+        "permutation_sha256": "5dab478a845e53cd44e60934194bdf6df4391f9f4f0ad085e4dbac043400af23",
+        "diagnostics": {
+          "max_rhat": 1.0028482281940851,
+          "min_ess_bulk": 1438.167982404364,
+          "min_ess_tail": 4463.028730251906
+        }
+      },
+      {
+        "season": 29,
+        "hashes": {
+          "fit_status.json": "5bbc8f21d7d6a9cf4d5654d8eb3c0ba319226b053d0383868b6a9d2f3bfaa4a3",
+          "diagnostics.csv": "4edc01c0414fb3e50f7997fd48818571d80e2a0130dd09dc43e28e9351ad8d82",
+          "votes.csv": "4a7853c2b499b88022f703364908cd34ace3470f242c8ca1762474deb8dd3194",
+          "posterior.nc": "c432d65b864f078db47cfe29e773ed403ff4c36ec0a27b9c0f17fd07a61c2190"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "ed48bd472630542dcdcb2862cb26878c1117f2734f475298c9509c55148a4d4c",
+        "permutation_sha256": "9588d6df0b1094232fd0f3e8e78117a4a93e1b24d0aa5de38cfc5ce4c3eb71bf",
+        "diagnostics": {
+          "max_rhat": 1.0005264213524516,
+          "min_ess_bulk": 3327.004099604693,
+          "min_ess_tail": 4800.15872905197
+        }
+      },
+      {
+        "season": 30,
+        "hashes": {
+          "fit_status.json": "d85c056e2feaf6bbb3722503b4ef90befe823c53f255c4cbf7135d7d60b4d67a",
+          "diagnostics.csv": "628ef7ecdcacc2b7ca703b8d8b02347218d675f8462d048f22eb541dd3f198f8",
+          "votes.csv": "ba8af3e551781002ea62072042cf24df10e5091159feb250af1f379f73305a1b",
+          "posterior.nc": "79b53b9e106903490707389acf07523fd85bc38fb250006a8aaff00a820f45cf"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "96250722e308f16d2433e172c307bce7658e522bd68ed391158f62d9ed6f158b",
+        "permutation_sha256": "0f187a3067db10fd5a4b338162860021f62b63afef12076acc6de22f8e0cd4ba",
+        "diagnostics": {
+          "max_rhat": 1.0020822704640846,
+          "min_ess_bulk": 1872.5564810094206,
+          "min_ess_tail": 1825.538333799462
+        }
+      },
+      {
+        "season": 31,
+        "hashes": {
+          "fit_status.json": "1a8cb55cc995cdec8df80a28ef01e991bcb3739805394f90cebaa49194b02af3",
+          "diagnostics.csv": "7910b149b5869177d2f55bf303857e9ac3d50405db36a79e8abdf5e79dc97d3f",
+          "votes.csv": "3c67eae34f33bf0b204748a649e5dd0e2f4ab275f469416ca6550f8c92fd9028",
+          "posterior.nc": "18f0e7c5f2c72229b5bedaed1366bb94460bb08930e080022fa5e2d311e72727"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "1a264934ed82806fe87554833aee8a480799143f284524741ab121638aab2ae7",
+        "permutation_sha256": "6e1142f71d7a074131494b0cc5fd1dd96225b68e5ae05ee546a2c6526d465c55",
+        "diagnostics": {
+          "max_rhat": 1.0010711949376037,
+          "min_ess_bulk": 4789.0201252774195,
+          "min_ess_tail": 4105.603266959932
+        }
+      },
+      {
+        "season": 32,
+        "hashes": {
+          "fit_status.json": "d3881b1ce1d27dda29173ac554d4b40c4cd1181836fb279abdb9149e6ff63b10",
+          "diagnostics.csv": "fcc6d1f407b712c35478f7b94f2d3c4938017a6fdc40b4f8c1e431b1de016c7b",
+          "votes.csv": "19c2875dd192fbb2fde4d9460093734a667c0bf92bf5fd7fc5ecc72351cf14d6",
+          "posterior.nc": "5fd29dc814c5ec0767d2269fc19a8647ad634aff5927752ab817e5733f20a717"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "b16e0f1d3c646417a0e883e73d3c8d3dbe619ab18df10659f30a4efc586faa9b",
+        "permutation_sha256": "c0565d5751ecfa7d2385c02d524d34f60cbff03563d5afb03ce18f0e8b5fede1",
+        "diagnostics": {
+          "max_rhat": 1.002924109718693,
+          "min_ess_bulk": 1428.598200853322,
+          "min_ess_tail": 3690.8823309837544
+        }
+      },
+      {
+        "season": 33,
+        "hashes": {
+          "fit_status.json": "75393fbbd80533af0872560cbbc11f5e337fa2bb6b55209261c070c61b74e570",
+          "diagnostics.csv": "cd4930c6b86b1167e879096465426824618c2f7a63c2c1cd02ca115a575c9816",
+          "votes.csv": "5c9c25bbe80ab1d9535c3ea78405bdfe297d278de1ad540ddd7b093ad48b39a5",
+          "posterior.nc": "8e325e0b81904741850e2ac2238fc459a64a1a0ff209723fb8a4b3895924fd43"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "acc89beee84445d1c3eef8c7e96efc808aacefebf1ff2004aa782ee827f8f98e",
+        "permutation_sha256": "f61d30090c73df7966315e21c14dc2fab0f200301610d7bb81448c830451e892",
+        "diagnostics": {
+          "max_rhat": 1.0012133650400605,
+          "min_ess_bulk": 1739.0585273977124,
+          "min_ess_tail": 5150.254830536856
+        }
+      },
+      {
+        "season": 34,
+        "hashes": {
+          "fit_status.json": "90a6710d2dabd028dd0b1de979199572b69a348ea2206bd6e5288779eccbf48c",
+          "diagnostics.csv": "49d8d3c828b7422307381a0744ca7b7aff59daff7e9c54470fef32b85b9255d6",
+          "votes.csv": "2dd307eade3fe0e724e09f59e068e32c6398a1c7e552019266b329b875ff0114",
+          "posterior.nc": "ef6be6a92196814be0580dbd9e69f21d392e1626e9533322727a4fc2c086c1ca"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "4bb3fbec3aa55418c1b611e2ac3cd9e6788d30197198d008362120185606a73d",
+        "permutation_sha256": "1750dab6d4da337b7c618fac28d642c05b29a633ba3c33a0297f1be7859b07b8",
+        "diagnostics": {
+          "max_rhat": 1.002480565925621,
+          "min_ess_bulk": 2052.3570666045403,
+          "min_ess_tail": 3912.700455856495
+        }
+      }
+    ],
+    "declared_sensitivity": {
+      "label": "late_bottom_two_likelihood",
+      "source": "outputs/continuation-late-bottom-two",
+      "changed_fit_field": "likelihood",
+      "changed_fit_value": "bottom_two"
+    }
+  },
+  "season3_penalty_0p1": {
+    "source_directory_name": "continuation-penalty-0p1",
+    "run_config": {
+      "seasons": [
+        3
+      ],
+      "season_workers": 1,
+      "data": {
+        "outcome_policy": "label_first",
+        "include_final_week_eliminations": false
+      },
+      "fit": {
+        "draws": 4000,
+        "tune": 6000,
+        "chains": 4,
+        "cores": 1,
+        "seed": 2627761,
+        "penalty_lambda": 0.1,
+        "judge_weight": 0.5,
+        "likelihood": "report",
+        "alpha_step": 0.15,
+        "beta_step": 0.08,
+        "sigma_step": 0.08,
+        "epsilon_step": 0.3,
+        "parameterization": "noncentered",
+        "adapt_proposals": true,
+        "sampler": "fast_mh",
+        "sweeps_per_draw": 20,
+        "withdrawal_policy": "include_scored"
+      },
+      "simulation_scope": "nonfinal_weeks",
+      "rf_trees": 300,
+      "rf_folds": 5,
+      "history_weight": 0.5,
+      "history_grid": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "rf_inner_folds": 3,
+      "rf_min_samples_leaf": 5,
+      "rf_judge_target": "judge_mean",
+      "rf_fan_scale": "relative",
+      "partner_identity_mode": "verified_canonical_identity"
+    },
+    "manifest": {
+      "started_utc": "2026-10-14T20:19:41.872192+00:00",
+      "python": "3.12.14",
+      "input_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+      "code_sha256": "0f9b239ecedcb3b7be212e86505705279a705ae0d8482e357148f6bc9c1668f8",
+      "source_report": "2627761.pdf",
+      "status": "completed",
+      "packages": {
+        "numpy": "2.3.5",
+        "pandas": "2.2.3",
+        "scipy": "1.17.0",
+        "pymc": "5.25.1",
+        "pytensor": "2.31.7",
+        "arviz": "0.22.0",
+        "scikit-learn": "1.8.0",
+        "shap": "0.53.0",
+        "statsmodels": "0.15.0",
+        "numba": "0.67.0"
+      },
+      "completed_utc": "2026-10-14T20:20:03.816343+00:00",
+      "all_sampling_diagnostics_pass": true,
+      "attribution_ran": false
+    },
+    "run_files_sha256": {
+      "manifest.json": "c5ad82beb75a9e4e52f306648aa9df63768d68513c3bcdfc7829915b3f92ae4e",
+      "run_config.json": "359b3f3a153a936bad054417c5a570a8ef79bed9e4c31712894a27e5183754e5",
+      "sampling_status.json": "bed4395c2d1ccee1d1abf992902a74289c38b6cdda8cb253a1d8745f5eb404ac",
+      "votes.csv": "3d9a832b63314fe64478282a616c10adae54375448d42e19f001868cf2d291bd"
+    },
+    "seasons": [
+      {
+        "season": 3,
+        "hashes": {
+          "fit_status.json": "d3adbb4d8b5d81ca23d82763e99b16001269bb1febf7f9899021548afe27bbbd",
+          "diagnostics.csv": "6587c5d4a5b1e613a6863f2673fdad615945cffc99b912d12788e1ea09a69775",
+          "votes.csv": "3d9a832b63314fe64478282a616c10adae54375448d42e19f001868cf2d291bd",
+          "posterior.nc": "83c3749da3c74215c7331ae707ab34d8dedac0c0229f03be57929b8ddaae461e"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "f5d1bdedd163cf9fe42bbbd4c1b6b34d08a6b7a88b4d4929f20a82168cedc980",
+        "permutation_sha256": "e8ed60257dbe92270b7e821a5bf6e7d4d4f866f3581911ca4b51bcb81fbc21f1",
+        "diagnostics": {
+          "max_rhat": 1.0005946809632378,
+          "min_ess_bulk": 13897.314004543676,
+          "min_ess_tail": 14454.694716623386
+        }
+      }
+    ],
+    "declared_sensitivity": {
+      "label": "season3_penalty_0p1",
+      "source": "outputs/continuation-penalty-0p1",
+      "changed_fit_field": "penalty_lambda",
+      "changed_fit_value": 0.1
+    }
+  },
+  "season3_penalty_10": {
+    "source_directory_name": "continuation-penalty-10",
+    "run_config": {
+      "seasons": [
+        3
+      ],
+      "season_workers": 1,
+      "data": {
+        "outcome_policy": "label_first",
+        "include_final_week_eliminations": false
+      },
+      "fit": {
+        "draws": 4000,
+        "tune": 6000,
+        "chains": 4,
+        "cores": 1,
+        "seed": 2627761,
+        "penalty_lambda": 10.0,
+        "judge_weight": 0.5,
+        "likelihood": "report",
+        "alpha_step": 0.15,
+        "beta_step": 0.08,
+        "sigma_step": 0.08,
+        "epsilon_step": 0.3,
+        "parameterization": "noncentered",
+        "adapt_proposals": true,
+        "sampler": "fast_mh",
+        "sweeps_per_draw": 20,
+        "withdrawal_policy": "include_scored"
+      },
+      "simulation_scope": "nonfinal_weeks",
+      "rf_trees": 300,
+      "rf_folds": 5,
+      "history_weight": 0.5,
+      "history_grid": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "rf_inner_folds": 3,
+      "rf_min_samples_leaf": 5,
+      "rf_judge_target": "judge_mean",
+      "rf_fan_scale": "relative",
+      "partner_identity_mode": "verified_canonical_identity"
+    },
+    "manifest": {
+      "started_utc": "2026-10-14T20:19:41.726640+00:00",
+      "python": "3.12.14",
+      "input_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+      "code_sha256": "0f9b239ecedcb3b7be212e86505705279a705ae0d8482e357148f6bc9c1668f8",
+      "source_report": "2627761.pdf",
+      "status": "completed",
+      "packages": {
+        "numpy": "2.3.5",
+        "pandas": "2.2.3",
+        "scipy": "1.17.0",
+        "pymc": "5.25.1",
+        "pytensor": "2.31.7",
+        "arviz": "0.22.0",
+        "scikit-learn": "1.8.0",
+        "shap": "0.53.0",
+        "statsmodels": "0.15.0",
+        "numba": "0.67.0"
+      },
+      "completed_utc": "2026-10-14T20:20:03.807124+00:00",
+      "all_sampling_diagnostics_pass": true,
+      "attribution_ran": false
+    },
+    "run_files_sha256": {
+      "manifest.json": "b77b615ef5d2516dbe3cdab30e9558d8fb58878037cfb42588e8b7160d77513a",
+      "run_config.json": "8005982529abfcc32ad714cfd08c791faa05ba5d0665501b31eb7125ab096db7",
+      "sampling_status.json": "e261c6a1bd826c1a483f52be7663a75b78cb42c5efc17c0287a3c96073ccd995",
+      "votes.csv": "bef18cdda633c7494ee6fb9e2794b90e5ee1b55b90c8e5a2189bae815d0fd1cb"
+    },
+    "seasons": [
+      {
+        "season": 3,
+        "hashes": {
+          "fit_status.json": "bd2d51acd7f5934e58c33587346fbefd277947af32953a091cd4dda6b5645c9c",
+          "diagnostics.csv": "ebc1984372141ca270999d21764fc4e5b8f456fc3ba5cb0bb688eb7f15c8ab3f",
+          "votes.csv": "bef18cdda633c7494ee6fb9e2794b90e5ee1b55b90c8e5a2189bae815d0fd1cb",
+          "posterior.nc": "a404960a051731b663c8af8ab631508e452ad4cc5e7c3f9b0b5d70fa4e735d7e"
+        },
+        "stored_chains": 4,
+        "stored_draws_per_chain": 4000,
+        "selected_draws_per_chain": 512,
+        "selection_indices_sha256": "f5d1bdedd163cf9fe42bbbd4c1b6b34d08a6b7a88b4d4929f20a82168cedc980",
+        "permutation_sha256": "e8ed60257dbe92270b7e821a5bf6e7d4d4f866f3581911ca4b51bcb81fbc21f1",
+        "diagnostics": {
+          "max_rhat": 1.0013273836404253,
+          "min_ess_bulk": 2621.029734550344,
+          "min_ess_tail": 3275.942064461137
+        }
+      }
+    ],
+    "declared_sensitivity": {
+      "label": "season3_penalty_10",
+      "source": "outputs/continuation-penalty-10",
+      "changed_fit_field": "penalty_lambda",
+      "changed_fit_value": 10.0
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "execution_completed": true,
+  "completed_utc": "2026-10-15T17:49:54.355362+00:00",
+  "sources": [
+    "baseline",
+    "late_bottom_two_likelihood",
+    "season3_penalty_0p1",
+    "season3_penalty_10"
+  ],
+  "baseline_seasons": 34,
+  "baseline_weeks": 291,
+  "code_sha256": "5bad64e55378978f988128c3bb14c0b4b8288e48dc7491f444742478851b6891",
+  "protocol_sha256": "b222ef10bf65c566351f84d522fedd592831ecd961886fc6cd5e9e114fff8eae",
+  "analysis_code_sha256": {
+    "uncertainty.py": "5bad64e55378978f988128c3bb14c0b4b8288e48dc7491f444742478851b6891",
+    "rules.py": "6971fbb42137db9e1dc8b5f8fd57f5831549ffdaf55a4c0b91b780a0f494d4d7",
+    "analysis.py": "8fac207fe135efd86837c182de0f64253da203589e1a7eb114f9574622c053a7",
+    "data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa"
+  },
+  "output_sha256": {
+    "policy_summary.csv": "709844b41546a03874701446a3e4de957e1cab2421e1f27240a55567f93fd2f0",
+    "policy_contrasts.csv": "1380637555055749b51f48b77f81524bfc4f726dae6ac518b8c7f825d4902403",
+    "sensitivity_summary.csv": "76b584853e4e00ef1ed7a0b3571d225e4627f01a95fc35443e65465181c66d99",
+    "protocol.json": "bf4a7626d36d41e85b0d29edd1df7b65181eb86085933769e423c6485f5893b4",
+    "source_integrity.json": "10569555bcedbccb18bb9197685e9cfdcbf98498312a1a2e48332db39620adc3"
+  },
+  "all_source_diagnostics_pass": true,
+  "independent_true_vote_validation": false
+}

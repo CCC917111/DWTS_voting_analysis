@@ -1,0 +1,19 @@
+{
+  "completed": true,
+  "started_utc": "2026-10-15T17:45:59.906348+00:00",
+  "completed_utc": "2026-10-15T17:51:27.384529+00:00",
+  "interpretation": "Exploratory internal validation on frozen retrospective latent fan shares. The normalization hypothesis was discovered using this same dataset; outer folds and bootstrap intervals are not independent confirmatory evidence. No observed-audience-vote accuracy or causal professional effect is measured.",
+  "independent_confirmation": false,
+  "all_source_sampling_diagnostics_pass": true,
+  "protocol_sha256": "0a64d6e7f5ba0e65bb94e21f459fb49ff595b0bdbd9d4dc6f9ae4c3da37c1813",
+  "artifacts_sha256": {
+    "fold_metrics.csv": "62e1de345fddf670c6fff88f64f665fabc0dda436a84c727e779e4f14fe653e2",
+    "folds.csv": "d1745205e17cf5166bd44988018d4461e37f2e299ed2cd682bb1160384d5f43d",
+    "inner_trials.csv": "58743e4677cd9451da1b7900fc4b08461073be484fdc21f86caa83370a5e6f11",
+    "metrics.csv": "fee99c30aaff8ac760fa610e069b4485d4937bdcfca8548a26223521d04d1172",
+    "oof_predictions.csv": "f23f0ac9c76ce021f1e094185484292f385172397f9f27c0aede897e01310750",
+    "paired_differences.csv": "8f7dda917af67b489aedf19b80f154218171d39eb2c14229ccb5912812d0b20e",
+    "weight_selection.csv": "45cc2e26f869f2f5d646c8fcd3af28937f4382ba3c4725ff0ec57add7b310169"
+  },
+  "row_level_outputs": "oof_predictions.csv and inner_trials.csv remain local; publish aggregate summaries only"
+}

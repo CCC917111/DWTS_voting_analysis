@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "seed": 2627761,
+  "draws_per_chain": 512,
+  "scope": "nonfinal_observed_rosters_n_ge_3_excluding_withdrawal_weeks",
+  "counterfactual_exits_per_week": 1,
+  "rules": [
+    "rank",
+    "percentage"
+  ],
+  "judge_weights": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "mechanisms": [
+    "none",
+    "judge_save",
+    "fan_save"
+  ],
+  "interval_probability": 0.95,
+  "sensitivity_sources": [
+    {
+      "label": "late_bottom_two_likelihood",
+      "source": "outputs/continuation-late-bottom-two",
+      "changed_fit_field": "likelihood",
+      "changed_fit_value": "bottom_two"
+    },
+    {
+      "label": "season3_penalty_0p1",
+      "source": "outputs/continuation-penalty-0p1",
+      "changed_fit_field": "penalty_lambda",
+      "changed_fit_value": 0.1
+    },
+    {
+      "label": "season3_penalty_10",
+      "source": "outputs/continuation-penalty-10",
+      "changed_fit_field": "penalty_lambda",
+      "changed_fit_value": 10.0
+    }
+  ],
+  "quantile_method": "numpy_linear_equal_tailed_empirical",
+  "posterior_joint_draws_per_source": {
+    "baseline": 2048,
+    "late_bottom_two_likelihood": 2048,
+    "season3_penalty_0p1": 2048,
+    "season3_penalty_10": 2048
+  },
+  "fan_ordering": "Latent logits define fan ranks and fan tie-break/save order for both rule families; numeric softmax underflow is not a genuine vote tie.",
+  "percentage_merit": "Weighted stored numeric fan shares and judge shares; no repair or clipping of softmax underflow.",
+  "exact_rank_merit": "Integer weighted doubled-average-rank key from exact decimal judge weights.",
+  "seasonal_combination": "independent_seeded_permutations_preserving_joint_weeks_and_paired_policies",
+  "intervals": "Conditional posterior credible intervals; not frequentist confidence intervals or p-values.",
+  "conditioning": "Observed elimination labels informed the posterior; these are not independent held-out predictions.",
+  "limitations": [
+    "No unobserved true audience votes are available for accuracy validation.",
+    "Observed weekly rosters are held fixed; no full-season counterfactual path is simulated.",
+    "One exit per week is a standardized policy even in observed no-exit or multi-exit weeks.",
+    "All withdrawal weeks are excluded; other observed labels do not determine policy exit counts.",
+    "Intervals reflect model-conditional posterior uncertainty, not all model/specification uncertainty.",
+    "Original full-chain diagnostics apply before stratified subsampling; Monte Carlo summaries remain approximate.",
+    "Sensitivity fits vary penalty strength and late-season likelihood only; prior scales were not refitted.",
+    "A high posterior probability is conditional support under fitted assumptions, not a causal or universal policy guarantee."
+  ]
+}
