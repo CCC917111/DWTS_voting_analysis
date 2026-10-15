@@ -1,6 +1,6 @@
 # Methods and declared assumptions
 
-This describes the analysis implemented in this repository. Method sources and contribution scope are recorded in [PROVENANCE.md](PROVENANCE.md).
+This describes the current software implementation of the team's DWTS study. Research authorship and the current code edition are recorded in [PROVENANCE.md](PROVENANCE.md).
 
 ## Data and preprocessing
 
@@ -49,6 +49,13 @@ sample populations and assumptions recorded in each output directory.
 
 `scripts/run_identity_cv.py` compares target values, design matrices, feature names, settings, environment and archived model/feature code before reusing results. Changed inputs or selected weights force refits. A zero-fit plan is the default; execution is explicit. Tests exercise tiny-value changes, incorrect saved metrics, altered targets and output protection.
 
-## Open identification problems
+## Limits when comparing with the original report
 
-Missing author material includes row-level posterior summaries, evaluation-row lists, complete OOF predictions and folds, metric weights, cold-start initialization, tie handling and some save-rule definitions. More parameter search is not a substitute for those materials.
+The competition-time source and complete row-level outputs are unavailable in this code edition. Evaluation-row lists, OOF predictions and folds, metric weights, cold-start initialization and some tie/save conventions are incompletely recorded. The current implementation declares its own settings; optional historical comparisons retain these limitations.
+
+## Execution and reference checks
+
+Default model runs produce study estimates, tables and figures without comparing
+them to printed target values. Standalone analysis validates source diagnostics
+and returns success when its scientific calculations complete. Optional original-
+report comparisons retain their own status and do not define analysis success.

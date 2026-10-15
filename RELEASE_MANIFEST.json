@@ -1,7 +1,6 @@
 {
   "package": "DWTS Voting Analysis",
   "version": "0.5.1",
-  "full_numerical_replication": false,
   "release_kind": "source_tree",
   "repository": "CCC917111/dwts-voting-audit",
   "source_local_zip_sha256": "b4821dc869f494c9f6c7d45bc3be2934b394507fed97414a57d2323d5b76c946",
@@ -38,18 +37,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 5141,
-      "sha256": "b60d39ad0da1ac430374ff1fc6ae35956f518803ea9a6f484db63961fae45da5"
+      "bytes": 5461,
+      "sha256": "db1a7a175494330521d85f9895bbd62b92b24de01594fa600a1e212568485747"
     },
     {
       "path": "README.zh-CN.md",
-      "bytes": 3644,
-      "sha256": "d4b64cc05e042e5897f23a4a3267ecbc8cbe4bf7a0099d3ca992f593f61ceb07"
+      "bytes": 3956,
+      "sha256": "73e86c087d47faedf5e07d375d0c455a474c7ab518d2852acb5c1561ef537c9e"
     },
     {
       "path": "configs/README.md",
-      "bytes": 776,
-      "sha256": "c77677feeb7912c6c96ac080f185e6e9b4b242e6ba93bf4b9766dd3538d921cf"
+      "bytes": 1035,
+      "sha256": "ef376dc10cc387343944c3a7deab60a6cd1555f4a5440f5bd2915fa35d1e46bd"
     },
     {
       "path": "configs/bottom_two_sensitivity.json",
@@ -112,29 +111,34 @@
       "sha256": "97a52d18dd6d8001b044318599db01a8dab2d3a0963237d78852d67f3af96817"
     },
     {
+      "path": "configs/study.json",
+      "bytes": 747,
+      "sha256": "d917a49cb37a60ae696b4b96e965afd7b99e49391d994e262e813ebed934d4d1"
+    },
+    {
       "path": "data/SOURCES.md",
       "bytes": 1446,
       "sha256": "4cee379611de3a336d3865bae72de3729eaf02beefa294a347d7ca99aa45b22e"
     },
     {
       "path": "docs/METHODS.md",
-      "bytes": 5939,
-      "sha256": "aa187f528454c0f345e5424fb8b88a3fdafee50e1bf354154a062732f55b5bb9"
+      "bytes": 6427,
+      "sha256": "0668d9d34d475e22fb20525f0802cdf3a5872728bb95a1daa55c2a6bc88741b6"
     },
     {
       "path": "docs/PROVENANCE.md",
-      "bytes": 1855,
-      "sha256": "1e09348e005eb43bcf7c279d037f95492cf013603db5a49eb10c060fee04a4cf"
+      "bytes": 1819,
+      "sha256": "88c5cf39425895f0fc9e8ba68ad0910d93ce63842d82bade54bff228ae3f4dfd"
     },
     {
       "path": "docs/RESULTS.md",
-      "bytes": 3232,
-      "sha256": "a2a35c306462640e21721e7c33b039921d4362ed49b48933cf5ba731d0ba8809"
+      "bytes": 3378,
+      "sha256": "0caf2cc8b1c079ca417ca6f8d821a969076efe50dd0b41d27859a919949f48c4"
     },
     {
       "path": "docs/RUNNING.md",
-      "bytes": 6256,
-      "sha256": "21629201dfb2e7c728b8286a7289e7e3700df56ded5a6204d84fe2511c4e6610"
+      "bytes": 4793,
+      "sha256": "bc9fa097dd298a0f7e390fff78d86e4702fe1bc92c55fdec1d9ff13e3b19152e"
     },
     {
       "path": "docs/assets/demo.svg",
@@ -143,8 +147,8 @@
     },
     {
       "path": "docs/source_inventory.json",
-      "bytes": 6067,
-      "sha256": "291cfe4948fdd7a5dd90a4cfb88d1847940e0e0c398e0600fb58a0ebbc5a2281"
+      "bytes": 6673,
+      "sha256": "64c341895bd437a1dcc3d996e639c45ff10bfff9052e1e48eb301f411693a7ce"
     },
     {
       "path": "dwts/__init__.py",
@@ -158,8 +162,8 @@
     },
     {
       "path": "dwts/analysis.py",
-      "bytes": 18054,
-      "sha256": "448492711d31fd8854dd47930df147cefab31d412408a04cb7370c9671507112"
+      "bytes": 29966,
+      "sha256": "8fac207fe135efd86837c182de0f64253da203589e1a7eb114f9574622c053a7"
     },
     {
       "path": "dwts/attribution.py",
@@ -168,8 +172,8 @@
     },
     {
       "path": "dwts/cli.py",
-      "bytes": 10886,
-      "sha256": "39d344db928b4b2fa711826edc8e3e6051bea190bcf8784ad43efe04872d7a14"
+      "bytes": 11400,
+      "sha256": "eabb6d316863c629a5924b4c79ce8f4ae248b8bc26056fef2610f1c975ecf03d"
     },
     {
       "path": "dwts/data.py",
@@ -223,8 +227,8 @@
     },
     {
       "path": "dwts/plots.py",
-      "bytes": 6682,
-      "sha256": "bc0540dce177b55fcb50eb3d4602b5c281cf53cbeeed97c6fa604e51237881cd"
+      "bytes": 6795,
+      "sha256": "602d4d1e97005864590aa17bfd78942861372440dff8aec8911226b6cc818939"
     },
     {
       "path": "dwts/reconcile.py",
@@ -308,8 +312,8 @@
     },
     {
       "path": "scripts/package_repository.py",
-      "bytes": 2614,
-      "sha256": "987d2dea8bb55ca9bdf12b8adf3e2e2ff150492c1d203eb3fafeaa4c01ea95e4"
+      "bytes": 2710,
+      "sha256": "021f346ad6d5bb29282a8b71b767c13d1e4094baef87ead7f0ace0495f4f085c"
     },
     {
       "path": "scripts/run_identity_cv.py",
@@ -328,8 +332,8 @@
     },
     {
       "path": "tests/test_analysis.py",
-      "bytes": 5479,
-      "sha256": "615f7cec5f72e2cf624db3b53471e47b9be0b31503845c296df245fd68060a8b"
+      "bytes": 12921,
+      "sha256": "25db97f1ca2bb1061e2fac2002d447b2afe9d107342a2a8b524c327eaaf7e4c7"
     },
     {
       "path": "tests/test_data.py",
@@ -403,8 +407,8 @@
     },
     {
       "path": "tests/test_repository.py",
-      "bytes": 5411,
-      "sha256": "ab0a4c81974f2ae78e3d36c9e97371574ec63eeb3474da1e484cedbc53efb483"
+      "bytes": 5344,
+      "sha256": "129a3f01f19e57fd2ed57c470b31c82fb3086e4c42b053ffbd77b032db0ae0b0"
     },
     {
       "path": "tests/test_rule_precision.py",
@@ -422,10 +426,17 @@
       "sha256": "a237ca91121c60f857c9bbaf3bd419477a72c0b61b4f656425c28659744c9306"
     },
     {
+      "path": "tests/test_study_workflow.py",
+      "bytes": 7383,
+      "sha256": "b635a302e9fd246685ed74cb85d137fd197b34ab8abaf6b61c35b2f251488818"
+    },
+    {
       "path": "tests/test_verification.py",
       "bytes": 2801,
       "sha256": "b1d959a289148e24f88ac78526c5bf667fcdaa0d02dfd56f4f96cdd45e96d215"
     }
   ],
-  "source_package_note": "Source ZIP hash identifies the baseline package; file records describe the current source tree."
+  "source_package_note": "Source ZIP hash identifies the baseline package; file records describe the current source tree.",
+  "study": "Team 2627761, 2026 MCM Problem C",
+  "software_edition": "current_implementation_and_extensions"
 }

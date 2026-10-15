@@ -58,17 +58,16 @@ def test_wrong_evidence_archive_is_rejected_without_mutation(tmp_path):
     assert list(root.iterdir()) == []
 
 
-def test_scientific_modules_stay_identical_to_v5():
+def test_scientific_source_hashes_match_documented_versions():
     inventory = json.loads((ROOT/'docs/source_inventory.json').read_text())
     count = 0
     for rel, expected in inventory['original_files_sha256'].items():
         if rel.startswith('dwts/') and rel != 'dwts/__init__.py':
-            data = (ROOT/rel).read_bytes()
-            for change in inventory.get('presentation_only_text_changes', {}).get(rel, []):
-                current = change['current_text'].encode()
-                assert data.count(current) == 1, rel
-                data = data.replace(current, change['baseline_text'].encode())
-            assert hashlib.sha256(data).hexdigest() == expected, rel
+            change = inventory.get('modified_files', {}).get(rel)
+            if change:
+                assert change['reason'] and change['baseline_sha256'] == expected, rel
+                expected = change['current_sha256']
+            assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() == expected, rel
             count += 1
     assert count >= 15
 

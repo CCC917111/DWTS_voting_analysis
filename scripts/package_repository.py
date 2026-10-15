@@ -39,7 +39,9 @@ def package(out, root=ROOT):
         records.append({'path': p.relative_to(root).as_posix(), 'bytes': len(data),
                         'sha256': hashlib.sha256(data).hexdigest()})
     manifest = {'package': 'DWTS Voting Analysis', 'version': '0.5.1',
-                'full_numerical_replication': False, 'remote_publication_performed': False,
+                'study': 'Team 2627761, 2026 MCM Problem C',
+                'software_edition': 'current_implementation_and_extensions',
+                'release_kind': 'source_archive',
                 'files': records}
     out.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(out, 'x', zipfile.ZIP_DEFLATED) as z:

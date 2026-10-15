@@ -2,7 +2,7 @@
 
 **当观众票数不可见时，投票规则会怎样影响比赛结果？**
 
-基于公开评分与淘汰记录，推断潜在粉丝支持，比较 DWTS 投票规则，并分析评委评分、选手特征与职业舞伴历史表现之间的关联。
+本仓库是 Team 2627761 在 2026 MCM Problem C 中开展的 DWTS 研究的软件实现与后续扩展。Yike chen 参与了该团队的原始研究。项目基于公开评分与淘汰记录，推断潜在粉丝支持、比较投票规则，并分析选手及舞伴特征与评分的关联。
 
 [English README](README.md) · [方法](docs/METHODS.md) · [结果](docs/RESULTS.md) · [运行指南](docs/RUNNING.md)
 
@@ -33,7 +33,7 @@ python -m pytest -q
 
 ## 已保存的实验结果
 
-v5 实验覆盖 34 季、2,777 个选手周，采用五折外层赛季分组验证，并在内层选择历史权重。
+当前代码版本保存的 v5 实验覆盖 34 季、2,777 个选手周，采用五折外层赛季分组验证，并在内层选择历史权重。
 
 | 回归目标 | 折外 R² | 折外 RMSE |
 |---|---:|---:|
@@ -44,15 +44,21 @@ v5 实验覆盖 34 季、2,777 个选手周，采用五折外层赛季分组验�
 
 ## 运行分析
 
-按[运行指南](docs/RUNNING.md)取得官方数据并运行完整实验。所有赛季通过采样诊断后，可继续分析拟合结果：
+按[运行指南](docs/RUNNING.md)取得官方数据，运行完整研究：
 
 ```bash
-python -m dwts.analysis --source outputs/my-full-v5 --out outputs/my-analysis
+python -m dwts run --config configs/study.json --out outputs/my-study
+```
+
+所有拟合赛季通过采样诊断后，可继续分析结果：
+
+```bash
+python -m dwts.analysis --source outputs/my-study --out outputs/my-analysis
 ```
 
 该入口比较声明的救援机制，使用此前周评委份额拟合 OLS，并分别计算争议周比例和事件率。未定义的多人救援周留空；各项样本范围和分母记录在输出中。它复用已拟合的后验均值。
 
-该命令同时记录参考数值比较状态：退出码 **2** 表示执行完成，但部分参考比较仍未解决；详见输出中的 `status.json`。
+正常完成的独立分析返回退出码 **0**。与原报告的数值对照通过 `--compare-reference` 单独启用，并记录自己的比较状态；详见[运行指南](docs/RUNNING.md)。
 
 ## 结果的解释范围
 
@@ -62,8 +68,8 @@ python -m dwts.analysis --source outputs/my-full-v5 --out outputs/my-analysis
 - 规则比较保留每周实际参赛名单，未模拟完整的替代赛季。
 - 下游 RF/OLS 使用后验均值，未传播全部票数估计不确定性。
 
-## 来源与贡献
+## 研究团队与来源
 
-方法参考 Team 2627761 的 2026 MCM Problem C 报告。分析流程为独立实现，开发使用了 AI 辅助，未取得原团队源码。具体来源与贡献范围见[来源说明](docs/PROVENANCE.md)。
+原始研究由 Team 2627761 共同完成，Yike chen 是团队成员。当前代码版本及后续扩展与比赛期间工作的区别，见[来源与贡献说明](docs/PROVENANCE.md)。原报告和原始研究成果保留完整团队归属。
 
 原报告、原始数据和后验采样链不随仓库发布。公开可见不代表已授予开源许可证，见[许可状态](LICENSE_STATUS.md)。

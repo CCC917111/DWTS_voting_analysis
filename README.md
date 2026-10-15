@@ -2,9 +2,10 @@
 
 **How do voting rules shape competition outcomes when audience votes are hidden?**
 
-A Python project for inferring latent fan support, comparing DWTS voting rules,
-and studying retrospective associations between judge scores, contestant
-characteristics and professional-partner history.
+The software implementation and subsequent extensions of Team 2627761's DWTS
+study for the 2026 MCM Problem C. Yike chen participated in the original team
+research. The workflow infers latent fan support, compares voting rules, and
+studies associations between scores, contestant features and partner history.
 
 [中文说明](README.zh-CN.md) · [Methods](docs/METHODS.md) · [Results](docs/RESULTS.md) · [Run guide](docs/RUNNING.md)
 
@@ -46,7 +47,7 @@ tests and synthetic demo.
 
 ## Recorded results
 
-The saved v5 experiment covers 34 seasons and 2,777 contestant-weeks. Its
+The current implementation's saved v5 experiment covers 34 seasons and 2,777 contestant-weeks. Its
 retrospective models use five outer season-grouped folds and inner selection of
 history weights.
 
@@ -57,8 +58,8 @@ history weights.
 
 Judge RMSE is in judge-mean score units; fan RMSE is in inferred-share units.
 These are saved research results; the quick-start demo does not fit these models.
-[Results and reference comparisons](docs/RESULTS.md) document all six tasks,
-numerical differences and interpretation limits.
+[Results](docs/RESULTS.md) document all six tasks and interpretation limits.
+The current software results and the original report's values are labeled separately.
 
 ## Run an experiment
 
@@ -70,20 +71,26 @@ python -m dwts prepare --out outputs/prepared
 python -m dwts run --config configs/smoke.json --out outputs/smoke --skip-attribution
 ```
 
-The smoke configuration checks execution with short chains. Research estimates
-require a full run and passing sampling diagnostics; see the [run guide](docs/RUNNING.md).
+The smoke configuration checks execution with short chains. For the full study:
+
+```bash
+python -m dwts run --config configs/study.json --out outputs/my-study
+```
+
+Research estimates require passing sampling diagnostics; see the [run guide](docs/RUNNING.md).
 
 After a full run passes diagnostics:
 
 ```bash
-python -m dwts.analysis --source outputs/my-full-v5 --out outputs/my-analysis
+python -m dwts.analysis --source outputs/my-study --out outputs/my-analysis
 ```
 
 This compares voting rules under declared save mechanisms, fits OLS using prior
 judge shares, and reports week and event rates with explicit denominators.
 Undefined multi-exit save cases remain unscored. It reuses fitted posterior means.
-The command also records reference-comparison status: exit **2** indicates
-completed execution with unresolved reference comparisons; inspect `status.json`.
+Successful standalone analysis returns exit **0**. Optional comparisons with the
+original report are enabled with `--compare-reference` and have a separate status;
+see the [run guide](docs/RUNNING.md).
 
 ## Interpretation limits
 
@@ -105,13 +112,13 @@ docs/                 Methods, results, sources and running instructions
 .github/              Test workflow and contribution templates
 ```
 
-## Sources and contributions
+## Research team and sources
 
-Methods are informed by Team 2627761's 2026 MCM Problem C report,
-*Modeling Fairness in Competitive Voting Systems: A Bayesian Approach to Infer Fan
-Support and Evaluate Contest Dynamics in DWTS*. The analysis workflow was
-implemented independently with AI assistance; the team's original source code
-was not supplied. See [sources and contribution scope](docs/PROVENANCE.md).
+Original study: Team 2627761 (2026), *Modeling Fairness in Competitive Voting
+Systems: A Bayesian Approach to Infer Fan Support and Evaluate Contest Dynamics
+in DWTS*. Yike chen was a member of the original research team; the study is
+credited to the full team. [Software provenance](docs/PROVENANCE.md) distinguishes
+the current code edition and later extensions from the competition-time work.
 
 The report, raw dataset and posterior chains are not bundled. No open-source
 license has been granted; see [license status](LICENSE_STATUS.md).

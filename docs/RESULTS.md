@@ -1,12 +1,14 @@
 # Results and interpretation
 
-Snapshot date: 2026-10-14. These are saved aggregate results from the v5 analysis. The quick-start demo does not fit these research models.
+These are saved aggregate results from the current software implementation (v5),
+distinct from the original team report. The quick-start demo does not fit these
+research models. Team and software-edition details are in [PROVENANCE.md](PROVENANCE.md).
 
 ## Six retrospective tasks
 
 All use 2,777 contestant-week rows and five outer season-grouped folds. Values below are pooled out-of-fold scores. Targets in fan tasks are inferred shares, not observed votes.
 
-| Task | Metric | v5 | Source report |
+| Task | Metric | Current implementation (v5) | Original report |
 |---|---|---:|---:|
 | Judge mean | R² | 0.434488 | 0.146 |
 | Judge mean | RMSE | 1.100571 | 5.320 |
@@ -41,7 +43,7 @@ The corresponding methods and assumptions are documented in [METHODS.md](METHODS
 
 ## Reference comparison limits
 
-Values from the cited report are shown as references. Its evaluation rows, metric
+Values from the original team report are shown as references. Its evaluation rows, metric
 weights, units and several model settings are incompletely specified; numerical
 equivalence has not been established. These columns do not form a like-for-like
 model leaderboard, and passing software tests does not resolve the differences.
