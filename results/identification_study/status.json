@@ -1,0 +1,36 @@
+{
+  "artifacts_sha256": {
+    "eligibility_summary.csv": "b636e6c01cb64872f810fb92b9e8c3aeb15bc72dce478c79ebb3561ef725a5ff",
+    "numerical_checks.json": "91a0d0e550485eeb29e1a8b840dc689eba8690634b5eedc20e5c462178a2f5b7",
+    "policy_ambiguity.csv": "f2d54e8fc30764652541d4ff5421e9d41111528d99729d862fee076901fa7c41",
+    "policy_candidate_counts.csv": "55843e8f5cb2db9c5bff9740198e3ecf9b544e4cd3c1fb9b7c3dcef22716225c",
+    "protocol.json": "2737fdbccc24e0cee93dad162f1c2f14a4897ea92e595ed4faefb1771458e646",
+    "width_summary.csv": "b1739c0b5c4d6adb8460a644fabcbb30afad72ee21984ffe6c8a06806053c015"
+  },
+  "eligible_contestant_weeks": 1343,
+  "eligible_weeks": 164,
+  "finished_at": "2026-10-15T21:50:33.724696+00:00",
+  "private_artifacts": [
+    "private_bounds.csv",
+    "private_weekly.csv",
+    "private_policy_candidates.csv"
+  ],
+  "public_artifacts": [
+    "protocol.json",
+    "width_summary.csv",
+    "eligibility_summary.csv",
+    "policy_ambiguity.csv",
+    "policy_candidate_counts.csv",
+    "numerical_checks.json",
+    "status.json"
+  ],
+  "schema_version": 1,
+  "source_sha256": {
+    "config": "c5979c9a9b8d6c376760e5979e1de832ab34cdff97a43012c98352ca8129475b",
+    "data": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+    "dwts/data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa",
+    "dwts/identification.py": "97883d924f19d9dbfca303d958f0a5f03c083503bae653234f6a35d7bd92ff95"
+  },
+  "started_at": "2026-10-15T21:50:10.754152+00:00",
+  "status": "completed"
+}

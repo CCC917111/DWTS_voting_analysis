@@ -36,6 +36,14 @@ records these experiments and their limitations. They do not establish
 independent prospective validation or transfer the original sampler's
 diagnostics to the new finite-particle inference engine.
 
+The subsequent identification study quantifies feasible shares and policy exits
+under an additional deterministic rule. The controlled support study compares
+static and dynamic bootstrap filters, and the prospective utility prepares a
+local prediction/release workflow. These are later extensions; they do not
+establish measured true votes or completed independent prospective validation.
+Selected method sources and related software are listed in
+[RELATED_WORK.md](RELATED_WORK.md).
+
 Saved results under `results/v5_snapshot/` belong to this software edition. They
 are distinct from the original report's values; [RESULTS.md](RESULTS.md) explains
 the numerical differences and evaluation limits. A successful software run does

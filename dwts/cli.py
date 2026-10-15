@@ -6,6 +6,7 @@ import importlib.metadata
 import json
 from pathlib import Path
 import platform
+import sys
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import contextlib
 import multiprocessing
@@ -223,9 +224,23 @@ def analyze(votes, out, config, seed=2627761, skip_attribution=False):
                     judge_target=config.get("rf_judge_target", "judge_mean"), fan_scale=config.get("rf_fan_scale", "relative"), **kw)
 
 
-def main():
+def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    # Each extension owns its argument parser and can also run as a module.
+    if argv and argv[0] == "identify":
+        from .identification import main as identify_main
+        return identify_main(argv[1:])
+    if argv and argv[0] == "compare-support":
+        from .dynamic_study import main as compare_main
+        return compare_main(argv[1:])
+    if argv and argv[0] == "prospective":
+        from .prospective import main as prospective_main
+        return prospective_main(argv[1:])
     parser = argparse.ArgumentParser(description="Analyze DWTS fan support and voting rules")
     sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("identify", help="Bound compatible fan shares and counterfactual exits under a declared deterministic rule")
+    sub.add_parser("compare-support", help="Compare static and dynamic support with a shared normalized exit model")
+    sub.add_parser("prospective", help="Prepare local prediction commitments and release outcomes separately")
     p = sub.add_parser("prepare", help="Inspect all official data without MCMC")
     p.add_argument("--data", default="data/raw/2026_MCM_Problem_C_Data.csv")
     p.add_argument("--out", default="outputs/prepared")
@@ -241,7 +256,7 @@ def main():
     p.add_argument("--source", default="outputs/report_final")
     p.add_argument("--config", default="configs/report_verification.json")
     p.add_argument("--out", default="outputs/report_verified")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.command == "verify":
         from .verification import run_verification
         raise SystemExit(run_verification(args))

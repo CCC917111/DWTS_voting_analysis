@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "draft_not_registered_not_active",
+  "project_lead": "Yike Chen",
+  "receipt_adapter": "fixture_unverified",
+  "official_rule_evidence": null,
+  "future_seasons": null,
+  "correction_window_hours": null,
+  "model": {
+    "prior_sd": 0.5,
+    "temperature": 6.0,
+    "rule": "percentage",
+    "judge_weight": 0.5,
+    "particles": 2048,
+    "seeds": [
+      2627761,
+      2627783,
+      2627819
+    ],
+    "mh_steps": 4,
+    "proposal_scale": 0.35,
+    "ess_fraction": 0.7
+  },
+  "baselines": {
+    "judge_temperature": 12.0,
+    "history_temperature": 6.0,
+    "history_strength": 0.0,
+    "past_judge_temperature": 12.0
+  },
+  "required_rule": {
+    "rule": "percentage",
+    "judge_weight": 0.5,
+    "judge_save": false,
+    "carryover": false,
+    "score_aggregation": "provided_nonnegative_weekly_scores"
+  }
+}

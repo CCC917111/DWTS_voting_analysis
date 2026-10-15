@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import tomllib
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +11,7 @@ DIRECTORIES = {'dwts', 'configs', 'scripts', 'tests', 'docs', 'examples', '.gith
 TOP_FILES = {'README.md', 'LICENSE_STATUS.md', 'CONTRIBUTING.md',
              'pyproject.toml', 'requirements-v4-verified.txt', '.gitignore'}
 EXCLUDED_PARTS = {'__pycache__', '.pytest_cache', '.git', '.venv', 'build', 'dist'}
+PRIVATE_STATE_FILES = {'private_state.json', '.writer.lock'}
 ALLOWED_SUFFIXES = {'.py', '.md', '.toml', '.txt', '.json', '.csv', '.svg', '.yml', '.yaml'}
 PUBLIC_RESULT_FILES = {
     'v5_snapshot': {'rf_metrics.csv', 'numerical_verification.csv', 'snapshot_manifest.json'},
@@ -29,6 +31,14 @@ PUBLIC_RESULT_FILES = {
     'policy_robustness': {'policy_metrics.csv', 'policy_contrasts.csv', 'pareto_stability.csv',
                           'worst_case_metrics.csv', 'protocol.json', 'source_integrity.json',
                           'status.json'},
+    'identification_study': {'protocol.json', 'width_summary.csv', 'eligibility_summary.csv',
+                             'policy_ambiguity.csv', 'policy_candidate_counts.csv',
+                             'numerical_checks.json', 'status.json'},
+    'dynamic_study': {'metrics.csv', 'season_metrics.csv', 'paired_differences.csv',
+                       'calibration.csv', 'model_selection.csv', 'eligibility_summary.csv',
+                       'particle_stability.csv', 'mc_assessment.json', 'synthetic_metrics.csv',
+                       'synthetic_paired_differences.csv', 'synthetic_stability.csv',
+                       'protocol.json', 'status.json'},
 }
 
 def selected_files(root=ROOT):
@@ -37,6 +47,8 @@ def selected_files(root=ROOT):
             continue
         rel = p.relative_to(root)
         if set(rel.parts) & EXCLUDED_PARTS:
+            continue
+        if rel.name in PRIVATE_STATE_FILES or rel.name.startswith('.snapshot-'):
             continue
         if rel.as_posix() in TOP_FILES or rel.as_posix() == 'data/SOURCES.md':
             yield p
@@ -59,7 +71,8 @@ def package(out, root=ROOT):
             raise ValueError(f'Unexpected large repository file: {p.relative_to(root)}')
         records.append({'path': p.relative_to(root).as_posix(), 'bytes': len(data),
                         'sha256': hashlib.sha256(data).hexdigest()})
-    manifest = {'package': 'DWTS Voting Analysis', 'version': '0.5.1',
+    version = tomllib.loads((root / 'pyproject.toml').read_text())['project']['version']
+    manifest = {'package': 'DWTS Voting Analysis', 'version': version,
                 'study': 'Team 2627761, 2026 MCM Problem C',
                 'software_edition': 'current_implementation_and_extensions',
                 'release_kind': 'source_archive',

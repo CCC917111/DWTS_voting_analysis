@@ -1,0 +1,34 @@
+{
+  "status": "complete",
+  "started_utc": "2026-10-15T21:50:27.467189+00:00",
+  "completed_utc": "2026-10-15T21:51:33.674076+00:00",
+  "runtime_seconds": 66.20632716700129,
+  "integrity": {
+    "raw_data_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+    "config_sha256": "9aa8387359fe735a16c42008746d9c920f704b950f98da771cceee2baa13a292",
+    "code_sha256": {
+      "dynamic_model.py": "b4b5a4206537ecdd9f859ec88383bc8f8746fedf45336de210d18943808de1f3",
+      "dynamic_study.py": "d03163d307f4c047b0d70dea8072c9bfa639138415a056a4ea4ff3cb611e23cb",
+      "forward_model.py": "264f326cd2d2436ddbeebd45f9040628c30d9bcbdb82a54882f577dd4689d5ff",
+      "forecasting.py": "62b2d6946c0b4f4de25defb764eea5fdcec84f590664c45634ff2c4a5d80dd84",
+      "data.py": "37e9d118d31319fb2e340eac75c6db0128804d943e9b1db9bb948e2286b968fa"
+    }
+  },
+  "artifacts_sha256": {
+    "calibration.csv": "300d585c776aa8741efd5ae966ccaec6de10611843ea8cd608af1dbbf84fa9f7",
+    "eligibility_summary.csv": "464c2aa845256f85f71485c43cdd27be7ee125638c229d592d48ebc95d3db149",
+    "mc_assessment.json": "5880d876aecc03ff8014a07c38f262f2b1e6e7b6182d9230444e4cba2e9dbfb8",
+    "metrics.csv": "ecf794c7ebbc614711be16f3c5f9d19550579f8476d74a292ae112e74f7bc0c0",
+    "model_selection.csv": "260adca93f5fd4059413271a104ae396b235596cbebfefea769dabacad0aa764",
+    "paired_differences.csv": "688a00245b1536ea8d06d796aee27e2913e1945133914bd3916f7da2237263e0",
+    "particle_stability.csv": "4ce8b38199554ab0316bfcaa85b366a351432763e776d837bbf5c47c14531d64",
+    "private_filter_diagnostics.csv": "dd8140daa7e5b42d8585e68ff2c1bf18eef5101519094b39f89fd1ab3f1a17ef",
+    "private_predictions.csv": "0a3f0b00e779ea9b113a839adf4ecc6159fe49df588d36ce8e79dd8ea1bcaeb6",
+    "private_synthetic_rows.csv": "8950856376db2242267e28a5f91d7c92bdd6e14e432c8c4012dafb772659a12f",
+    "protocol.json": "1cb7a50b745dd02334080f81b5ebdc9439401005b0090511849eef2faac37596",
+    "season_metrics.csv": "ec106cfb64fafc0b729d41aed4ebf06144625e1744263dea425fa643dd730ec6",
+    "synthetic_metrics.csv": "2538328b91e84a3b17c9000b002be0bd3f8c060d87d8157f18b55c98e7479952",
+    "synthetic_paired_differences.csv": "0a9fb461203b0894ff79877fcb82c3ec121c07fe749a460fad2e459199c8a060",
+    "synthetic_stability.csv": "2b56351ac1c5d8b6e590dfb5c41ab92c5830156296790c26c3bab0cf468b52ee"
+  }
+}

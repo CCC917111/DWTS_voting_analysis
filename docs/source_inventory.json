@@ -61,8 +61,8 @@
   "modified_files": {
     "dwts/cli.py": {
       "baseline_sha256": "a9c0795721af968239314069d0625d384f355dd21ab3558c0d40482f3e29d720",
-      "current_sha256": "612c98f5faf77c0e437794d00e546bfe162f6af5fa97b452ad918728b1c6aa27",
-      "reason": "Keep study outputs independent of optional original-report comparisons. Seal and validate season checkpoints, require matching runtime/options, and rebuild complete diagnostics on resume; inference settings are unchanged."
+      "current_sha256": "bed2cfc304ae38aab2d19bccb52d682f57e6e92296f2750c2baab3862fa38f18",
+      "reason": "Keep study outputs independent of optional original-report comparisons. Seal and validate season checkpoints, require matching runtime/options, and rebuild complete diagnostics on resume. Add separate identification, controlled support-comparison and local prospective command dispatch without changing the legacy inference settings."
     },
     "dwts/plots.py": {
       "baseline_sha256": "bc0540dce177b55fcb50eb3d4602b5c281cf53cbeeed97c6fa604e51237881cd",
@@ -78,6 +78,11 @@
       "baseline_sha256": "289f6520430c3c54616f9279f961ee7227657b914b0daad906d7c226e71dccf5",
       "current_sha256": "d9fda28b17919e4481d526811b4919e616d91d03246ed4ee43ef75d8b22246ef",
       "reason": "Use the shared exact weighted-rank key for posterior exit diagnostics. The default 0.5 results were verified unchanged across all 34 saved seasons."
+    },
+    "pyproject.toml": {
+      "baseline_sha256": "b57ec4d12ee818661f77b0b55a341f5b87eb6baabd3d670e1c11d087750a85c1",
+      "current_sha256": "85d8c419df7f66efdb6f1b233fcb0ce47d7a38c2f9faf22a5777bb6fd0558307",
+      "reason": "Release version 0.6.0 adds identification, support-dynamics and prospective-preparation workflows; numerical dependency declarations remain unchanged."
     }
   }
 }

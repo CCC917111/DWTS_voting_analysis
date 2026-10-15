@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "candidate_seasons": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],
+  "judge_weight": 0.5,
+  "counterfactual_judge_weights": [0.25, 0.5, 0.75],
+  "minimum_active": 3,
+  "outcome_policy": "label_first",
+  "include_final_week_eliminations": false,
+  "exclude_withdrawal_weeks": true,
+  "ordinary_exit_count": 1,
+  "feasibility_tolerance": 1e-8,
+  "strict_margin_tolerance": 1e-8
+}

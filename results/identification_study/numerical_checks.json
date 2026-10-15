@@ -1,0 +1,22 @@
+{
+  "coordinate_endpoint_witnesses": 2686,
+  "coordinate_lp_optimizations": 2850,
+  "independent_endpoint_check": "Analytic survivor formulas and monotone scalar root for eliminated upper bound",
+  "max_coordinate_feasibility_residual": 6.661338147750939e-16,
+  "max_independent_analytic_endpoint_difference": 2.220446049250313e-16,
+  "max_policy_feasibility_residual": 1.887379141862766e-15,
+  "minimum_certified_policy_margin": 0.00036231884057980903,
+  "minimum_observed_interior_margin": 0.02729276148499745,
+  "policy_lp_optimizations": 4029,
+  "policy_status_counts": {
+    "attainable": 1587,
+    "boundary_only": 1347,
+    "weakly_infeasible": 1095
+  },
+  "schema_version": 1,
+  "solver": "scipy.optimize.linprog(method=highs)",
+  "strict_margin_tolerance": 1e-08,
+  "strict_observed_region_certified_weeks": 164,
+  "strict_policy_witnesses": 1587,
+  "unchanged_weight_oracle": "Only the observed exit is attainable on every strict-certified week"
+}
