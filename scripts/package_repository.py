@@ -14,6 +14,8 @@ EXCLUDED_PARTS = {'__pycache__', '.pytest_cache', '.git', '.venv', 'build', 'dis
 PRIVATE_STATE_FILES = {'private_state.json', '.writer.lock'}
 ALLOWED_SUFFIXES = {'.py', '.md', '.toml', '.txt', '.json', '.csv', '.svg', '.yml', '.yaml'}
 PUBLIC_RESULT_FILES = {
+    'exit_forecast_study': {'metrics.csv', 'paired_differences.csv', 'season_metrics.csv',
+                            'selection.json', 'protocol.json', 'summary.json'},
     'v5_snapshot': {'rf_metrics.csv', 'numerical_verification.csv', 'snapshot_manifest.json'},
     'study_benchmarks': {'metrics.csv', 'fold_metrics.csv', 'paired_differences.csv',
                          'weight_selection.csv', 'folds.csv', 'protocol.json', 'status.json'},

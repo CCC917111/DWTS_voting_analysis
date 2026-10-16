@@ -1,215 +1,157 @@
 # DWTS Voting Analysis
 
-**How do voting rules shape competition outcomes when audience votes are hidden?**
+**Studying hidden audience support, observable exits and voting-rule tradeoffs.**
 
-The software implementation and subsequent extensions of Team 2627761's DWTS
-study for the 2026 MCM Problem C. Yike Chen participated in the original team
-research. The workflow infers latent fan support, compares voting rules, and
-studies associations between scores, contestant features and partner history.
+DWTS Voting Analysis combines Bayesian fan-support inference, chronological
+elimination forecasts and voting-rule simulations. The project develops the
+2026 MCM Problem C study by **Team 2627761** and its subsequent software and
+research extensions. **Project lead: Yike Chen**, a member of the original team.
 
-**Project lead: Yike Chen.** The original study is credited to Team 2627761.
+[Documentation](docs/README.md) · [Forecasting study](docs/exit-forecasting.md) · [Methods](docs/METHODS.md) · [Run guide](docs/RUNNING.md) · [Research provenance](docs/PROVENANCE.md)
 
-[Documentation](#documentation) · [Methods](docs/METHODS.md) · [Study results](docs/STUDY_RESULTS.md) · [Validation](docs/VALIDATION_RESULTS.md) · [Run guide](docs/RUNNING.md)
+## Explore the project
 
-## Documentation
+| Research question | Approach | Evidence and limits |
+|---|---|---|
+| Can public information predict the next elimination? | Conditional choice models, strong score baselines and sequential expert mixtures. | [Chronological forecasting](docs/exit-forecasting.md): 86 outer-validation weeks and a previously examined 33-week diagnostic period. |
+| What can eliminations reveal about hidden fan support? | Bayesian inference and a separate deterministic constraint analysis. | [Identification](docs/identification.md): feasible share ranges remain wide under the declared constraints. |
+| How do voting rules change outcomes? | Rank/percentage aggregation, save mechanisms and joint posterior policy comparisons. | [Study results](docs/STUDY_RESULTS.md): uncertainty and competing policy objectives are retained. |
+| Does a more elaborate model help? | Static/dynamic support comparisons, feature ablations and known-truth simulation. | [Validation](docs/VALIDATION_RESULTS.md) and [support dynamics](docs/dynamic-comparison.md): added complexity does not consistently improve results. |
 
-| Guide | What it covers |
-|---|---|
-| [What the outcomes identify](docs/identification.md) | Feasible fan-share ranges and counterfactual exit ambiguity under an additional deterministic rule. |
-| [Static and dynamic support](docs/dynamic-comparison.md) | A controlled comparison with a common normalized exit likelihood and strong baselines. |
-| [Preparing prospective predictions](docs/prospective.md) | Persistent local prediction/release workflow, commitments and activation limits. |
-| [Prediction, recovery and policy validation](docs/VALIDATION_RESULTS.md) | Temporal exit backtesting, known-truth simulation and multi-objective policy robustness. |
-| [Methods and assumptions](docs/METHODS.md) | Data processing, Bayesian inference, voting rules and validation. |
-| [Study results and figures](docs/STUDY_RESULTS.md) | Baselines, feature ablations, posterior policy comparisons and sensitivity. |
-| [Earlier results and report comparisons](docs/RESULTS.md) | Preserved v5 metrics, numerical differences and interpretation limits. |
-| [Running the study](docs/RUNNING.md) | Installation, data, the demo and the full research workflow. |
-| [Research team and sources](docs/PROVENANCE.md) | Original team research, project leadership and the current code edition. |
-| [Method background and related work](docs/RELATED_WORK.md) | Established methods, related DWTS software and the scope of the contribution. |
+The research separates predictions of **observed eliminations** from estimates
+of **unobserved audience votes**. The first can be scored against outcomes; the
+second remains conditional on assumptions.
 
-The [documentation index](docs/README.md) also links data sources and experiment configurations.
+## Run a demonstration
 
-## Research questions
-
-- What fan-support patterns are compatible with public scores and elimination outcomes?
-- How do rank and percentage aggregation, judge saves and fan saves change weekly outcomes?
-- How are judge scores and inferred fan support associated with contestant and partner features?
-
-The workflow combines Bayesian inverse modelling, a PyMC reference model and a
-Numba Metropolis–Hastings engine, explicit rule simulations, nested season-grouped
-random forests, OLS and SHAP. Configurations and input hashes record each
-experiment's assumptions. Exact rank-tie handling and canonical partner identities
-address two demonstrated implementation issues.
-
-![Synthetic voting-rule demonstration](docs/assets/demo.svg)
-
-## Quick start
-
-Python 3.12 is the verified environment. Run commands from the repository root.
+Python 3.12 is the verified environment. Run from the repository root:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-# Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-v4-verified.txt
 python -m pip install --no-deps -e ".[test,audit]"
-python -m dwts.demo --out outputs/my-demo
+python -m dwts.demo --out outputs/voting-demo
+python -m dwts.exit_study --demo --out outputs/forecast-demo
 python -m pytest -q
 ```
 
-The demo uses four invented contestants and fan shares. At equal judge/fan weight,
-the rank rule eliminates A and the percentage rule eliminates C. It writes a CSV,
-JSON and SVG, and refuses an existing output directory.
+Both demos use invented data and need no report or official dataset. The voting
+demo writes CSV, JSON and SVG outputs; the forecasting demo exercises the
+chronological study workflow. Use a new output directory for each run. Default
+tests are self-contained; data-dependent and archived-experiment tests are
+explicitly deselected. See the [run guide](docs/RUNNING.md) for Windows,
+dependencies and full experiments.
 
-Default tests are self-contained. Tests requiring official data or archived
-experiments are explicitly deselected. GitHub Actions runs the self-contained
-tests and synthetic demo.
+## Chronological elimination forecasts
 
-## Research findings
+The latest study compares simple, inspectable probability forecasts on the same
+eligible events. Each prediction uses the current roster and judges' scores,
+then freezes before the current outcome is released. Model selection uses only
+earlier seasons. Online weights update from released eligible exits and reset
+at each season boundary.
 
-The extended study covers 34 seasons and 2,777 contestant-weeks. Fourteen
-fan-share models share five outer season folds; RF history weights are selected
-in three inner season folds. Every model predicts the same inferred fan-share
-target. Weekly normalization constrains predicted shares to sum to one.
-
-| Fan-share model | Out-of-fold R² | Out-of-fold RMSE |
+| Method | Outer validation: 86 weeks | Historical diagnostic: 33 weeks |
 |---|---:|---:|
-| Unconstrained tuned RF | 0.555265 | 0.063599 |
-| Weekly-normalized tuned RF | 0.723234 | 0.050172 |
-| Weekly-normalized own-history mean | 0.757838 | 0.046930 |
+| Uniform probabilities | 2.0604 | 2.1539 |
+| Past judges' scores | 1.6988 | 1.6213 |
+| Current judges' scores | 1.5414 | 1.7546 |
+| Two-feature conditional choice | **1.5040** | 1.6397 |
+| Fixed online expert mixture | 1.5511 | **1.5737** |
+| Selected fixed-share mixture | 1.5557 | 1.5809 |
+| Selected tempered mixture | 1.5488 | 1.5806 |
 
-The simple normalized history baseline has the best point score among the
-declared models. Both RF pipelines select history weight zero in every outer
-fold, so these results do not establish an incremental cross-season partner
-effect. This is exploratory internal validation of whole-season latent targets;
-the normalization hypothesis arose from this dataset. It does not measure future
-true-vote prediction. RMSE is in share units.
+Mean log loss; lower is better. Compare methods within each column. The
+two-feature model has the best outer-validation point score, while the fixed
+online mixture has the best point score in the historical diagnostic. Additional
+weight recovery and learning-rate selection do not establish a consistent gain.
+No single method is established as the best future predictor.
 
-![Fan-share baselines and feature ablations](docs/assets/study-benchmarks.svg)
+![Chronological elimination forecast comparison](docs/assets/exit-forecasting.svg)
 
-The policy study propagates 2,048 joint posterior draws through 18 policies on
-291 eligible weekly rosters. Judge saves do not universally reduce the declared
-controversial-week fraction. A separate nine-season analytic prior-scale study
-shows invariant rank-policy results but sensitivity in percentage-policy
-outcomes. [Study results](docs/STUDY_RESULTS.md) provide three figures, paired
-comparisons, assumptions and aggregate data. [Earlier results](docs/RESULTS.md)
-preserve the six-task v5 snapshot and original-report comparisons.
+All these historical data had been examined before the later experiments.
+Chronological nesting controls the information available to each fit and
+selection; it does not make repeated exploration an independent validation.
+The diagnostic contains only six eligible seasons, and its online-mixture gain
+over past judges is concentrated in season 27. [Methods, paired intervals and
+aggregate results](docs/exit-forecasting.md) make these qualifications explicit.
 
-## Prediction, recovery and policy validation
-
-Three additional studies test the limits of the inference and policy results:
-
-- **Temporal backtesting:** a separate normalized exit model selects settings on
-  seasons 3–20, then uses current judges' scores to predict each eligible exit
-  in seasons 21–27. The
-  33 eligible weeks represent six seasons; season 26 has no qualifying
-  single-exit weeks. Bayesian log loss is 1.948 versus 2.154 for uniform
-  probabilities and 1.621 for the best point-scoring past-judges baseline.
-  The data support no demonstrated Bayesian advantage over stronger baselines.
-- **Known-truth recovery:** 192 independently generated seasons support 384
-  fits and 64 larger-particle checks. Matched-model intervals cover about 95–96%
-  of generated contestant-week shares, but narrower priors reduce coverage to
-  about 64–67%. Independent coverage probes remain imprecise, and some point
-  rankings are sensitive to finite-particle error.
-- **Multiple policy objectives:** 18 policies are compared on six declared
-  objectives across separate matched cohorts. Seven of 153 policy pairs show
-  baseline mean dominance; none retains dominance throughout either of the
-  declared sensitivity grids. Tradeoffs and assumptions remain visible.
-
-[Validation results and three figures](docs/VALIDATION_RESULTS.md) provide the
-protocols, uncertainty intervals and aggregate data. These historical data were
-previously examined. The chronological replay is a retrospective backtest;
-independent prospective confirmation remains untested.
-
-## What can elimination outcomes identify?
-
-An additional deterministic percentage-rule study measures what the observed
-constraints permit, without imposing a prior over fan shares. In 164 selected
-single-exit weeks, the median feasible interval spans **99.63 percentage points
-for survivors** and **13.60 for eliminated contestants**. These are coordinate
-bounds under declared extra assumptions, rather than posterior intervals or
-measured true votes.
-
-The same joint constraints often permit several counterfactual exits. Changing
-the judge weight from 50% to 25% leaves multiple attainable exits in 155 of 164
-weeks; changing it to 75% does so in 87 weeks. These are ambiguity counts, not
-probabilities of changing the result. Both studies retain the observed roster
-and exclude saves, finals, withdrawals and multiple exits.
-
-![Feasible share widths and counterfactual exit ambiguity](docs/assets/identification.svg)
-
-[Identification methods and results](docs/identification.md) explain the
-assumptions, constructive checks and aggregate tables. A separate
-[static/dynamic comparison](docs/dynamic-comparison.md) tests how latent-state
-dynamics affect forecasts. The [local prospective workflow](docs/prospective.md)
-separates prediction from outcome release and preserves state across processes;
-it is preparation for future evidence, not completed independent validation.
-
-The controlled comparison uses three development repeats per candidate for both
-models. On the same 33 historical weeks, static bootstrap log loss is 1.951 and
-dynamic bootstrap log loss is 1.960, versus 1.621 for past judges. The paired
-dynamic-minus-static difference is 0.0096 (six-season interval
-−0.0101 to 0.0255). This tested dynamic specification does not demonstrate an
-improvement. Both latent comparators use bootstrap filters without MH; the
-earlier resample–move result remains a separate experiment.
-
-## Run an experiment
-
-Read [data sources](data/SOURCES.md), then obtain the official COMAP CSV:
+To run the study with the separately obtained official data:
 
 ```bash
 python scripts/download_data.py
-python -m dwts prepare --out outputs/prepared
-python -m dwts run --config configs/smoke.json --out outputs/smoke --skip-attribution
+python -m dwts.exit_study --data data/raw/2026_MCM_Problem_C_Data.csv --config configs/exit_forecast_study.json --out outputs/exit-forecast-study
 ```
 
-The smoke configuration checks execution with short chains. For the full study:
+## Fan support and voting rules
 
-```bash
-python -m dwts run --config configs/study.json --out outputs/my-study
-```
+The broader study covers **34 seasons and 2,777 contestant-weeks**. It includes
+a PyMC reference model, a Numba Metropolis–Hastings engine, explicit rule
+simulations, nested season-grouped random forests, OLS and SHAP. Input hashes,
+experiment configurations and diagnostic checks make assumptions inspectable.
 
-Research estimates require passing sampling diagnostics; see the [run guide](docs/RUNNING.md).
+On whole-season inferred fan-share targets, a weekly-normalized history baseline
+has a better point score than the declared RF pipelines: out-of-fold R² is
+0.7578 versus 0.7232 for the normalized RF. This is an internal comparison of
+latent targets, rather than evidence of true-vote prediction. Both RF pipelines
+select zero partner-history weight in every outer fold.
 
-After a full run passes diagnostics:
+The policy study propagates 2,048 joint posterior draws through 18 policies on
+291 eligible rosters. Judge saves do not universally reduce the declared
+controversial-week fraction. A separate six-objective analysis finds that none
+of seven baseline mean-dominance relations persists throughout either declared
+sensitivity grid. These are conditional comparisons on observed rosters, rather
+than simulated complete alternative seasons.
 
-```bash
-python -m dwts.analysis --source outputs/my-study --out outputs/my-analysis
-```
+An additional deterministic percentage-rule analysis finds median feasible
+fan-share widths of **99.63 percentage points for survivors** and **13.60 for
+eliminated contestants** across 164 selected weeks. These coordinate bounds
+illustrate how weakly an elimination alone identifies audience support under
+the declared extra assumptions.
 
-This compares voting rules under declared save mechanisms, fits OLS using prior
-judge shares, and reports week and event rates with explicit denominators.
-Undefined multi-exit save cases remain unscored. It reuses fitted posterior means.
-Successful standalone analysis returns exit **0**. Optional comparisons with the
-original report are enabled with `--compare-reference` and have a separate status;
-see the [run guide](docs/RUNNING.md).
+[Study results and figures](docs/STUDY_RESULTS.md) · [Policy and recovery validation](docs/VALIDATION_RESULTS.md) · [Identification](docs/identification.md)
 
-## Interpretation limits
+## Documentation
 
-- Fan shares are latent estimates; true audience vote totals are unavailable.
-- Whole-season fan inference supports retrospective analysis. A separate model has chronological backtests; independent prospective performance remains unevaluated.
-- SHAP and feature importance describe associations; they do not identify causal partner effects.
-- Rule comparisons retain each week's observed roster. Complete alternative-season trajectories are not simulated.
-- RF/OLS use posterior means. The separate policy study propagates joint posterior draws; its intervals remain conditional on model assumptions.
+| Guide | Contents |
+|---|---|
+| [Documentation index](docs/README.md) | A starting point for all project guides. |
+| [Chronological forecasting](docs/exit-forecasting.md) | Features, information clock, nested selection, online aggregation and results. |
+| [Methods and assumptions](docs/METHODS.md) | Data preparation, latent support, voting rules and retrospective analysis. |
+| [Study results](docs/STUDY_RESULTS.md) | Fan-share baselines, ablations, posterior policy comparisons and sensitivity. |
+| [Prediction, recovery and policy validation](docs/VALIDATION_RESULTS.md) | Earlier latent forecasts, known-truth simulation and multi-objective policy robustness. |
+| [Identification](docs/identification.md) | Feasible shares and counterfactual exit ambiguity. |
+| [Static and dynamic support](docs/dynamic-comparison.md) | A controlled comparison under a common normalized exit likelihood. |
+| [Prospective workflow](docs/prospective.md) | Persistent local prediction/release preparation and activation requirements. |
+| [Running the study](docs/RUNNING.md) | Installation, demonstrations, official data and experiment commands. |
+| [Research provenance](docs/PROVENANCE.md) | Full-team credit, project leadership and the current software edition. |
+| [Related work](docs/RELATED_WORK.md) | Standard method sources and related DWTS software. |
+| [Earlier results](docs/RESULTS.md) | Preserved software metrics and numerical differences from the original report. |
 
-## Repository map
+## Scope and research materials
+
+True audience vote totals are unavailable. Inferred shares, associations and
+policy comparisons depend on their stated models; SHAP and feature importance
+do not identify causal effects. Independent prospective forecasting has not yet
+been completed. The [local prospective utility](docs/prospective.md) is a draft
+workflow for preparing that evidence.
+
+The current implementation was prepared after the original report with
+AI-assisted development. Competition-time source code was unavailable when
+this edition was prepared. The original study and report are credited to Team
+2627761; subsequent implementations and extensions are described in the
+[provenance guide](docs/PROVENANCE.md).
+
+The original report, raw dataset, individual prediction records and posterior
+chains are not distributed. Published results contain allowlisted aggregates.
+See [data sources](data/SOURCES.md), [contributing](CONTRIBUTING.md) and
+[license status](LICENSE_STATUS.md).
 
 ```text
-dwts/                 Models, voting rules, analysis and synthetic demo
-configs/              Experiment and sensitivity configurations
-scripts/              Data acquisition and validation utilities
-tests/                Scientific regression tests and repository checks
-results/              Aggregate benchmarks, policy studies and preserved v5 metrics
-docs/                 Methods, results, sources and running instructions
-.github/              Test workflow and contribution templates
+dwts/       Models, rule analysis, forecasting and demonstrations
+configs/    Explicit experiment definitions
+tests/      Numerical, workflow and scientific regression checks
+results/    Aggregate study results
+docs/       Methods, figures, sources and running instructions
+scripts/    Data acquisition, figure rendering and packaging utilities
 ```
-
-## Research team and sources
-
-Original study: Team 2627761 (2026), *Modeling Fairness in Competitive Voting
-Systems: A Bayesian Approach to Infer Fan Support and Evaluate Contest Dynamics
-in DWTS*. Yike Chen was a member of the original research team; the study is
-credited to the full team. [Software provenance](docs/PROVENANCE.md) distinguishes
-the current code edition and later extensions from the competition-time work.
-
-The report, raw dataset and posterior chains are not bundled. No open-source
-license has been granted; see [license status](LICENSE_STATUS.md).

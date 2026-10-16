@@ -81,8 +81,8 @@
     },
     "pyproject.toml": {
       "baseline_sha256": "b57ec4d12ee818661f77b0b55a341f5b87eb6baabd3d670e1c11d087750a85c1",
-      "current_sha256": "85d8c419df7f66efdb6f1b233fcb0ce47d7a38c2f9faf22a5777bb6fd0558307",
-      "reason": "Release version 0.6.0 adds identification, support-dynamics and prospective-preparation workflows; numerical dependency declarations remain unchanged."
+      "current_sha256": "a4c0c9aaa6971a24f61bfcc91a38e7b8fb5776880bcdf9354a56540da031c8a6",
+      "reason": "Release version 0.7.0 adds conditional exit forecasts and chronological online-expert studies; numerical dependency declarations remain unchanged."
     }
   }
 }

@@ -52,6 +52,31 @@ checks.
   the two references above; this project does not claim an exhaustive reading of
   every original source.
 
+## Online expert aggregation
+
+The [chronological exit study](exit-forecasting.md) uses established aggregation
+methods. Its fixed mixture averages four probability forecasts, then updates
+their weights using the observed exit likelihood. The cumulative log-loss
+comparison follows the standard mixture argument. Resetting every season pays
+the prior-weight constant separately for each season.
+
+Fixed-share restores weight to experts through a transition after outcome
+release. It is related to the standard tracking-experts construction; this
+implementation shares toward the declared nonuniform initial prior. Tempered
+updates change the likelihood exponent. They do not generally preserve the
+exact Bayesian identity or its original guarantee.
+
+- Cesa-Bianchi, N., and Lugosi, G. (2006). *Prediction, Learning, and Games*.
+  Cambridge University Press.
+  [DOI: 10.1017/CBO9780511546921](https://doi.org/10.1017/CBO9780511546921).
+- Herbster, M., and Warmuth, M. K. (1998). *Tracking the Best Expert*.
+  *Machine Learning*, 32, 151–178.
+  [DOI: 10.1023/A:1007424614876](https://doi.org/10.1023/A:1007424614876).
+
+The project contributes the declared DWTS information clock, chronological
+comparisons and application-specific evidence. It does not claim a new expert
+aggregation algorithm or infer audience-vote accuracy from elimination scores.
+
 ## Related DWTS software
 
 Two public student projects illustrate substantial application overlap:

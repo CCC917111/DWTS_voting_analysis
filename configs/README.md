@@ -1,6 +1,7 @@
 # Experiment configurations
 
 - `study.json`: main full-study configuration, with all 34 seasons, four chains per season, full nested RF validation and verified partner identities.
+- `exit_forecast_study.json`: conditional choice and current/past score baselines, with fixed online, selected fixed-share and selected tempered expert mixtures. Uses contained chronological blocks for parameter selection; reports 86 outer-validation events and a previously examined 33-event historical diagnostic. Independent prospective validation remains incomplete.
 - `identification_study.json`: additional deterministic no-save percentage constraints, coordinate bounds and joint counterfactual unique-exit support; not posterior credible intervals.
 - `dynamic_study.json`: equally budgeted static/dynamic bootstrap filters with one normalized likelihood, development-only model selection, chronological evaluation and shared synthetic truth.
 - `prospective_protocol.json`: inactive local-draft configuration for separately predicting and releasing outcomes; it does not activate an independently timestamped future study.

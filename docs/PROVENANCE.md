@@ -44,6 +44,12 @@ establish measured true votes or completed independent prospective validation.
 Selected method sources and related software are listed in
 [RELATED_WORK.md](RELATED_WORK.md).
 
+The subsequent [conditional-exit and online-expert study](exit-forecasting.md)
+adds score-history features, nested chronological selection and standard expert
+aggregation. It includes unsuccessful adaptive extensions alongside the simpler
+controls. These are later software studies on previously examined data, rather
+than original competition-time results or independent future validation.
+
 Saved results under `results/v5_snapshot/` belong to this software edition. They
 are distinct from the original report's values; [RESULTS.md](RESULTS.md) explains
 the numerical differences and evaluation limits. A successful software run does

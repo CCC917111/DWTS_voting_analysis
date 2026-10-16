@@ -7,6 +7,7 @@ DWTS study for the 2026 MCM Problem C.
 
 | Document | What it covers |
 |---|---|
+| [Chronological elimination forecasting](exit-forecasting.md) | Conditional choice, score baselines, online expert mixtures, chronological selection and retained negative findings. |
 | [What the outcomes identify](identification.md) | Prior-free coordinate bounds and joint counterfactual exit support under explicit extra assumptions. |
 | [Static and dynamic support](dynamic-comparison.md) | Controlled chronological and synthetic comparisons using one exit likelihood. |
 | [Preparing prospective predictions](prospective.md) | Local state, outcome release, commitments and the limits of draft execution. |
@@ -20,6 +21,9 @@ DWTS study for the 2026 MCM Problem C.
 | [Experiment configurations](../configs/README.md) | Full-study, smoke and sensitivity configurations. |
 | [Method background and related work](RELATED_WORK.md) | Standard method sources, related software and contribution boundaries. |
 
-For a research overview, start with the results and methods. To run the project,
-follow the run guide. Recorded software results and original-report values are
-labeled separately in the results guide.
+Start with [chronological forecasting](exit-forecasting.md) for the latest
+observable-outcome study, or [study results](STUDY_RESULTS.md) for the broader
+fan-support and voting-rule analysis. To run an experiment, follow the run guide.
+Recorded software results and original-report values are labeled separately in
+the earlier-results guide. The public results contain aggregates; original
+reports, raw data and individual model outputs are not distributed.

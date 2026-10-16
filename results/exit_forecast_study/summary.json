@@ -1,0 +1,28 @@
+{
+  "data_kind": "official_COMAP_historical",
+  "package_version": "0.7.0",
+  "project_lead": "Yike Chen",
+  "interpretation": "Exploratory chronological replay on previously examined historical data. Current complete rosters and scores precede prediction; exits are released after prediction. Only eligible single ordinary exits update mixture weights. No independent prospective validation or observed true audience votes. Seasons 1-2 and the judge-save regime from season 28 are outside this study. Bootstrap intervals condition on fixed predictions and exclude fitting, selection and repeated historical exploration uncertainty.",
+  "raw_data_sha256": "ea99caec6ea243bdb450a1971a95ba8a95701a93be7ff29f0ba3c57d72ddff52",
+  "elapsed_seconds": 6.203578315999039,
+  "conditional_model_fits": 21,
+  "all_optimizer_gates_passed": true,
+  "source_sha256": {
+    "exit_study.py": "8a6788ce93230ad95a27f568636606ea3fe42d60c16e46982af72051d32970b7",
+    "conditional_exit.py": "c19c5942998232ec991ef01925566afbf006c06bd396a88b1c44c3ac81f0bf0f",
+    "expert_mixture.py": "a7b255591fd01df0dd97b6c212d74b532171267692d78870d5318f69164ec249"
+  },
+  "cohorts": {
+    "legacy_exploratory": 33,
+    "nested_development": 86
+  },
+  "publication_allowlist": [
+    "metrics.csv",
+    "paired_differences.csv",
+    "season_metrics.csv",
+    "selection.json",
+    "protocol.json",
+    "summary.json"
+  ],
+  "result_scope": "Historical findings require paired assessment and independent future validation."
+}
