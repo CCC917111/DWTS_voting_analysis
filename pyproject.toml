@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dwts-voting-analysis"
-version = "0.6.0"
+version = "0.7.0"
 description = "Bayesian fan-support inference and retrospective analysis of DWTS voting rules"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"

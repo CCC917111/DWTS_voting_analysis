@@ -14,10 +14,14 @@ source .venv/bin/activate
 python -m pip install -r requirements-v4-verified.txt
 python -m pip install --no-deps -e ".[test,audit]"
 python -m dwts.demo --out outputs/my-demo
+python -m dwts.exit_study --demo --out outputs/my-forecast-demo
 python -m pytest -q
 ```
 
-The demonstration is synthetic. Default tests are self-contained; cases requiring
+Both demonstrations are synthetic and need no official data. The first compares
+voting rules; the second exercises the conditional exit-forecasting workflow.
+On Windows PowerShell, activate the environment with
+`.venv\Scripts\Activate.ps1`. Default tests are self-contained; cases requiring
 official data or historical experiment files are explicitly deselected.
 
 For cloud environments with read-only home/cache directories, set writable caches
@@ -48,6 +52,46 @@ python -m dwts run --config configs/smoke.json --out outputs/my-smoke --skip-att
 1, 3 and 28 with deliberately small chains and may fail sampling diagnostics.
 Completion confirms execution; research interpretation also requires diagnostic
 adequacy. The full experiment's preprocessing settings come from its configuration.
+
+## Chronological elimination forecasting
+
+The [forecasting study](exit-forecasting.md) runs conditional choice models,
+current/past judges' score baselines and three online mixture specifications.
+It requires the official CSV but no fitted latent shares or posterior chains:
+
+```bash
+python -m dwts.exit_study --data data/raw/2026_MCM_Problem_C_Data.csv --config configs/exit_forecast_study.json --out outputs/exit-forecast-study
+```
+
+The configuration fixes chronological training/forecast blocks, ridge and
+temperature grids, expert weights, mixture candidates and evaluation rules.
+Expert settings and mixture parameters are selected using only the available
+training range. The first training block has no inner validation history and
+uses the declared startup ridge. The same eligible weeks are used for every
+method: nonfinal rosters with at least three contestants, one ordinary exit and
+no withdrawal.
+
+Current judges' scores are available before each prediction; the exit is
+released afterward. Score histories include unscored released weeks, while
+online weights update only from eligible exits and reset each season. The
+outer folds have 86 scored weeks. The later 33-week period is a previously
+examined historical diagnostic, rather than an independent test set.
+
+The run writes aggregate metrics, paired comparisons, season summaries,
+selection settings, protocol and completion metadata. Keep detailed local
+forecasts and raw inputs under ignored directories. The public result bundle
+is restricted to the six named aggregates documented in the
+[forecasting guide](exit-forecasting.md#run-and-inspect).
+
+For a self-contained execution check:
+
+```bash
+python -m dwts.exit_study --demo --out outputs/exit-forecast-demo
+```
+
+Demo results describe invented observations and must not be substituted for
+official-data research metrics. This direct-score study is separate from the
+earlier latent-state command `python -m dwts.forecasting`, described below.
 
 ## Full research workflow
 
