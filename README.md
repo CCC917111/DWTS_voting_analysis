@@ -136,9 +136,8 @@ do not identify causal effects. Independent prospective forecasting has not yet
 been completed. The [local prospective utility](docs/prospective.md) is a draft
 workflow for preparing that evidence.
 
-The current implementation was prepared after the original report with
-development. Competition-time source code was unavailable when
-this edition was prepared. The original study and report are credited to Team
+The current implementation was prepared after the original report.
+Competition-time source code was unavailable when this edition was prepared. The original study and report are credited to Team
 2627761; subsequent implementations and extensions are described in the
 [provenance guide](docs/PROVENANCE.md).
 

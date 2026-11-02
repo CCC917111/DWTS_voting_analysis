@@ -2,7 +2,7 @@
 
 Project lead: **Yike Chen**. This project extends Team 2627761's 2026 MCM DWTS
 study; the original research is credited to the full team. These results come
-from the current software edition, prepared with development.
+from the current software edition.
 [Research and software provenance](PROVENANCE.md) distinguishes the two stages.
 
 The questions are practical: what helps explain inferred fan support, how do

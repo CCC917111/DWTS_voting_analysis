@@ -13,8 +13,8 @@ subsequent extensions.
 
 ## Current software edition
 
-The present implementation was prepared after the report with development. Competition-time source code was not available when this edition
-was prepared. Its baseline implementation hashes are recorded in
+The present implementation was prepared after the report. Competition-time
+source code was not available when this edition was prepared. Its baseline implementation hashes are recorded in
 [source_inventory.json](source_inventory.json); intentional workflow updates and
 later additions are recorded separately.
 
